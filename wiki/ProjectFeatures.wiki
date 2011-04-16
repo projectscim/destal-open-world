@@ -13,14 +13,14 @@ Using the server enables the possibility to enter the multiplayer mode and there
 
 == Project features ==
 
-- Open-world game
-- Two-dimensional graphics
-- Network support
-- Double-buffered
-- NPCs
-- Inventory
-- Chat plugin
-- different items
-- several levels instead of a hight axis in a 3D-game
-- day/night cycle
-- dynamic integration of sounds and texture files
+  * Open-world game
+  * Two-dimensional graphics
+  * Network support
+  * Double-buffered
+  * NPCs
+  * Inventory
+  * Chat plugin
+  * different items
+  * several levels instead of a hight axis in a 3D-game
+  * day/night cycle
+  * dynamic integration of sounds and texture files
