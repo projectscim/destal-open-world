@@ -1,0 +1,10 @@
+#summary How to prepare eclipse for the use as IDE for destal-open-world
+
+= Preparing Eclipse =
+
+== Eclipse SVN plugin ==
+
+In order to use the google-project-repository, one has to install a special SVN plugin. We have chosen Subclipse, available [http://subclipse.tigris.org/servlets/ProjectProcess?pageID=p4wYuA here].
+
+
+TODO: Adding further information
