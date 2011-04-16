@@ -21,6 +21,6 @@ Using the server enables the possibility to enter the multiplayer mode and there
   * Inventory
   * Chat plugin
   * different items
-  * several levels instead of a hight axis in a 3D-game
+  * several levels instead of a height axis in a 3D-game
   * day/night cycle
   * dynamic integration of sounds and texture files
