@@ -1,0 +1,3 @@
+Bitte ladet euch NClass runter, damit ihr am UML Diagramm
+arbeiten könnt. Bitte unbedingt auf "Java" einstellen, wenn dies noch nicht
+der Fall ist!
