@@ -10,12 +10,15 @@ import javax.swing.*;
 
 public class GUI extends Canvas
 {
+	private TCPClient _client;
 	private BufferStrategy _strategy;
 	
 	private long _lastLoop;
 	
-	public GUI(int width, int height)
+	public GUI(int width, int height, TCPClient client)
 	{
+		_client = client;
+		
 	    JFrame container = new JFrame("destal open world");
 	    container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    
@@ -55,9 +58,8 @@ public class GUI extends Canvas
 	    g2d.setColor(Color.WHITE);
 		g2d.fillRect(0,0,this.getWidth(),this.getHeight());
 		// Add what's to draw:
-		g2d.setColor(Color.BLACK);
-		g2d.drawOval(20, 20, 50, 20);
 		g2d.drawString("destal open world rules!", 20, 60);
+		_client.getLocalCharacter().paint(g);
 		//
         g2d.dispose();
 		_strategy.show();
