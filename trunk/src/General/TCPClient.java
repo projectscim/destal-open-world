@@ -20,6 +20,7 @@ public class TCPClient {
 		_gui = new GUI(200, 200, this);
 		_localPlayer = new Player();
 		_gui.addKeyListener(_localPlayer);
+		_gui.addMouseMotionListener(_localPlayer);
 	}
 	
 	public Player getLocalCharacter()
