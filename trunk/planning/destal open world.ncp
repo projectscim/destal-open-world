@@ -8,27 +8,33 @@
         <Name>TCPServer</Name>
         <Access>Public</Access>
         <Location left="231" top="51" />
-        <Size width="162" height="77" />
+        <Size width="162" height="111" />
         <Collapsed>False</Collapsed>
+        <Member type="Field">private Controller _controller</Member>
+        <Member type="Method">public static void main(String[] args)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>TCPClient</Name>
         <Access>Public</Access>
-        <Location left="676" top="628" />
-        <Size width="162" height="111" />
+        <Location left="675" top="628" />
+        <Size width="228" height="162" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private Chunk currentChunk</Member>
         <Member type="Field">private Chunk[] _chunkBuffer</Member>
+        <Member type="Field">private ArrayList&lt;Character&gt; _characters</Member>
+        <Member type="Field">private Player _localCharacter</Member>
+        <Member type="Method">public static void main(String[] args)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>Controller</Name>
         <Access>Public</Access>
-        <Location left="207" top="209" />
+        <Location left="199" top="227" />
         <Size width="205" height="111" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private World _world</Member>
+        <Member type="Field">private Network _network</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -72,9 +78,26 @@
       <Entity type="Class">
         <Name>ClientConnection</Name>
         <Access>Public</Access>
-        <Location left="474" top="404" />
+        <Location left="492" top="405" />
         <Size width="162" height="77" />
         <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ServerConnection</Name>
+        <Access>Public</Access>
+        <Location left="957" top="628" />
+        <Size width="162" height="77" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>GUI</Name>
+        <Access>Public</Access>
+        <Location left="957" top="755" />
+        <Size width="162" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public void paint(Graphics g)</Member>
         <Modifier>None</Modifier>
       </Entity>
     </Entities>
@@ -93,11 +116,11 @@
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
-          <X>302</X>
-          <Y>348</Y>
+          <X>294</X>
+          <Y>366</Y>
         </BendPoint>
         <BendPoint relativeToStartShape="False">
-          <X>302</X>
+          <X>294</X>
           <Y>473</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
@@ -147,92 +170,28 @@
         <Direction>Unidirectional</Direction>
         <AssociationType>Aggregation</AssociationType>
       </Relationship>
-    </Relationships>
-  </ProjectItem>
-  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.3.1512.0, Culture=neutral, PublicKeyToken=null">
-    <Name>Items</Name>
-    <Language>Java</Language>
-    <Entities>
-      <Entity type="Class">
-        <Name>Entity</Name>
-        <Access>Public</Access>
-        <Location left="556" top="16" />
-        <Size width="162" height="145" />
-        <Collapsed>False</Collapsed>
-        <Member type="Field">private Point _location</Member>
-        <Member type="Method">public Point getLocation()</Member>
-        <Member type="Method">public void setLocation()</Member>
-        <Member type="Method">public abstract void paint(Graphics g)</Member>
-        <Modifier>Abstract</Modifier>
-      </Entity>
-      <Entity type="Class">
-        <Name>Tree</Name>
-        <Access>Public</Access>
-        <Location left="440" top="362" />
-        <Size width="162" height="77" />
-        <Collapsed>False</Collapsed>
-        <Modifier>None</Modifier>
-      </Entity>
-      <Entity type="Class">
-        <Name>Stone</Name>
-        <Access>Public</Access>
-        <Location left="225" top="362" />
-        <Size width="162" height="77" />
-        <Collapsed>False</Collapsed>
-        <Modifier>None</Modifier>
-      </Entity>
-      <Entity type="Class">
-        <Name>Item</Name>
-        <Access>Public</Access>
-        <Location left="685" top="195" />
-        <Size width="162" height="77" />
-        <Collapsed>False</Collapsed>
-        <Modifier>Abstract</Modifier>
-      </Entity>
-      <Entity type="Class">
-        <Name>Block</Name>
-        <Access>Public</Access>
-        <Location left="338" top="206" />
-        <Size width="162" height="77" />
-        <Collapsed>False</Collapsed>
-        <Modifier>Abstract</Modifier>
-      </Entity>
-      <Entity type="Class">
-        <Name>Wood</Name>
-        <Access>Public</Access>
-        <Location left="646" top="362" />
-        <Size width="162" height="77" />
-        <Collapsed>False</Collapsed>
-        <Modifier>None</Modifier>
-      </Entity>
-    </Entities>
-    <Relationships>
-      <Relationship type="Generalization" first="4" second="0">
-        <StartOrientation>Vertical</StartOrientation>
+      <Relationship type="Association" first="1" second="8">
+        <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
       </Relationship>
-      <Relationship type="Generalization" first="3" second="0">
-        <StartOrientation>Vertical</StartOrientation>
+      <Relationship type="Association" first="1" second="9">
+        <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
-      </Relationship>
-      <Relationship type="Generalization" first="2" second="4">
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
-      </Relationship>
-      <Relationship type="Generalization" first="1" second="4">
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
       </Relationship>
     </Relationships>
   </ProjectItem>
   <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.3.1512.0, Culture=neutral, PublicKeyToken=null">
-    <Name>Characters</Name>
+    <Name>Entities</Name>
     <Language>Java</Language>
     <Entities>
       <Entity type="Class">
         <Name>Character</Name>
         <Access>Public</Access>
-        <Location left="456" top="212" />
+        <Location left="1030" top="225" />
         <Size width="162" height="97" />
         <Collapsed>False</Collapsed>
         <Modifier>Abstract</Modifier>
@@ -240,7 +199,7 @@
       <Entity type="Class">
         <Name>Player</Name>
         <Access>Public</Access>
-        <Location left="192" top="327" />
+        <Location left="766" top="340" />
         <Size width="162" height="77" />
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
@@ -248,7 +207,7 @@
       <Entity type="Class">
         <Name>NPC</Name>
         <Access>Public</Access>
-        <Location left="685" top="327" />
+        <Location left="1259" top="340" />
         <Size width="162" height="77" />
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
@@ -256,7 +215,7 @@
       <Entity type="Class">
         <Name>Entity</Name>
         <Access>Public</Access>
-        <Location left="456" top="10" />
+        <Location left="460" top="10" />
         <Size width="162" height="145" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private Point _location</Member>
@@ -268,7 +227,7 @@
       <Entity type="Class">
         <Name>FriendlyNPC</Name>
         <Access>Public</Access>
-        <Location left="501" top="458" />
+        <Location left="1075" top="471" />
         <Size width="162" height="77" />
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
@@ -276,7 +235,7 @@
       <Entity type="Class">
         <Name>NeutralNPC</Name>
         <Access>Public</Access>
-        <Location left="685" top="458" />
+        <Location left="1259" top="471" />
         <Size width="162" height="77" />
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
@@ -284,7 +243,47 @@
       <Entity type="Class">
         <Name>AggressiveNPC</Name>
         <Access>Public</Access>
-        <Location left="866" top="458" />
+        <Location left="1440" top="471" />
+        <Size width="162" height="77" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Wood</Name>
+        <Access>Public</Access>
+        <Location left="460" top="408" />
+        <Size width="162" height="77" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Block</Name>
+        <Access>Public</Access>
+        <Location left="129" top="226" />
+        <Size width="162" height="77" />
+        <Collapsed>False</Collapsed>
+        <Modifier>Abstract</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Item</Name>
+        <Access>Public</Access>
+        <Location left="460" top="225" />
+        <Size width="162" height="77" />
+        <Collapsed>False</Collapsed>
+        <Modifier>Abstract</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Stone</Name>
+        <Access>Public</Access>
+        <Location left="14" top="408" />
+        <Size width="162" height="77" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Tree</Name>
+        <Access>Public</Access>
+        <Location left="229" top="408" />
         <Size width="162" height="77" />
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
@@ -312,6 +311,22 @@
         <EndOrientation>Vertical</EndOrientation>
       </Relationship>
       <Relationship type="Generalization" first="6" second="2">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="11" second="8">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="10" second="8">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="9" second="3">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="8" second="3">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
       </Relationship>
