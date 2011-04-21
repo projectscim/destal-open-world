@@ -5,16 +5,19 @@ import java.util.*;
 import java.awt.*;
 import java.lang.*;
 
-public abstract class Entity {
+public abstract class Entity
+{
 
 	private Point _location;
 
-	public Point getLocation() {
-		throw new UnsupportedOperationException("The method is not implemented yet.");
+	public Point getLocation()
+	{
+		return _location;
 	}
 
-	public void setLocation() {
-		throw new UnsupportedOperationException("The method is not implemented yet.");
+	public void setLocation(Point value)
+	{
+		_location = value;
 	}
 
 	public abstract void paint(Graphics g);
