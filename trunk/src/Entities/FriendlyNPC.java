@@ -5,12 +5,7 @@ import java.util.*;
 import java.awt.*;
 import java.lang.*;
 
-public class FriendlyNPC extends NPC {
+public abstract class FriendlyNPC extends NPC {
 
-	@Override
-	public void paint(Graphics g) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

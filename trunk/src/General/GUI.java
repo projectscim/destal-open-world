@@ -3,12 +3,63 @@ package General;
 import java.io.*;
 import java.util.*;
 import java.awt.*;
+import java.awt.image.BufferStrategy;
 import java.lang.*;
 
-public class GUI {
+import javax.swing.*;
 
-	public void paint(Graphics g) {
-		throw new UnsupportedOperationException("The method is not implemented yet.");
+public class GUI extends Canvas
+{
+	private BufferStrategy _strategy;
+	
+	private long _lastLoop;
+	
+	public GUI(int width, int height)
+	{
+	    JFrame container = new JFrame("destal open world");
+	    container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    
+	    JPanel panel = (JPanel) container.getContentPane();
+	    panel.setPreferredSize(new Dimension(width,height));
+	    panel.setLayout(null);
+	    
+	    this.setBounds(0,0,width,height);
+	    panel.add(this);
+	    
+	    container.pack();
+	    container.setVisible(true);
+	    container.toFront();
+	    
+	    // double buffer
+	    this.createBufferStrategy(2);
+		_strategy = this.getBufferStrategy();
+	    _lastLoop = System.currentTimeMillis();
 	}
-
+	
+	public void run()
+	{
+	    while(true)
+	    {
+	        if(System.currentTimeMillis() - _lastLoop >= 1000/50) // FPS
+	        {
+	            _lastLoop = System.currentTimeMillis();
+	            this.paint(_strategy.getDrawGraphics());
+	        }
+	    }
+	}
+	
+	public void paint(Graphics g)
+	{
+	    Graphics2D g2d = (Graphics2D)g;
+	    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+	    g2d.setColor(Color.WHITE);
+		g2d.fillRect(0,0,this.getWidth(),this.getHeight());
+		// Add what's to draw:
+		g2d.setColor(Color.BLACK);
+		g2d.drawOval(20, 20, 50, 20);
+		g2d.drawString("destal open world rules!", 20, 60);
+		//
+        g2d.dispose();
+		_strategy.show();
+    }
 }
