@@ -12,12 +12,19 @@ public class TCPClient {
 	private Chunk currentChunk;
 	private Chunk[] _chunkBuffer;
 	private ArrayList<Character> _characters;
-	private Player _localCharacter;
+	private Player _localPlayer;
 	private GUI _gui;
 
 	public TCPClient()
 	{
-		_gui = new GUI(200, 200);
+		_gui = new GUI(200, 200, this);
+		_localPlayer = new Player();
+		_gui.addKeyListener(_localPlayer);
+	}
+	
+	public Player getLocalCharacter()
+	{
+		return _localPlayer;
 	}
 	
 	public void run()
