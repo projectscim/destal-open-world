@@ -5,6 +5,8 @@ import java.util.*;
 import java.awt.*;
 import java.lang.*;
 
+import Entities.Player;
+
 public class TCPClient {
 
 	private Chunk currentChunk;

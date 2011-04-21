@@ -5,6 +5,6 @@ import java.util.*;
 import java.awt.*;
 import java.lang.*;
 
-public class NPC extends Character {
+public abstract class NPC extends Character {
 
 }
