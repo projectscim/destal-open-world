@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>destal-open-world</name>
-	<comment></comment>
+	<comment>@key 32303037303533312D31302064657374616C2D6F70656E2D776F726C642F5374656666656E </comment>
 	<projects>
 	</projects>
 	<buildSpec>
@@ -10,8 +10,14 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
+		<buildCommand>
+			<name>com.soyatec.additional.Builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>com.soyatec.additional.Nature</nature>
 	</natures>
 </projectDescription>
