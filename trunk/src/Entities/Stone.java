@@ -1,4 +1,4 @@
-package destalOpenWorld.Entities;
+package Entities;
 
 import java.io.*;
 import java.util.*;

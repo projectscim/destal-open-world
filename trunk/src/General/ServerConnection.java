@@ -1,4 +1,4 @@
-package destalOpenWorld.General;
+package General;
 
 import java.io.*;
 import java.util.*;
