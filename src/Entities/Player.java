@@ -7,4 +7,10 @@ import java.lang.*;
 
 public class Player extends Character {
 
+	@Override
+	public void paint(Graphics g) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

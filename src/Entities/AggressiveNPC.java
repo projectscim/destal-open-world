@@ -8,4 +8,10 @@ import java.lang.*;
 
 public class AggressiveNPC extends NPC {
 
+	@Override
+	public void paint(Graphics g) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
