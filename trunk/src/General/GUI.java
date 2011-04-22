@@ -13,16 +13,21 @@ import javax.swing.*;
 
 public class GUI extends Canvas
 {
+	JFrame container;
 	private TCPClient _client;
 	private BufferStrategy _strategy;
+	private GUIMode _guiMode;
+	
+	private enum GUIMode {TITLE, MENU, GAME}
 	
 	private long _lastLoop;
 	
 	public GUI(int width, int height, TCPClient client)
 	{
+		_guiMode = GUIMode.GAME;
 		_client = client;
 		
-	    JFrame container = new JFrame("destal open world");
+	    container = new JFrame("destal open world");
 	    container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    
 	    JPanel panel = (JPanel) container.getContentPane();
@@ -35,12 +40,6 @@ public class GUI extends Canvas
 	    container.pack();
 	    container.setVisible(true);
 	    container.toFront();
-	    
-        Cursor c = Toolkit.getDefaultToolkit().createCustomCursor(
-                new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB),
-                new Point(1, 1), "Custom Cursor");
- 
-        setCursor(c);
 
 	    // double buffer
 	    this.createBufferStrategy(2);
@@ -67,10 +66,54 @@ public class GUI extends Canvas
 	    g2d.setColor(Color.WHITE);
 		g2d.fillRect(0,0,this.getWidth(),this.getHeight());
 		// Add what's to draw:
-		g2d.drawString("destal open world rules!", 20, 60);
-		_client.getLocalCharacter().paint(g);
+		switch (_guiMode)
+		{
+			case TITLE:
+				this.paintTitleScreen(g2d);
+				break;
+			case MENU:
+				this.paintMenu(g2d);
+				break;
+			case GAME:
+				this.paintGame(g2d);
+				break;
+		}
+
 		//
         g2d.dispose();
 		_strategy.show();
     }
+	
+	private void disableCursor()
+	{
+        Cursor c = Toolkit.getDefaultToolkit().createCustomCursor(
+                new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB),
+                new Point(1, 1), "Custom Cursor");
+ 
+        setCursor(c);
+	}
+	private void enableCursor()
+	{
+		Cursor c = Cursor.getDefaultCursor();
+		setCursor(c);
+	}
+	
+	private void paintTitleScreen(Graphics g)
+	{
+		g.setColor(Color.BLACK);
+		g.drawString("destal open world rules!", 20, 60);
+		enableCursor();
+	}
+	
+	private void paintMenu(Graphics g)
+	{
+		// does not work yet
+		Button b = new Button("Start Game");
+		container.add(b);
+	}
+	private void paintGame(Graphics g)
+	{
+		disableCursor();
+		_client.getLocalCharacter().paint(g);
+	}
 }
