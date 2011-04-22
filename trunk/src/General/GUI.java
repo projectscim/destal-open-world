@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 import java.lang.*;
 
 import javax.swing.*;
@@ -35,6 +36,12 @@ public class GUI extends Canvas
 	    container.setVisible(true);
 	    container.toFront();
 	    
+        Cursor c = Toolkit.getDefaultToolkit().createCustomCursor(
+                new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB),
+                new Point(1, 1), "Custom Cursor");
+ 
+        setCursor(c);
+
 	    // double buffer
 	    this.createBufferStrategy(2);
 		_strategy = this.getBufferStrategy();

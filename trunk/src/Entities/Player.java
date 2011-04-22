@@ -11,7 +11,6 @@ import java.lang.*;
 
 public class Player extends Character implements KeyListener, MouseMotionListener
 {
-
 	private MouseEvent _lastMouseEvent;
 	
 	public Player()
@@ -26,7 +25,10 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 		g.fillRect((int)this.getLocation().getX()-5, (int)this.getLocation().getY()-5, 10, 10);
 		if (_lastMouseEvent != null)
 		{
-			g.drawOval(_lastMouseEvent.getX()-3, _lastMouseEvent.getY()-3, 6, 6);
+			//double dx = (_lastMouseEvent.getX()-this.getLocation().getX()) * 30 / this.getLocation().distance(_lastMouseEvent.getLocationOnScreen());
+			//double dy = (_lastMouseEvent.getY()-this.getLocation().getY()) * 30 / this.getLocation().distance(_lastMouseEvent.getLocationOnScreen());
+			//g.drawOval((int)(this.getLocation().getX()+dx), (int)(this.getLocation().getY()+dy), 6, 6);
+			g.drawOval((int)_lastMouseEvent.getX(), (int)_lastMouseEvent.getY(), 6, 6);
 		}
 	}
 
@@ -47,13 +49,18 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	@Override
 	public void keyTyped(KeyEvent e)
 	{
+		double dx = (_lastMouseEvent.getX()-this.getLocation().getX()) * 3 / this.getLocation().distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY()));
+		double dy = (_lastMouseEvent.getY()-this.getLocation().getY()) * 3 / this.getLocation().distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY()));
+		
+		System.out.println(dx*dx+dy*dy);
+		
 		switch (e.getKeyChar())
 		{
 			case 'w':
-				this.setLocation(this.getLocation().getX(), this.getLocation().getY()-1);
+				this.setLocation(this.getLocation().getX()+dx, this.getLocation().getY()+dy);
 				break;
 			case 's':
-				this.setLocation(this.getLocation().getX(), this.getLocation().getY()+1);
+				this.setLocation(this.getLocation().getX()-dx, this.getLocation().getY()-dy);
 				break;
 			case 'a':
 				this.setLocation(this.getLocation().getX()-1, this.getLocation().getY());
