@@ -49,11 +49,24 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	@Override
 	public void keyTyped(KeyEvent e)
 	{
-		double dx = (_lastMouseEvent.getX()-this.getLocation().getX()) * 3 / this.getLocation().distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY()));
-		double dy = (_lastMouseEvent.getY()-this.getLocation().getY()) * 3 / this.getLocation().distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY()));
+		/*
+		double dx, dy;
+		if (this.getLocation().distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY())) != 0)
+		{
+			dx = (_lastMouseEvent.getX()-this.getLocation().getX()) * 3 / this.getLocation().distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY()));
+			dy = (_lastMouseEvent.getY()-this.getLocation().getY()) * 3 / this.getLocation().distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY()));
+		}
+		else
+		{
+			dx = 0;
+			dy = 0;
+		}*/
 		
-		System.out.println(dx*dx+dy*dy);
-		
+		// this is shorter, Alex'll be happy :D
+		double dx = (this.getLocation().distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY())) != 0 ? (_lastMouseEvent.getX()-this.getLocation().getX()) * 3 / this.getLocation().distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY())) : 0);
+		double dy = (this.getLocation().distance(new Point(_lastMouseEvent.getY(), _lastMouseEvent.getY())) != 0 ? (_lastMouseEvent.getY()-this.getLocation().getY()) * 3 / this.getLocation().distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY())) : 0);
+				
+		// I'm not sure if right/left movements are necessary (however, they enable interesting effects ;) ) 
 		switch (e.getKeyChar())
 		{
 			case 'w':
@@ -63,10 +76,10 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 				this.setLocation(this.getLocation().getX()-dx, this.getLocation().getY()-dy);
 				break;
 			case 'a':
-				this.setLocation(this.getLocation().getX()-1, this.getLocation().getY());
+				this.setLocation(this.getLocation().getX()+dy, this.getLocation().getY()+dx);
 				break;
 			case 'd':
-				this.setLocation(this.getLocation().getX()+1, this.getLocation().getY());
+				this.setLocation(this.getLocation().getX()-dy, this.getLocation().getY()-dx);
 				break;
 				
 		}
