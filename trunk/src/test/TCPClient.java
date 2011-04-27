@@ -5,7 +5,7 @@ import java.net.*;
 
 class TCPClient
 {
-	public static void main(String argv[]) throws Exception
+	public static void main(String[] argv) throws Exception
 	{
 		BufferedReader inFromUser = new BufferedReader( new InputStreamReader(System.in));
 		Socket clientSocket = new Socket("localhost", 4185);
