@@ -5,7 +5,7 @@ import java.net.*;
 
 class UDPClient
 {
-	public static void main(String args[]) throws Exception
+	public static void main(String[] args) throws Exception
 	{
 		BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
 		DatagramSocket clientSocket = new DatagramSocket();
