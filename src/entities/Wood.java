@@ -5,6 +5,7 @@ import java.util.*;
 import java.awt.*;
 import java.lang.*;
 
-public class Wood {
-
+public class Wood
+{
+	
 }
