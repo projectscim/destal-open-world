@@ -75,12 +75,6 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 			case 's':
 				this.setLocation(this.getLocation().getX()-dx, this.getLocation().getY()-dy);
 				break;
-			case 'a':
-				this.setLocation(this.getLocation().getX()+dy, this.getLocation().getY()+dx);
-				break;
-			case 'd':
-				this.setLocation(this.getLocation().getX()-dy, this.getLocation().getY()-dx);
-				break;
 				
 		}
 		

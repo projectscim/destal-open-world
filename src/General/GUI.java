@@ -11,9 +11,8 @@ import java.lang.*;
 
 import javax.swing.*;
 
-public class GUI extends Canvas
+public class GUI extends JFrame
 {
-	JFrame container;
 	private TCPClient _client;
 	private BufferStrategy _strategy;
 	private GUIMode _guiMode;
@@ -24,22 +23,22 @@ public class GUI extends Canvas
 	
 	public GUI(int width, int height, TCPClient client)
 	{
+	    super("destal open world");
+	    
 		_guiMode = GUIMode.GAME;
 		_client = client;
 		
-	    container = new JFrame("destal open world");
-	    container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    
-	    JPanel panel = (JPanel) container.getContentPane();
+	    JPanel panel = (JPanel) this.getContentPane();
 	    panel.setPreferredSize(new Dimension(width,height));
 	    panel.setLayout(null);
 	    
 	    this.setBounds(0,0,width,height);
-	    panel.add(this);
 	    
-	    container.pack();
-	    container.setVisible(true);
-	    container.toFront();
+	    this.pack();
+	    this.setVisible(true);
+	    this.toFront();
 
 	    // double buffer
 	    this.createBufferStrategy(2);
@@ -108,8 +107,8 @@ public class GUI extends Canvas
 	private void paintMenu(Graphics g)
 	{
 		// does not work yet
-		Button b = new Button("Start Game");
-		container.add(b);
+		//Button b = new Button("Start Game");
+		//this.add(b);
 	}
 	private void paintGame(Graphics g)
 	{
