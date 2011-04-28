@@ -1,4 +1,4 @@
-package General2;
+package general;
 
 import java.io.*;
 import java.util.*;
