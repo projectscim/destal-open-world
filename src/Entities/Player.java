@@ -16,6 +16,7 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	public Player()
 	{
 		super();
+		this.setLocation(20, 100);
 	}
 	
 	@Override
@@ -23,13 +24,6 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	{
 		g.setColor(Color.BLACK);
 		g.fillRect((int)this.getLocation().getX()-5, (int)this.getLocation().getY()-5, 10, 10);
-		if (_lastMouseEvent != null)
-		{
-			//double dx = (_lastMouseEvent.getX()-this.getLocation().getX()) * 30 / this.getLocation().distance(_lastMouseEvent.getLocationOnScreen());
-			//double dy = (_lastMouseEvent.getY()-this.getLocation().getY()) * 30 / this.getLocation().distance(_lastMouseEvent.getLocationOnScreen());
-			//g.drawOval((int)(this.getLocation().getX()+dx), (int)(this.getLocation().getY()+dy), 6, 6);
-			g.drawOval((int)_lastMouseEvent.getX(), (int)_lastMouseEvent.getY(), 6, 6);
-		}
 	}
 
 	@Override
@@ -66,7 +60,6 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 		double dx = (this.getLocation().distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY())) > 1 ? (_lastMouseEvent.getX()-this.getLocation().getX()) * 3 / this.getLocation().distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY())) : 0);
 		double dy = (this.getLocation().distance(new Point(_lastMouseEvent.getY(), _lastMouseEvent.getY())) > 1 ? (_lastMouseEvent.getY()-this.getLocation().getY()) * 3 / this.getLocation().distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY())) : 0);
 				
-		// I'm not sure if right/left movements are necessary (however, they enable interesting effects ;) ) 
 		switch (e.getKeyChar())
 		{
 			case 'w':
@@ -79,7 +72,7 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 		}
 		
 	}
-
+	
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -89,7 +82,7 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	@Override
 	public void mouseMoved(MouseEvent e)
 	{
-		_lastMouseEvent = e;		
+		_lastMouseEvent = e;	
 	}
 
 }

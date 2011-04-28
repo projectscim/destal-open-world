@@ -11,11 +11,13 @@ import java.lang.*;
 
 import javax.swing.*;
 
-public class GUI extends JFrame
+public class GUI extends JFrame implements MouseMotionListener
 {
 	private TCPClient _client;
 	private BufferStrategy _strategy;
 	private GUIMode _guiMode;
+	
+	private MouseEvent _lastMouseEvent;
 	
 	private enum GUIMode {TITLE, MENU, GAME}
 	
@@ -40,6 +42,8 @@ public class GUI extends JFrame
 	    this.setVisible(true);
 	    this.toFront();
 
+	    this.addMouseMotionListener(this);
+	    
 	    // double buffer
 	    this.createBufferStrategy(2);
 		_strategy = this.getBufferStrategy();
@@ -113,6 +117,21 @@ public class GUI extends JFrame
 	private void paintGame(Graphics g)
 	{
 		disableCursor();
+		g.setColor(Color.BLACK);
+		if (_lastMouseEvent != null)
+		g.drawOval(_lastMouseEvent.getX(), _lastMouseEvent.getY(), 3, 3);
 		_client.getLocalCharacter().paint(g);
+	}
+	
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e)
+	{
+		_lastMouseEvent = e;	
 	}
 }
