@@ -1,4 +1,5 @@
-# Data structure of the World
+#summary Data structure of the World
+#labels Featured,Phase-Design,Phase-Implementation
 =Data structure of the World=
 
 ==General information==
