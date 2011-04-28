@@ -1,11 +1,12 @@
-package General;
+package General2;
 
 import java.io.*;
 import java.util.*;
 import java.awt.*;
 import java.lang.*;
 
-import Entities.Player;
+import entities.Player;
+
 
 public class TCPClient {
 
