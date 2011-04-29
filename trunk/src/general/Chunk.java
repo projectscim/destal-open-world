@@ -2,8 +2,6 @@ package general;
 
 import java.io.*;
 import java.util.*;
-import java.awt.*;
-import java.lang.*;
 
 import entities.*;
 
@@ -17,6 +15,13 @@ public class Chunk
 	{
 		setBlocks(new Block[World.CHUNK_SIZE][World.CHUNK_SIZE]);
 		setItems(new Item[World.CHUNK_SIZE][World.CHUNK_SIZE]);
+	}
+	
+	public Chunk(String chunkFilePath) throws IOException
+	{
+		this();
+		File f = new File(chunkFilePath);
+		loadFile(f);
 	}
 	
 	public void setBlocks(Block[][] blocks) {
@@ -35,13 +40,26 @@ public class Chunk
 		return _items;
 	}
 
+	private void loadFile(File file) throws IOException
+	{
+		FileInputStream fs = new FileInputStream(file);
+		
+		for (int x = 0; x < World.CHUNK_SIZE; x++)
+		{
+			for (int y = 0; y < World.CHUNK_SIZE; y++)
+			{
+				getBlocks()[x][y] = Block.create(fs.read());
+			}
+		}
+		fs.close();
+	}
 	/**
 	 * Returns a new Chunk generated based on the specified binary file
 	 * @param file The binary file
 	 * @throws IOException If an I/O error occurs
 	 * @throws IllegalArgumentException If there is an illegal value in the input file
 	 */
-	public static void createFromFile(File file) throws IOException
+	public static Block[][] createFromFile(File file) throws IOException
 	{
 		FileInputStream fs = new FileInputStream(file);
 		Block[][] blocks = new Block[World.CHUNK_SIZE][World.CHUNK_SIZE];
@@ -54,6 +72,7 @@ public class Chunk
 			}
 		}
 		fs.close();
+		return blocks;
 	}
 	/**
 	 * Saves the current Chunk instance in the specified binary file
@@ -99,5 +118,22 @@ public class Chunk
 			}
 		}
 		return chunk;
+	}
+	
+	@Override
+	public String toString()
+	{
+		String s = "";
+		int n = 0;
+		for (int x = 0; x < World.CHUNK_SIZE; x++)
+		{
+			s += (++n) + "\t";
+			for (int y = 0; y < World.CHUNK_SIZE; y++)
+			{
+				s += getBlocks()[x][y].getDataValue();
+			}
+			s += "\n";
+		}
+		return s;
 	}
 }
