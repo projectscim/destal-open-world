@@ -7,12 +7,13 @@ The World of destal-open-world is divided twice: First of all, it has several le
 Right now, we are planning to simultaneously load nine chunks - the current one plus the eight ones around it.
 
 ==Data structure of the World==
-A world file uses the extension _.wld_.
-_*TODO:*Further information on world files_
+A world file uses the extension _.world_. Right now, it is generated but not used.
+All worlds are saved in the folder _world_ in the program directory.
+This folder contains the World files of the worlds plus the level folders, named lvl_WorldName.
 
 ==Data structure of the Levels==
-A level file uses the extension _.lvl_.
-_*TODO:*Further information on level files_
+In the level folder of each World, there are several Level files called _lvl0.lvl_, _lvl1.lvl_ etc. plus one folder per level used to save the Chunks. These folders are called chunk_0, chunk_1 etc.
 
 ==Data structure of the Chunks==
-A Chunk file uses the extension _.chnk_. One chunk file has the size of exactly four kilobytes. It contains information of a 64x64 square of blocks which specify the Chunk.
+Inside the Chunk folders, the different chunks are stored in files which are consecutively numbered using two indexes for the chunk's horizontal and vertical position.
+The size of the files is specified in the constant general.World.CHUNK_SIZE. Probably one chunk will have the size 64x64, so that every chunk file will have the size of exactly 4 kibibytes.
