@@ -25,10 +25,11 @@ public class FileLoad
 	public static void readFile(File file) throws Exception
 	{
 		FileInputStream fs = new FileInputStream(file);
+		int n = 0;
 		while(fs.available() > 0)
 		{
 			int i = fs.read();
-			System.out.println(i);
+			System.out.println(++n + " " + i);
 		}
 		fs.close();
 	}
