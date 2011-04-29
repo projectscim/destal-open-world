@@ -1,12 +1,17 @@
 package entities;
 
-import java.io.*;
-import java.util.*;
-import java.awt.*;
-import java.lang.*;
-
+/**
+ * Abstract superclass of all Blocks used in the game
+ * @author Steffen Schneider, Alex Belke
+ */
 public abstract class Block extends Entity
 {
+	/**
+	 * Generates a Block from the data value
+	 * @param value The data value of the Block
+	 * @return The Block
+	 * @throws IllegalArgumentException If the data value is illegal or out of range
+	 */
 	public static Block create(int value) throws IllegalArgumentException
 	{
 		switch (value)
