@@ -3,11 +3,11 @@ package general;
 import java.io.*;
 import java.util.*;
 import java.awt.*;
-import java.lang.*;
 
 public class World
 {
 	public final static int CHUNK_SIZE = 128;
+	public final static int BLOCK_PAINTSIZE = 10;
 	public final static int LEVEL_SIZE = 16;
 	public final static int LEVEL_QUANTITY = 3;
 	public final static String PATH = "C:\\destal open world";
@@ -33,10 +33,6 @@ public class World
 		{
 			createDefaultDirectories();
 		}
-		else
-		{
-			loadFile(new File(_name));
-		}
 		createLevels();
 	}
 	
@@ -59,14 +55,30 @@ public class World
 		}
 	}
 	
-	private void loadFile(File file)
-	{
-//		TODO: Add loading of world-specific data here
-		// Loading Level
-	}
-	
 	public Chunk getChunk(int x, int y, int level) throws IOException
 	{
 		return getLevels()[level].getChunk(x, y);
+	}
+	
+	public void paint(Graphics g, int level, int xChunk, int yChunk, Point location) throws IOException
+	{
+		Rectangle r = g.getClipBounds();
+		int blockXQuantity = (int) (r.getWidth() / BLOCK_PAINTSIZE);
+		int blockYQuantity = (int) (r.getHeight() / BLOCK_PAINTSIZE);
+		
+		for (int x = 0; x < blockXQuantity; x++)
+		{
+			for (int y = 0; y < blockYQuantity; y++)
+			{
+				getChunk(xChunk, yChunk, level).getBlocks()[x][y].paint(g);
+			}
+		}
+		
+	}
+	
+	public Point getAbsoluteLocation(int ChunkX, int ChunkY, Point location)
+	{
+		return new Point((int)ChunkX * CHUNK_SIZE + (int)location.getX(),
+				(int) ChunkY * CHUNK_SIZE + (int) location.getY());
 	}
 }
