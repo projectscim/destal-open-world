@@ -24,3 +24,4 @@ Using the server enables the possibility to enter the multiplayer mode and there
   * several levels instead of a height axis in a 3D-game
   * day/night cycle
   * dynamic integration of sounds and texture files
+  * Map
