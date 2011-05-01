@@ -27,7 +27,7 @@ public class GUI extends JFrame implements MouseMotionListener
 	{
 	    super("destal open world");
 	    
-		_guiMode = GUIMode.MENU;
+		_guiMode = GUIMode.GAME;
 		_client = client;
 		
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
