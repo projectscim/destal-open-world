@@ -15,6 +15,7 @@ public class ChunkTest {
 	public static void main(String[] args) throws Exception
 	{
 		System.out.println("Starte");
+		(new File (World.PATH)).mkdir();
 		/*Chunk myChunk = Chunk.createDefaultChunk();
 		File f = new File("C:\\Users\\Steffen\\testfile.tst");
 		myChunk.saveChunk(f);
