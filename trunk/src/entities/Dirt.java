@@ -1,5 +1,6 @@
 package entities;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class Dirt extends Block
@@ -7,8 +8,8 @@ public class Dirt extends Block
 	@Override
 	public void paint(Graphics g)
 	{
-		// TODO Auto-generated method stub
-
+		g.setColor(Color.GREEN);
+		super.paint(g);
 	}
 
 	@Override
