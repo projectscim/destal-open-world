@@ -1,11 +1,20 @@
 package entities;
 
-/**
- * Abstract superclass of all Blocks used in the game
- * @author Steffen Schneider, Alex Belke
- */
+import java.awt.Graphics;
+
+import general.World;
+
+
 public abstract class Block extends Entity
 {
+	@Override
+	public void paint(Graphics g)
+	{
+		g.drawRect((int)this.getLocation().getX(),
+				   (int) this.getLocation().getY(),
+				    World.BLOCK_PAINTSIZE,
+					World.BLOCK_PAINTSIZE);
+	}
 	/**
 	 * Generates a Block from the data value
 	 * @param value The data value of the Block
