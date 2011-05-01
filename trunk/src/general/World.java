@@ -10,7 +10,7 @@ public class World
 	public final static int CHUNK_SIZE = 128;
 	public final static int LEVEL_SIZE = 16;
 	public final static int LEVEL_QUANTITY = 3;
-	public final static String PATH = "C:\\Users\\Steffen\\Desktop\\destal open world";
+	public final static String PATH = "C:\\destal open world";
 	public final static String WORLD_PATH = World.PATH + "\\world";
 	public final static String LEVEL_PATH = World.WORLD_PATH + "\\lvl";
 
