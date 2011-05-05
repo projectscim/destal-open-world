@@ -12,16 +12,18 @@ import java.lang.*;
 
 import javax.swing.*;
 
-public class GUI extends JFrame implements MouseMotionListener, ActionListener
+public class GUI extends JFrame implements MouseMotionListener
 {
 	private TCPClient _client;
 	private BufferStrategy _strategy;
 	private GUIMode _guiMode;
-	public Button[] _button;
+	private JPanel _panel;
+	private Menu _menu;
+
 	
 	private MouseEvent _lastMouseEvent;
 	
-	private enum GUIMode {TITLE, MENU, GAME}
+	protected enum GUIMode {TITLE, MENU, OPTIONS, GAME}
 	
 	private long _lastLoop;
 	
@@ -29,24 +31,19 @@ public class GUI extends JFrame implements MouseMotionListener, ActionListener
 	{
 	    super("destal open world");
 	    
-		_guiMode = GUIMode.MENU;
 		_client = client;
-		_button = new Button[]{	new Button ("Start Game"),
-								new Button ("Options"),
-								new Button ("Exit") };
-        for (int i = 0; i < _button.length; i++)
-        {
-            _button[i].setLocation(5, i*20);
-            _button[i].setSize(100, 20);
-            this.add(_button[i]);
-            _button[i].addActionListener(this);
-        }
 		
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    
-	    JPanel panel = (JPanel) this.getContentPane();
-	    panel.setPreferredSize(new Dimension(width,height));
-	    panel.setLayout(null);
+	    _panel = new JPanel();
+	    _panel.setPreferredSize(new Dimension(width,height));
+	    _panel.setLayout(null);
+	    
+	    _menu = new Menu(this);
+	    _menu.setPreferredSize(new Dimension(width,height));
+	    _menu.setLayout(null);
+	    
+	    this.setGUIMode(GUIMode.MENU);
 	    
 	    this.setBounds(0,0,width,height);
 	    
@@ -60,6 +57,26 @@ public class GUI extends JFrame implements MouseMotionListener, ActionListener
 	    this.createBufferStrategy(2);
 		_strategy = this.getBufferStrategy();
 	    _lastLoop = System.currentTimeMillis();
+	}
+	
+	public void setGUIMode(GUIMode mode)
+	{
+		_guiMode = mode;
+		switch (_guiMode)
+		{
+			case TITLE:
+				break;
+			case MENU:
+				this.add(_menu);
+				break;
+			case OPTIONS:
+				break;
+			case GAME:
+				this.remove(_menu);
+				this.add(_panel);
+			    this.validate();
+				break;
+		}
 	}
 	
 	public void run()
@@ -87,7 +104,8 @@ public class GUI extends JFrame implements MouseMotionListener, ActionListener
 				this.paintTitleScreen(g2d);
 				break;
 			case MENU:
-				this.paintMenu(g2d);
+				break;
+			case OPTIONS:
 				break;
 			case GAME:
 				this.paintGame(g2d);
@@ -120,12 +138,6 @@ public class GUI extends JFrame implements MouseMotionListener, ActionListener
 		enableCursor();
 	}
 	
-	private void paintMenu(Graphics g)
-	{
-		// does not work yet
-
-
-	}
 	private void paintGame(Graphics g)
 	{
 		disableCursor();
@@ -147,12 +159,6 @@ public class GUI extends JFrame implements MouseMotionListener, ActionListener
 		_lastMouseEvent = e;	
 	}
 	
-    @Override
-    public void actionPerformed(ActionEvent e)
-    {
-        System.out.println("destal rules");
-        for (int i = 0; i < _button.length; i++)
-        	this.remove(_button[i]);
-    }
+
 }
 
