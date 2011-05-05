@@ -73,10 +73,16 @@ public class GUI extends JFrame implements MouseMotionListener
 				break;
 			case GAME:
 				this.remove(_menu);
+				//_panel.addMouseMotionListener(_client.getLocalCharacter());
 				this.add(_panel);
 			    this.validate();
 				break;
 		}
+	}
+	
+	public JPanel getGamePanel()
+	{
+		return _panel;
 	}
 	
 	public void run()
