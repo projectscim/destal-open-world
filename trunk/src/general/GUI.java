@@ -3,6 +3,7 @@ package general;
 import java.io.*;
 import java.util.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferStrategy;
@@ -11,11 +12,12 @@ import java.lang.*;
 
 import javax.swing.*;
 
-public class GUI extends JFrame implements MouseMotionListener
+public class GUI extends JFrame implements MouseMotionListener, ActionListener
 {
 	private TCPClient _client;
 	private BufferStrategy _strategy;
 	private GUIMode _guiMode;
+	public Button[] _button;
 	
 	private MouseEvent _lastMouseEvent;
 	
@@ -27,8 +29,18 @@ public class GUI extends JFrame implements MouseMotionListener
 	{
 	    super("destal open world");
 	    
-		_guiMode = GUIMode.GAME;
+		_guiMode = GUIMode.MENU;
 		_client = client;
+		_button = new Button[]{	new Button ("Start Game"),
+								new Button ("Options"),
+								new Button ("Exit") };
+        for (int i = 0; i < _button.length; i++)
+        {
+            _button[i].setLocation(5, i*20);
+            _button[i].setSize(100, 20);
+            this.add(_button[i]);
+            _button[i].addActionListener(this);
+        }
 		
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    
@@ -111,8 +123,8 @@ public class GUI extends JFrame implements MouseMotionListener
 	private void paintMenu(Graphics g)
 	{
 		// does not work yet
-		Button b = new Button("Start Game");
-		this.add(b);
+
+
 	}
 	private void paintGame(Graphics g)
 	{
@@ -134,4 +146,13 @@ public class GUI extends JFrame implements MouseMotionListener
 	{
 		_lastMouseEvent = e;	
 	}
+	
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        System.out.println("destal rules");
+        for (int i = 0; i < _button.length; i++)
+        	this.remove(_button[i]);
+    }
 }
+
