@@ -86,6 +86,7 @@ public class Chunk
 	{
 		file.createNewFile();
 		FileOutputStream fs = new FileOutputStream(file);
+		
 		for (int x = 0; x < World.CHUNK_SIZE; x++)
 		{
 			for (int y = 0; y < World.CHUNK_SIZE; y++)
