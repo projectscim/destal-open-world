@@ -121,6 +121,20 @@ public class Chunk
 		return chunk;
 	}
 	
+	public byte[] toByteArray(Chunk chunk)
+	{
+		byte[] b = new byte[World.CHUNK_SIZE * World.CHUNK_SIZE];
+		int i = 0;
+		for (int x = 0; x < World.CHUNK_SIZE; x++)
+		{
+			for (int y = 0; y < World.CHUNK_SIZE; y++)
+			{
+				b[++i] = (byte)getBlocks()[x][y].getDataValue();
+			}
+		}
+		return null;
+	}
+	
 	@Override
 	public String toString()
 	{
