@@ -19,11 +19,11 @@ public class Menu extends JPanel implements ActionListener
 		super();
 		_gui = gui;
 		_button = new Button[]{	new Button ("Start Game"),
-				new Button ("Options"),
-				new Button ("Exit") };
+								new Button ("Options"),
+								new Button ("Exit") };
 		for (int i = 0; i < _button.length; i++)
 		{
-			_button[i].setLocation(5, i*20);
+			_button[i].setLocation(i * 200, 100);
 			_button[i].setSize(100, 20);
 			this.add(_button[i]);
 			_button[i].addActionListener(this);

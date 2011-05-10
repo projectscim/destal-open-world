@@ -18,7 +18,7 @@ public class TCPClient {
 
 	public TCPClient()
 	{
-		_gui = new GUI(200, 200, this);
+		_gui = new GUI(600, 200, this);
 		_localPlayer = new Player();
 		_gui.addKeyListener(_localPlayer);
 		_gui.addMouseMotionListener(_localPlayer);

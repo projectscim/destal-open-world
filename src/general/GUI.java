@@ -19,6 +19,7 @@ public class GUI extends JFrame implements MouseMotionListener
 	private GUIMode _guiMode;
 	private JPanel _panel;
 	private Menu _menu;
+	private Options _options;
 
 	
 	private MouseEvent _lastMouseEvent;
@@ -42,6 +43,10 @@ public class GUI extends JFrame implements MouseMotionListener
 	    _menu = new Menu(this);
 	    _menu.setPreferredSize(new Dimension(width,height));
 	    _menu.setLayout(null);
+	    
+	    _options = new Options(this);
+	    _options.setPreferredSize(new Dimension(width,height));
+	    _options.setLayout(null);
 	    
 	    this.setGUIMode(GUIMode.MENU);
 	    
@@ -70,12 +75,13 @@ public class GUI extends JFrame implements MouseMotionListener
 				this.add(_menu);
 				break;
 			case OPTIONS:
+				this.remove(_menu);
+				this.add(_options);
 				break;
 			case GAME:
 				this.remove(_menu);
 				//_panel.addMouseMotionListener(_client.getLocalCharacter());
 				this.add(_panel);
-			    this.validate();
 				break;
 		}
 	}
