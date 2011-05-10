@@ -27,14 +27,25 @@ public class ClientConnection implements Runnable
         {
 			while(true) // TODO stop function
 			{
-				System.out.println(_input.readObject());
+				System.out.println(recv());
 				
-				_output.writeObject("Hi");
-				_output.flush();
+				send("Hi");
 			}
         }
 		catch(Exception e)
 		{
 		}
+		System.out.println("thread stopped (" + _ID + ")");
+	}
+	
+	public Object recv() throws Exception
+	{
+		return _input.readObject();
+	}
+	
+	public void send(Object packet) throws Exception
+	{
+		_output.writeObject(packet);
+		_output.flush();
 	}
 }
