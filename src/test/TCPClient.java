@@ -8,11 +8,16 @@ class TCPClient
 	public static void main(String[] args) throws Exception
 	{
 		BufferedReader inFromUser = new BufferedReader( new InputStreamReader(System.in));
+		
 		Socket clientSocket = new Socket("localhost", 4185);
-		DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
-		BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-		outToServer.writeBytes(inFromUser.readLine() + '\n');
-		String modifiedSentence = inFromServer.readLine();
+		ObjectOutputStream output = new ObjectOutputStream(clientSocket.getOutputStream());
+		ObjectInputStream input = new ObjectInputStream(clientSocket.getInputStream());
+		
+		output.writeObject(inFromUser.readLine() + '\n');
+		output.flush();
+		
+		String modifiedSentence = (String)input.readObject();
+		
 		System.out.println("FROM SERVER: " + modifiedSentence + '\n');
 		clientSocket.close();
 	}
