@@ -121,7 +121,7 @@ public class Chunk
 		return chunk;
 	}
 	
-	public byte[] toByteArray(Chunk chunk)
+	public byte[] toByteArray()
 	{
 		byte[] b = new byte[World.CHUNK_SIZE * World.CHUNK_SIZE];
 		int i = 0;
@@ -132,7 +132,7 @@ public class Chunk
 				b[++i] = (byte)getBlocks()[x][y].getDataValue();
 			}
 		}
-		return null;
+		return b;
 	}
 	
 	@Override
