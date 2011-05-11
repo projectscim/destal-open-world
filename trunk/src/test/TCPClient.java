@@ -1,7 +1,12 @@
 package test;
 
-import java.io.*;
-import java.net.*;
+import general.Packet;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 
 class TCPClient
 {
@@ -13,12 +18,19 @@ class TCPClient
 		ObjectOutputStream output = new ObjectOutputStream(clientSocket.getOutputStream());
 		ObjectInputStream input = new ObjectInputStream(clientSocket.getInputStream());
 		
-		output.writeObject(inFromUser.readLine() + '\n');
+		Packet p = new Packet((byte)0x01);
+		p.set(inFromUser.readLine() + '\n');
+		output.writeObject(p);
 		output.flush();
 		
-		String modifiedSentence = (String)input.readObject();
+		Packet r = (Packet)input.readObject();
+		if(r.getType() == (byte)0x02)
+		{
+			String s = (String)r.get();
+			int i = (Integer)r.get();
+			System.out.println("Server: " + s + " - " + i);
+		}
 		
-		System.out.println("FROM SERVER: " + modifiedSentence + '\n');
 		clientSocket.close();
 	}
 }

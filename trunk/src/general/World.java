@@ -1,8 +1,10 @@
 package general;
 
-import java.io.*;
-import java.util.*;
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.io.File;
+import java.io.IOException;
 
 public class World
 {

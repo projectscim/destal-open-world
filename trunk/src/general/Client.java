@@ -1,14 +1,12 @@
 package general;
 
-import java.io.*;
-import java.util.*;
-import java.awt.*;
-import java.lang.*;
+import java.util.ArrayList;
 
 import entities.Player;
 
 
-public class TCPClient {
+public class Client
+{
 
 	private Chunk currentChunk;
 	private Chunk[] _chunkBuffer;
@@ -16,7 +14,7 @@ public class TCPClient {
 	private Player _localPlayer;
 	private GUI _gui;
 
-	public TCPClient()
+	public Client()
 	{
 		_gui = new GUI(600, 200, this);
 		_localPlayer = new Player();
@@ -36,8 +34,7 @@ public class TCPClient {
 	
 	public static void main(String[] args)
 	{
-		TCPClient client = new TCPClient();
-		client.run();
+		(new Client()).run();
 	}
 
 }

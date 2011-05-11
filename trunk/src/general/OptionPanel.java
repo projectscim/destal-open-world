@@ -1,13 +1,11 @@
 package general;
 
 
-import java.io.*;
-import java.util.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.lang.*;
+import java.awt.Button;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.JPanel;
 
 public class OptionPanel extends JPanel implements ActionListener
 {
