@@ -9,12 +9,12 @@ import java.lang.*;
 
 import javax.swing.*;
 
-public class Menu extends JPanel implements ActionListener
+public class MenuPanel extends JPanel implements ActionListener
 {
 	private Button[] _button;
 	private GUI _gui;
 	
-	public Menu (GUI gui)
+	public MenuPanel (GUI gui)
 	{
 		super();
 		_gui = gui;
@@ -23,7 +23,7 @@ public class Menu extends JPanel implements ActionListener
 								new Button ("Exit") };
 		for (int i = 0; i < _button.length; i++)
 		{
-			_button[i].setLocation(i * 200, 100);
+			_button[i].setLocation((i+1) * 100, 100);
 			_button[i].setSize(100, 20);
 			this.add(_button[i]);
 			_button[i].addActionListener(this);
