@@ -70,7 +70,6 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 				break;
 				
 		}
-		
 	}
 	
 	@Override
