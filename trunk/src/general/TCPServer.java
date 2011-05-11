@@ -2,6 +2,8 @@ package general;
 
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.io.IOException;
 
 public class TCPServer
 {
@@ -10,33 +12,61 @@ public class TCPServer
 	
 	// TODO: move this to Network
 	private ServerSocket _serverSocket;
-	private ClientConnection[] _clients;
+	private ArrayList<ClientConnection> _clientConnections;
 
 	public static void main(String[] args) throws Exception
 	{
-		(new TCPServer()).run();
+		new TCPServer();
 	}
 	
 	public TCPServer()
 	{
-		_clients = new ClientConnection[32];
+		_clientConnections = new ArrayList<ClientConnection>();
+		Thread listenerThread = new Thread(new ClientListener(this));
+		listenerThread.start();
 	}
-
-	public void run() throws Exception
+	
+	public void clientDisconnected(ClientConnection c)
 	{
-			_serverSocket = new ServerSocket(4185);
-			
-			int NumClients = 0;
+		_clientConnections.remove(c);
+		_clientConnections.trimToSize();
+	}
+	
+	protected class ClientListener implements Runnable
+	{
+		private TCPServer _server;
+		
+		public ClientListener(TCPServer server)
+		{
+			_server = server;
+		}
+		
+		public void run()
+		{
+			try 
+			{
+				_serverSocket = new ServerSocket(4185);
+			}
+			catch (IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			while(true)
 	        {
-				if(NumClients >= _clients.length)
-					continue;
+				try
+				{
+					Socket s = _serverSocket.accept();
+					_clientConnections.add(new ClientConnection(s, _server));
+					System.out.println("new client: " + (_clientConnections.size()-1));
+		            new Thread(_clientConnections.get(_clientConnections.size()-1)).start();
+				}
+				catch (Exception e)
+				{
+					break;
+				}
 				
-				Socket s = _serverSocket.accept();
-				System.out.println("new client: " + NumClients);
-				_clients[NumClients] = new ClientConnection(s, NumClients);
-	            new Thread(_clients[NumClients]).start();
-	            NumClients++;
 	        }
+		}
 	}
 }

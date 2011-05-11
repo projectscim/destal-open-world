@@ -17,9 +17,11 @@ public class GUI extends JFrame implements MouseMotionListener
 	private TCPClient _client;
 	private BufferStrategy _strategy;
 	private GUIMode _guiMode;
-	private JPanel _panel;
-	private Menu _menu;
-	private Options _options;
+	private JPanel _game;
+	private MenuPanel _menu;
+	private OptionPanel _options;
+	
+	private JPanel _curPanel; 
 
 	
 	private MouseEvent _lastMouseEvent;
@@ -36,15 +38,15 @@ public class GUI extends JFrame implements MouseMotionListener
 		
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    
-	    _panel = new JPanel();
-	    _panel.setPreferredSize(new Dimension(width,height));
-	    _panel.setLayout(null);
+	    _game = new GamePanel(this, _client.getLocalCharacter());
+	    _game.setPreferredSize(new Dimension(width, height));
+	    _game.setLayout(null);
 	    
-	    _menu = new Menu(this);
+	    _menu = new MenuPanel(this);
 	    _menu.setPreferredSize(new Dimension(width,height));
 	    _menu.setLayout(null);
 	    
-	    _options = new Options(this);
+	    _options = new OptionPanel(this);
 	    _options.setPreferredSize(new Dimension(width,height));
 	    _options.setLayout(null);
 	    
@@ -67,28 +69,32 @@ public class GUI extends JFrame implements MouseMotionListener
 	public void setGUIMode(GUIMode mode)
 	{
 		_guiMode = mode;
+		if (_curPanel != null)
+		{
+			this.remove(_curPanel);
+		}
 		switch (_guiMode)
 		{
 			case TITLE:
 				break;
 			case MENU:
-				this.add(_menu);
+				_curPanel = _menu;
 				break;
 			case OPTIONS:
-				this.remove(_menu);
-				this.add(_options);
+				_curPanel = _options;
 				break;
 			case GAME:
-				this.remove(_menu);
-				//_panel.addMouseMotionListener(_client.getLocalCharacter());
-				this.add(_panel);
+				_curPanel = _game;
+				this.addMouseMotionListener(_client.getLocalCharacter());
+				this.addKeyListener(_client.getLocalCharacter());
 				break;
 		}
-	}
-	
-	public JPanel getGamePanel()
-	{
-		return _panel;
+		if (_curPanel != null)
+		{
+			this.add(_curPanel);
+			this.validate();
+		}
+		this.repaint();
 	}
 	
 	public void run()
@@ -110,26 +116,12 @@ public class GUI extends JFrame implements MouseMotionListener
 	    g2d.setColor(Color.WHITE);
 		g2d.fillRect(0,0,this.getWidth(),this.getHeight());
 		// Add what's to draw:
-		switch (_guiMode)
-		{
-			case TITLE:
-				this.paintTitleScreen(g2d);
-				break;
-			case MENU:
-				break;
-			case OPTIONS:
-				break;
-			case GAME:
-				this.paintGame(g2d);
-				break;
-		}
-
 		//
         g2d.dispose();
 		_strategy.show();
     }
 	
-	private void disableCursor()
+	public void disableCursor()
 	{
         Cursor c = Toolkit.getDefaultToolkit().createCustomCursor(
                 new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB),
@@ -137,7 +129,7 @@ public class GUI extends JFrame implements MouseMotionListener
  
         setCursor(c);
 	}
-	private void enableCursor()
+	public void enableCursor()
 	{
 		Cursor c = Cursor.getDefaultCursor();
 		setCursor(c);
@@ -152,11 +144,7 @@ public class GUI extends JFrame implements MouseMotionListener
 	
 	private void paintGame(Graphics g)
 	{
-		disableCursor();
-		g.setColor(Color.BLACK);
-		if (_lastMouseEvent != null)
-		g.drawOval(_lastMouseEvent.getX(), _lastMouseEvent.getY(), 3, 3);
-		_client.getLocalCharacter().paint(g);
+
 	}
 	
 	@Override

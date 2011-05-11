@@ -6,23 +6,22 @@ import java.net.Socket;
 
 public class ClientConnection implements Runnable
 {
-	private int _ID;
-	
 	private Socket _socket;
 	private ObjectInputStream _input;
 	private ObjectOutputStream _output;
+	private TCPServer _server;
 	
-	public ClientConnection(Socket s, int ID) throws Exception
+	public ClientConnection(Socket s, TCPServer server) throws Exception
 	{
-		_ID = ID;
 		_socket = s;
 		_input = new ObjectInputStream(_socket.getInputStream());
 		_output = new ObjectOutputStream(_socket.getOutputStream());
+		_server = server;
 	}
 	
 	public void run()
 	{
-		System.out.println("thread started (" + _ID + ")");
+		System.out.println("thread started");
 		try
         {
 			while(true) // TODO stop function
@@ -34,8 +33,10 @@ public class ClientConnection implements Runnable
         }
 		catch(Exception e)
 		{
+			System.out.println("exception occured");
 		}
-		System.out.println("thread stopped (" + _ID + ")");
+		System.out.println("thread stopped");
+		_server.clientDisconnected(this);
 	}
 	
 	public Object recv() throws Exception

@@ -9,12 +9,12 @@ import java.lang.*;
 
 import javax.swing.*;
 
-public class Options extends JPanel implements ActionListener
+public class OptionPanel extends JPanel implements ActionListener
 {
 	private Button[] _button;
 	private GUI _gui;
 	
-	public Options (GUI gui)
+	public OptionPanel (GUI gui)
 	{
 		super();
 		_gui = gui;
@@ -22,7 +22,7 @@ public class Options extends JPanel implements ActionListener
 								new Button ("Back") };
 		for (int i = 0; i < _button.length; i++)
 		{
-			_button[i].setLocation(10, i * 10);
+			_button[i].setLocation(100, (i+1) * 20);
 			_button[i].setSize(100, 20);
 			this.add(_button[i]);
 			_button[i].addActionListener(this);
