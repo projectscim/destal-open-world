@@ -6,7 +6,8 @@ import java.io.IOException;
 import general.Chunk;
 import general.World;
 
-public class ChunkTest {
+public class ChunkTest
+{
 
 	/**
 	 * @param args

@@ -1,20 +1,24 @@
 package general;
 
-import java.io.*;
-import java.util.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.RenderingHints;
+import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.lang.*;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class GUI extends JFrame implements MouseMotionListener
 {
-	private TCPClient _client;
+	private Client _client;
 	private BufferStrategy _strategy;
 	private GUIMode _guiMode;
 	private JPanel _game;
@@ -30,7 +34,7 @@ public class GUI extends JFrame implements MouseMotionListener
 	
 	private long _lastLoop;
 	
-	public GUI(int width, int height, TCPClient client)
+	public GUI(int width, int height, Client client)
 	{
 	    super("destal open world");
 	    

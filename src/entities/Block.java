@@ -1,8 +1,8 @@
 package entities;
 
-import java.awt.Graphics;
-
 import general.World;
+
+import java.awt.Graphics;
 
 
 public abstract class Block extends Entity

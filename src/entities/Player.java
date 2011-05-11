@@ -1,13 +1,12 @@
 package entities;
 
-import java.io.*;
-import java.util.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import java.lang.*;
 
 public class Player extends Character implements KeyListener, MouseMotionListener
 {
