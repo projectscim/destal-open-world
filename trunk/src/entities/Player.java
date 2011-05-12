@@ -81,7 +81,6 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	@Override
 	public void mouseMoved(MouseEvent e)
 	{
-		System.out.println("eddaswsw");
 		_lastMouseEvent = e;	
 	}
 
