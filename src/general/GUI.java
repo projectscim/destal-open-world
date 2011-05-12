@@ -3,14 +3,8 @@ package general;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.RenderingHints;
 import java.awt.Toolkit;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
-import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
@@ -25,9 +19,6 @@ public class GUI extends JFrame
 	private OptionPanel _options;
 	
 	private JPanel _curPanel; 
-	
-	private BufferStrategy _strategy;
-	private long _lastLoop;
 
 	protected enum GUIMode {TITLE, MENU, OPTIONS, GAME}
 	
@@ -41,6 +32,8 @@ public class GUI extends JFrame
 	    this.setBounds(0,0,width,height);
 	    
 	    _game = new GamePanel(this, _client.getLocalCharacter());
+	    _game.setSize(new Dimension(width,height));
+	    _game.setLayout(null);
 	    
 	    _menu = new MenuPanel(this);
 	    _menu.setSize(new Dimension(width,height));
@@ -55,8 +48,7 @@ public class GUI extends JFrame
 	    this.setVisible(true);
 	    this.toFront();
 	    
-	    _strategy = this.getBufferStrategy();
-	    _lastLoop = System.currentTimeMillis();
+	    setBackground(Color.RED);
 	    //this.addMouseMotionListener(_client.getLocalCharacter());
 
 	}
@@ -79,44 +71,18 @@ public class GUI extends JFrame
 				_curPanel = _options;
 				break;
 			case GAME:
+				_curPanel = _game;
 				disableCursor();
 				break;
 		}
 		if (_curPanel != null)
 		{
 			this.add(_curPanel);
+			this.invalidate();
 			this.validate();
-			enableCursor();
+			_curPanel.requestFocusInWindow();
 		}
 		this.repaint();
-	}
-	
-	public void run()
-	{
-	    while(true)
-	    {
-	        if(System.currentTimeMillis() - _lastLoop >= 1000/50) // FPS
-	        {
-	        	if (_guiMode == GUIMode.GAME)
-	        	{
-	        		_lastLoop = System.currentTimeMillis();
-	            	this.paintGame(_strategy.getDrawGraphics());
-	        	}
-	        }
-	    }
-	}
-	
-	public void paintGame(Graphics g)
-	{
-	    Graphics2D g2d = (Graphics2D)g;
-	    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-	    g2d.setColor(Color.WHITE);
-		g2d.fillRect(0,0,this.getWidth(),this.getHeight());
-		
-		_game.paint(g2d);
-		
-        g2d.dispose();
-		_strategy.show();
 	}
 	
 	public void disableCursor()

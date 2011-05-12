@@ -2,6 +2,7 @@ package general;
 
 
 import java.awt.Button;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,6 +27,7 @@ public class MenuPanel extends JPanel implements ActionListener
 			this.add(_button[i]);
 			_button[i].addActionListener(this);
 		}
+		
 	}
     @Override
     public void actionPerformed(ActionEvent e)

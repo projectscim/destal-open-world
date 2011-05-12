@@ -1,38 +1,37 @@
 package general;
 
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.RenderingHints;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-
 import javax.swing.JPanel;
 
 import entities.Player;
 
-public class GamePanel implements MouseMotionListener
+public class GamePanel extends JPanel implements MouseMotionListener
 {
 	private GUI _gui;
 	private MouseEvent _lastMouseEvent;
 	private Player _player;
-	
 	
 	public GamePanel (GUI gui, Player player)
 	{
 		super();
 		_gui = gui;
 		_player = player;
+		this.addMouseMotionListener(this);
+		this.addMouseMotionListener(_player);
+		this.addKeyListener(_player);
+		
+		setDoubleBuffered(true);
+		setOpaque(true);
+		setBackground(Color.BLUE);
 	}
 	
-	public void paint(Graphics g)
+	@Override
+	public void paintComponent(Graphics g)
 	{
 		// Add what's to draw:
 		g.setColor(Color.BLACK);
@@ -40,9 +39,7 @@ public class GamePanel implements MouseMotionListener
 		{
 			g.drawOval(_lastMouseEvent.getX(), _lastMouseEvent.getY(), 3, 3);
 		}
-		
 		_player.paint(g);
-		//
 	}
 
 	@Override
@@ -55,5 +52,6 @@ public class GamePanel implements MouseMotionListener
 	public void mouseMoved(MouseEvent e)
 	{
 		_lastMouseEvent = e;
+		_gui.repaint();
 	}
 }
