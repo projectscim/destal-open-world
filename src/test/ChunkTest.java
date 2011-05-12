@@ -1,9 +1,6 @@
 package test;
 
 import java.io.File;
-import java.io.IOException;
-
-import general.Chunk;
 import general.World;
 
 public class ChunkTest
