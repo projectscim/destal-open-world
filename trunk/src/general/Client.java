@@ -16,10 +16,9 @@ public class Client
 
 	public Client()
 	{
-		_gui = new GUI(600, 200, this);
 		_localPlayer = new Player();
+		_gui = new GUI(600, 200, this);
 		_gui.addKeyListener(_localPlayer);
-		_gui.addMouseMotionListener(_localPlayer);
 	}
 	
 	public Player getLocalCharacter()

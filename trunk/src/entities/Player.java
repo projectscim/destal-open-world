@@ -42,6 +42,7 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	@Override
 	public void keyTyped(KeyEvent e)
 	{
+		System.out.println("hans");
 		/*
 		double dx, dy;
 		if (this.getLocation().distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY())) != 0)
@@ -80,6 +81,7 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	@Override
 	public void mouseMoved(MouseEvent e)
 	{
+		System.out.println("eddaswsw");
 		_lastMouseEvent = e;	
 	}
 

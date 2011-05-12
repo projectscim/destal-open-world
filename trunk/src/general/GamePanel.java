@@ -1,17 +1,21 @@
 package general;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
 import entities.Player;
 
-public class GamePanel extends JPanel implements ActionListener, MouseMotionListener
+public class GamePanel extends JPanel implements MouseMotionListener
 {
 	private GUI _gui;
 	private MouseEvent _lastMouseEvent;
@@ -21,33 +25,39 @@ public class GamePanel extends JPanel implements ActionListener, MouseMotionList
 	{
 		super();
 		_gui = gui;
+		_player = player;
+		this.addMouseMotionListener(this);
+		this.addMouseMotionListener(_player);
+		this.addKeyListener(_player);
 	}
 	
 	public void paint(Graphics g)
 	{
-		_gui.disableCursor();
+		super.paint(g);
+		disableCursor();
 		g.setColor(Color.BLACK);
 		if (_lastMouseEvent != null)
+		{
 			g.drawOval(_lastMouseEvent.getX(), _lastMouseEvent.getY(), 3, 3);
+		}
+		
 		_player.paint(g);
 	}
-    @Override
-    public void actionPerformed(ActionEvent e)
-    {
-    	if (e.getActionCommand().equals("Start Game"))
-    	{
-    		_gui.setGUIMode (GUI.GUIMode.GAME);
-    	}
-    	if (e.getActionCommand().equals("Options"))
-    	{
-    		_gui.setGUIMode (GUI.GUIMode.OPTIONS);
-    	}
-    	if (e.getActionCommand().equals("Exit"))
-    	{
-    		System.exit(0);
-    	}
-    }
 
+	public void disableCursor()
+	{
+        Cursor c = Toolkit.getDefaultToolkit().createCustomCursor(
+                new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB),
+                new Point(1, 1), "Custom Cursor");
+ 
+        this.setCursor(c);
+	}
+	public void enableCursor()
+	{
+		Cursor c = Cursor.getDefaultCursor();
+		this.setCursor(c);
+	}
+	
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub

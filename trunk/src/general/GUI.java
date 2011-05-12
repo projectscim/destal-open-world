@@ -16,12 +16,12 @@ import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class GUI extends JFrame implements MouseMotionListener
+public class GUI extends JFrame
 {
 	private Client _client;
 	private BufferStrategy _strategy;
 	private GUIMode _guiMode;
-	private JPanel _game;
+	private GamePanel _game;
 	private MenuPanel _menu;
 	private OptionPanel _options;
 	
@@ -41,28 +41,27 @@ public class GUI extends JFrame implements MouseMotionListener
 		_client = client;
 		
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    this.setBounds(0,0,width,height);
 	    
 	    _game = new GamePanel(this, _client.getLocalCharacter());
 	    _game.setPreferredSize(new Dimension(width, height));
 	    _game.setLayout(null);
 	    
 	    _menu = new MenuPanel(this);
-	    _menu.setPreferredSize(new Dimension(width,height));
+	    _menu.setSize(new Dimension(width,height));
 	    _menu.setLayout(null);
 	    
 	    _options = new OptionPanel(this);
-	    _options.setPreferredSize(new Dimension(width,height));
+	    _options.setSize(new Dimension(width,height));
 	    _options.setLayout(null);
 	    
 	    this.setGUIMode(GUIMode.MENU);
 	    
-	    this.setBounds(0,0,width,height);
-	    
-	    this.pack();
 	    this.setVisible(true);
 	    this.toFront();
+	    
+	    //this.addMouseMotionListener(_client.getLocalCharacter());
 
-	    this.addMouseMotionListener(this);
 	    
 	    // double buffer
 	    this.createBufferStrategy(2);
@@ -89,8 +88,6 @@ public class GUI extends JFrame implements MouseMotionListener
 				break;
 			case GAME:
 				_curPanel = _game;
-				this.addMouseMotionListener(_client.getLocalCharacter());
-				this.addKeyListener(_client.getLocalCharacter());
 				break;
 		}
 		if (_curPanel != null)
@@ -120,49 +117,13 @@ public class GUI extends JFrame implements MouseMotionListener
 	    g2d.setColor(Color.WHITE);
 		g2d.fillRect(0,0,this.getWidth(),this.getHeight());
 		// Add what's to draw:
+		if (_guiMode == GUIMode.GAME)
+		{
+			_game.paint(g2d);
+		}
 		//
         g2d.dispose();
 		_strategy.show();
     }
-	
-	public void disableCursor()
-	{
-        Cursor c = Toolkit.getDefaultToolkit().createCustomCursor(
-                new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB),
-                new Point(1, 1), "Custom Cursor");
- 
-        setCursor(c);
-	}
-	public void enableCursor()
-	{
-		Cursor c = Cursor.getDefaultCursor();
-		setCursor(c);
-	}
-	
-	private void paintTitleScreen(Graphics g)
-	{
-		g.setColor(Color.BLACK);
-		g.drawString("destal open world rules!", 20, 60);
-		enableCursor();
-	}
-	
-	private void paintGame(Graphics g)
-	{
-
-	}
-	
-	@Override
-	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent e)
-	{
-		_lastMouseEvent = e;	
-	}
-	
-
 }
 
