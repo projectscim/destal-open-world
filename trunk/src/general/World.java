@@ -80,7 +80,7 @@ public class World
 	
 	public Point getAbsoluteLocation(int ChunkX, int ChunkY, Point location)
 	{
-		return new Point((int)ChunkX * CHUNK_SIZE + (int)location.getX(),
-				(int) ChunkY * CHUNK_SIZE + (int) location.getY());
+		return new Point(ChunkX * CHUNK_SIZE + (int)location.getX(),
+				ChunkY * CHUNK_SIZE + (int) location.getY());
 	}
 }

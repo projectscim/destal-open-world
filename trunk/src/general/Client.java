@@ -27,7 +27,7 @@ public class Client
 	
 	public void run()
 	{
-		_gui.run();
+
 	}
 	
 	public static void main(String[] args)
