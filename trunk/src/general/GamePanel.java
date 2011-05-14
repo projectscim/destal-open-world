@@ -25,6 +25,8 @@ public class GamePanel extends JPanel implements MouseMotionListener
 		this.addMouseMotionListener(_player);
 		this.addKeyListener(_player);
 		
+		_player.setContainer(this);
+		
 		setDoubleBuffered(true);
 		setOpaque(true);
 		setBackground(Color.BLUE);
@@ -43,7 +45,8 @@ public class GamePanel extends JPanel implements MouseMotionListener
 	}
 
 	@Override
-	public void mouseDragged(MouseEvent e) {
+	public void mouseDragged(MouseEvent e)
+	{
 		// TODO Auto-generated method stub
 		
 	}
@@ -52,6 +55,11 @@ public class GamePanel extends JPanel implements MouseMotionListener
 	public void mouseMoved(MouseEvent e)
 	{
 		_lastMouseEvent = e;
-		_gui.repaint();
+		this.invokeRepaint();
+	}
+
+	public void invokeRepaint()
+	{
+		_gui.repaint();		
 	}
 }
