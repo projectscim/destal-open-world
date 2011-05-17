@@ -26,10 +26,9 @@ public class GamePanel extends JPanel implements MouseMotionListener
 		this.addKeyListener(_player);
 		
 		_player.setContainer(this);
-		
 		setDoubleBuffered(true);
 		setOpaque(true);
-		setBackground(Color.BLUE);
+
 	}
 	
 	@Override
@@ -42,8 +41,9 @@ public class GamePanel extends JPanel implements MouseMotionListener
 			g.drawOval(_lastMouseEvent.getX(), _lastMouseEvent.getY(), 3, 3);
 		}
 		_player.paint(g);
+		setBackground(Color.BLUE);
 	}
-
+	
 	@Override
 	public void mouseDragged(MouseEvent e)
 	{
