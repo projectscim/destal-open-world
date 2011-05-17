@@ -31,7 +31,7 @@ public class GUI extends JFrame
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.setBounds(0,0,width,height);
 	    
-	    _game = new GamePanel(this, _client.getLocalCharacter());
+	    _game = new GamePanel(this, _client.getLocalCharacter(), null);
 	    _game.setSize(new Dimension(width,height));
 	    _game.setLayout(null);
 	    
