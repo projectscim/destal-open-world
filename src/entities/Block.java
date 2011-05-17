@@ -3,17 +3,25 @@ package entities;
 import general.World;
 
 import java.awt.Graphics;
+import java.awt.Image;
 
 
 public abstract class Block extends Entity
 {
+	private Image _image;
+	
+	protected Image getImage()
+	{
+		return _image;
+	}
+	protected void setImage(Image _image)
+	{
+		this._image = _image;
+	}
 	@Override
 	public void paint(Graphics g)
 	{
-		g.drawRect((int)this.getLocation().getX(),
-				   (int) this.getLocation().getY(),
-				    World.BLOCK_PAINTSIZE,
-					World.BLOCK_PAINTSIZE);
+		g.drawImage(_image, (int)this.getLocation().getX() - 16, (int)this.getLocation().getY() - 16, null);
 	}
 	/**
 	 * Generates a Block from the data value

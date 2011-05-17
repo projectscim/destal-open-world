@@ -15,8 +15,9 @@ public class GamePanel extends JPanel implements MouseMotionListener
 	private GUI _gui;
 	private MouseEvent _lastMouseEvent;
 	private Player _player;
+	private Chunk _chunk;
 	
-	public GamePanel (GUI gui, Player player)
+	public GamePanel (GUI gui, Player player, Chunk chunk)
 	{
 		super();
 		_gui = gui;
@@ -25,10 +26,9 @@ public class GamePanel extends JPanel implements MouseMotionListener
 		this.addMouseMotionListener(_player);
 		this.addKeyListener(_player);
 		
+		
 		_player.setContainer(this);
 		setDoubleBuffered(true);
-		setOpaque(true);
-
 	}
 	
 	@Override
@@ -41,7 +41,7 @@ public class GamePanel extends JPanel implements MouseMotionListener
 			g.drawOval(_lastMouseEvent.getX(), _lastMouseEvent.getY(), 3, 3);
 		}
 		_player.paint(g);
-		setBackground(Color.BLUE);
+
 	}
 	
 	@Override

@@ -1,5 +1,6 @@
 package general;
 
+import java.awt.Graphics;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -53,6 +54,7 @@ public class Chunk
 			for (int y = 0; y < World.CHUNK_SIZE; y++)
 			{
 				getBlocks()[x][y] = Block.create(fs.read());
+				getBlocks()[x][y].setLocation(x, y);
 			}
 		}
 		fs.close();
@@ -119,7 +121,7 @@ public class Chunk
 			for (int y = 0; y < World.CHUNK_SIZE; y++)
 			{
 				Random rnd = new Random();
-				chunk.getBlocks()[x][y] = Block.create(rnd.nextInt(3));
+				chunk.getBlocks()[x][y] = Block.create(rnd.nextInt(2));
 			}
 		}
 		return chunk;
@@ -154,5 +156,16 @@ public class Chunk
 			s += "\n";
 		}
 		return s;
+	}
+	
+	public void paint(Graphics g)
+	{
+		for (int x = 0; x < World.CHUNK_SIZE; x++)
+		{
+			for (int y = 0; y < World.CHUNK_SIZE; y++)
+			{
+				getBlocks()[x][y].paint(g);
+			}
+		}
 	}
 }

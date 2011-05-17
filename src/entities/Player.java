@@ -4,11 +4,15 @@ import general.GamePanel;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+
+import javax.imageio.ImageIO;
+import java.io.*;
 
 public class Player extends Character implements KeyListener, MouseMotionListener
 {
@@ -35,8 +39,16 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	@Override
 	public void paint(Graphics g)
 	{
-		g.setColor(Color.BLACK);
-		g.fillRect((int)this.getLocation().getX()-5, (int)this.getLocation().getY()-5, 10, 10);
+		File f = new File("C:\\player.gif");
+		try
+		{
+			Image i = ImageIO.read(f);
+			g.drawImage(i, (int)this.getLocation().getX()-16, (int)this.getLocation().getY()-16, null);
+		}
+		catch (IOException e)
+		{
+			System.out.println(e.toString());
+		}
 	}
 
 	public void move(boolean forward)
