@@ -9,7 +9,6 @@ import entities.Player;
 
 public class Client
 {
-
 	private Chunk _currentChunk;
 	private Chunk[] _chunkBuffer;
 	private ArrayList<Character> _characters;
@@ -18,12 +17,27 @@ public class Client
 
 	public Client() throws IOException
 	{
+		_currentChunk = new Chunk("C:\\Users\\Steffen\\Desktop\\lappen.chnk");
 		_localPlayer = new Player();
 		_gui = new GUI(600, 200, this);
-		_currentChunk = new Chunk();
-		_currentChunk.setBlocks(Chunk.createFromFile(new File("C:\\lappen.chnk")));
 	}
 	
+	public Chunk getCurrentChunk() {
+		return _currentChunk;
+	}
+
+	public void setCurrentChunk(Chunk _currentChunk) {
+		this._currentChunk = _currentChunk;
+	}
+
+	public Chunk[] getChunkBuffer() {
+		return _chunkBuffer;
+	}
+
+	public void setChunkBuffer(Chunk[] _chunkBuffer) {
+		this._chunkBuffer = _chunkBuffer;
+	}
+
 	public Player getLocalCharacter()
 	{
 		return _localPlayer;
@@ -36,7 +50,8 @@ public class Client
 	
 	public static void main(String[] args)
 	{
-		try {
+		try
+		{
 			(new Client()).run();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

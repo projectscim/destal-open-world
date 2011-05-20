@@ -54,7 +54,7 @@ public class Chunk
 			for (int y = 0; y < World.CHUNK_SIZE; y++)
 			{
 				getBlocks()[x][y] = Block.create(fs.read());
-				getBlocks()[x][y].setLocation(x, y);
+				getBlocks()[x][y].setLocation(x*World.BLOCK_PAINTSIZE, y*World.BLOCK_PAINTSIZE);
 			}
 		}
 		fs.close();
