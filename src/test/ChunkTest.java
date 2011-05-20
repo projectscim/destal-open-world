@@ -15,7 +15,7 @@ public class ChunkTest
 	public static void main(String[] args) throws Exception
 	{
 		Chunk c = Chunk.createDefaultChunk();
-		c.saveChunk(new File("C:\\lappen.chnk"));
+		c.saveChunk(new File("C:\\Users\\Steffen\\Desktop\\lappen.chnk"));
 	}
 
 }
