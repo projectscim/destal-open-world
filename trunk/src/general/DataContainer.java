@@ -61,10 +61,11 @@ public class DataContainer
 			try
 			{
 				_textures.get(i).load();
+				System.out.println("loaded file: '" + _textures.get(i).getFile() + "'");
 			}
 			catch (IOException e)
 			{
-				System.out.println("Couldn't load file: '" + _textures.get(i).getFile() + "'");
+				System.out.println("couldn't load file: '" + _textures.get(i).getFile() + "'");
 			}
 		}
 	}
