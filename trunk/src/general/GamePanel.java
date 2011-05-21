@@ -2,10 +2,13 @@ package general;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.Point2D;
+
 import javax.swing.JPanel;
 
 import entities.Player;
@@ -28,28 +31,36 @@ public class GamePanel extends JPanel implements MouseMotionListener
 		this.addKeyListener(_player);
 		_player.setContainer(this);
 		setDoubleBuffered(true);
-		System.out.println(_chunk.toString());
 	}
 	
 	@Override
 	public void paintComponent(Graphics g)
 	{
 		// Add what's to draw:
-
 		for (int x = 0; x <= _gui.getWidth()/World.BLOCK_PAINTSIZE; x++)
 		{
 			for (int y = 0; y <= _gui.getHeight()/World.BLOCK_PAINTSIZE; y++)
 			{
-				_chunk.getBlocks()[x][y].paint(g);
+				_chunk.getBlocks()[(int) getRelativeLocation(x,y).getX()][(int) getRelativeLocation(x,y).getY()].paint(g);
 			}
 		}
-		g.setColor(Color.BLACK);
 		if (_lastMouseEvent != null)
 		{
 			g.setColor(Color.GREEN);
 			g.fillOval(_lastMouseEvent.getX(), _lastMouseEvent.getY(), 5, 5);
 		}
 		_player.paint(g);
+	}
+	
+	private Point getRelativeLocation(int x, int y)
+	{
+		return new Point((int)(_player.getLocation().getX()-this.getWidth()/2),
+				(int)(_player.getLocation().getY()-this.getHeight()/2));
+	}
+	
+	private Point getChunkPosition(int x, int y)
+	{
+		return null;
 	}
 	
 	@Override
