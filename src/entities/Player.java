@@ -2,17 +2,12 @@ package entities;
 
 import general.GamePanel;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-
-import javax.imageio.ImageIO;
-import java.io.*;
 
 public class Player extends Character implements KeyListener, MouseMotionListener
 {
@@ -23,15 +18,6 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	{
 		super();
 		this.setLocation(20, 100);
-		try
-		{
-			this.setImage(ImageIO.read(new File("data/gfx/player.gif")));
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 	public Player(GamePanel container)

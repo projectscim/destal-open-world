@@ -1,10 +1,5 @@
 package entities;
 
-import general.World;
-
-import java.awt.Graphics;
-import java.awt.Image;
-
 
 public abstract class Block extends Entity
 {
@@ -18,16 +13,14 @@ public abstract class Block extends Entity
 	{
 		switch (value)
 		{
-			case Values.DIRT:
+			case Values.BLOCK_DIRT:
 				return new Dirt();
-			case Values.STONE:
+			case Values.BLOCK_STONE:
 				return new Stone();
-			case Values.TREE:
+			case Values.BLOCK_TREE:
 				return new Tree();
 			default:
 				throw new IllegalArgumentException();
 		}
 	}
-	
-	public abstract int getDataValue();
 }
