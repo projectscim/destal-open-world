@@ -4,13 +4,23 @@ import java.awt.*;
 
 public abstract class Entity
 {
+	private Image _image;
+	private Point _location;
 
 	public Entity()
 	{
 		_location = new Point();
 	}
 	
-	private Point _location;
+	protected Image getImage()
+	{
+		return _image;
+	}
+	
+	protected void setImage(Image _image)
+	{
+		this._image = _image;
+	}
 
 	public Point getLocation()
 	{
@@ -27,6 +37,8 @@ public abstract class Entity
 		_location.setLocation(x, y);
 	}
 
-	public abstract void paint(Graphics g);
-
+	public void paint(Graphics g)
+	{
+		g.drawImage(_image, (int)this.getLocation().getX() - 16, (int)this.getLocation().getY() - 16, null);
+	}
 }

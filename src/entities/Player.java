@@ -23,6 +23,15 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	{
 		super();
 		this.setLocation(20, 100);
+		try
+		{
+			this.setImage(ImageIO.read(new File("data/gfx/player.gif")));
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public Player(GamePanel container)
@@ -34,21 +43,6 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	public void setContainer(GamePanel container)
 	{
 		_gamePanel = container;
-	}
-	
-	@Override
-	public void paint(Graphics g)
-	{
-		File f = new File("data/gfx/player.gif");
-		try
-		{
-			Image i = ImageIO.read(f);
-			g.drawImage(i, (int)this.getLocation().getX()-16, (int)this.getLocation().getY()-16, null);
-		}
-		catch (IOException e)
-		{
-			System.out.println(e.toString());
-		}
 	}
 
 	public void move(boolean forward)
