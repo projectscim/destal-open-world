@@ -17,24 +17,28 @@ public class Client
 
 	public Client() throws IOException
 	{
-		_currentChunk = new Chunk("C:\\Users\\Steffen\\Desktop\\lappen.chnk");
+		_currentChunk = new Chunk(new File("data/world/test.chnk"));
 		_localPlayer = new Player();
 		_gui = new GUI(600, 200, this);
 	}
 	
-	public Chunk getCurrentChunk() {
+	public Chunk getCurrentChunk()
+	{
 		return _currentChunk;
 	}
 
-	public void setCurrentChunk(Chunk _currentChunk) {
+	public void setCurrentChunk(Chunk _currentChunk)
+	{
 		this._currentChunk = _currentChunk;
 	}
 
-	public Chunk[] getChunkBuffer() {
+	public Chunk[] getChunkBuffer()
+	{
 		return _chunkBuffer;
 	}
 
-	public void setChunkBuffer(Chunk[] _chunkBuffer) {
+	public void setChunkBuffer(Chunk[] _chunkBuffer)
+	{
 		this._chunkBuffer = _chunkBuffer;
 	}
 
