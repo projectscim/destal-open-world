@@ -62,6 +62,13 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	}
 	
 	@Override
+	public void paint(Graphics g)
+	{
+		g.drawImage(this.getImage(), _gamePanel.getWidth()/2, _gamePanel.getHeight()/2, null);
+	}
+	
+	
+	@Override
 	public void keyPressed(KeyEvent e)
 	{
 		// TODO Auto-generated method stub
