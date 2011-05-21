@@ -39,7 +39,7 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	@Override
 	public void paint(Graphics g)
 	{
-		File f = new File("C:\\player.gif");
+		File f = new File("data/gfx/player.gif");
 		try
 		{
 			Image i = ImageIO.read(f);

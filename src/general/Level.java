@@ -62,7 +62,7 @@ public class Level
 		{
 			for (int y = 0; y < World.LEVEL_SIZE; y++)
 			{
-				Chunk.createDefaultChunk().saveChunk(new File(_chunkDir.getPath() + "\\chunk" + x + "_" + y));
+				Chunk.createDefaultChunk().saveChunk(new File(_chunkDir.getPath() + "/chunk" + x + "_" + y));
 			}
 		}
 		return chunk;
@@ -76,7 +76,7 @@ public class Level
 			for (int y = 0; y < World.LEVEL_SIZE; y++)
 			{
 				// Save the current Chunk
-				_chunks[x][y].saveChunk(new File(_chunkDir.getPath() + "\\chunk" + x + "_" + y));
+				_chunks[x][y].saveChunk(new File(_chunkDir.getPath() + "/chunk" + x + "_" + y));
 				// TODO: Write Chunk data into Level file
 			}
 		}
@@ -85,6 +85,6 @@ public class Level
 	
 	public Chunk getChunk(int x, int y) throws IOException
 	{
-		return new Chunk(_chunkDir.getPath()+"\\chunk" + x + "_" + y);
+		return new Chunk(new File(_chunkDir.getPath() + "/chunk" + x + "_" + y));
 	}
 }

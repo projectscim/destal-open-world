@@ -8,7 +8,7 @@ public class FileLoad
 {
 	public static void main(String[] args) throws Exception
 	{
-		File file = new File("C:\\Users\\Steffen\\testfile.tst");
+		File file = new File("data/testfile.tst");
 		writeFile(file);
 		readFile(file);
 

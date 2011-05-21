@@ -13,7 +13,7 @@ public class Stone extends Block
 	{
 		try
 		{
-			this.setImage(ImageIO.read(new File("C:\\Stone.png")));
+			this.setImage(ImageIO.read(new File("data/gfx/stone.png")));
 		}
 		catch (IOException e)
 		{

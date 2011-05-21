@@ -14,7 +14,7 @@ public class Dirt extends Block
 	{
 		try
 		{
-			this.setImage(ImageIO.read(new File("C:\\Dirt.png")));
+			this.setImage(ImageIO.read(new File("data/gfx/dirt.png")));
 		}
 		catch (IOException e)
 		{

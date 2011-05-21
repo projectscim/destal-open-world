@@ -22,26 +22,29 @@ public class Chunk
 		setItems(new Item[World.CHUNK_SIZE][World.CHUNK_SIZE]);
 	}
 	
-	public Chunk(String chunkFilePath) throws IOException
+	public Chunk(File file) throws IOException
 	{
 		this();
-		File f = new File(chunkFilePath);
-		loadFile(f);
+		loadFile(file);
 	}
 	
-	public void setBlocks(Block[][] blocks) {
+	public void setBlocks(Block[][] blocks)
+	{
 		this._blocks = blocks;
 	}
 
-	public Block[][] getBlocks() {
+	public Block[][] getBlocks()
+	{
 		return _blocks;
 	}
 
-	public void setItems(Item[][] items) {
+	public void setItems(Item[][] items)
+	{
 		this._items = items;
 	}
 
-	public Item[][] getItems() {
+	public Item[][] getItems()
+	{
 		return _items;
 	}
 
