@@ -2,7 +2,10 @@ package entities;
 
 public class Values
 {
-	public final static int DIRT = 0x00;
-	public final static int STONE = 0x01;
-	public final static int TREE = 0x02;
+	// TODO: rework this...
+	public final static int BLOCK_DIRT = 0x00;
+	public final static int BLOCK_STONE = 0x01;
+	public final static int BLOCK_TREE = 0x02;
+	
+	public final static int ENTITY_CHARACTER = 0x03;
 }

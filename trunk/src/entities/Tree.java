@@ -14,7 +14,6 @@ public class Tree extends Block
 	@Override
 	public int getDataValue()
 	{
-		return Values.TREE;
+		return Values.BLOCK_TREE;
 	}
-
 }

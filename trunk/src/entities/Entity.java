@@ -1,5 +1,7 @@
 package entities;
 
+import general.DataContainer;
+
 import java.awt.*;
 
 public abstract class Entity
@@ -10,6 +12,7 @@ public abstract class Entity
 	public Entity()
 	{
 		_location = new Point();
+		this.setImage(DataContainer.getTexture(this.getDataValue()));
 	}
 	
 	protected Image getImage()
@@ -41,4 +44,6 @@ public abstract class Entity
 	{
 		g.drawImage(_image, (int)this.getLocation().getX() - 16, (int)this.getLocation().getY() - 16, null);
 	}
+	
+	public abstract int getDataValue();
 }
