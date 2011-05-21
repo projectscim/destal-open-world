@@ -9,9 +9,9 @@ import javax.imageio.ImageIO;
 
 public class Dirt extends Block
 {
-	@Override
-	public void paint(Graphics g)
+	public Dirt()
 	{
+		super();
 		try
 		{
 			this.setImage(ImageIO.read(new File("data/gfx/dirt.png")));
@@ -21,7 +21,6 @@ public class Dirt extends Block
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		super.paint(g);
 	}
 
 	@Override
@@ -29,5 +28,4 @@ public class Dirt extends Block
 	{
 		return Values.DIRT;
 	}
-
 }

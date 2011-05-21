@@ -8,21 +8,6 @@ import java.awt.Image;
 
 public abstract class Block extends Entity
 {
-	private Image _image;
-	
-	protected Image getImage()
-	{
-		return _image;
-	}
-	protected void setImage(Image _image)
-	{
-		this._image = _image;
-	}
-	@Override
-	public void paint(Graphics g)
-	{
-		g.drawImage(_image, (int)this.getLocation().getX() - 16, (int)this.getLocation().getY() - 16, null);
-	}
 	/**
 	 * Generates a Block from the data value
 	 * @param value The data value of the Block

@@ -8,9 +8,9 @@ import javax.imageio.ImageIO;
 
 public class Stone extends Block
 {
-	@Override
-	public void paint(Graphics g)
+	public Stone()
 	{
+		super();
 		try
 		{
 			this.setImage(ImageIO.read(new File("data/gfx/stone.png")));
@@ -20,7 +20,6 @@ public class Stone extends Block
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		super.paint(g);
 	}
 
 	@Override
@@ -28,5 +27,4 @@ public class Stone extends Block
 	{
 		return Values.STONE;
 	}
-
 }
