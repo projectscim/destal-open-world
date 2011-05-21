@@ -56,7 +56,6 @@ public class GamePanel extends JPanel implements MouseMotionListener
 	public void mouseDragged(MouseEvent e)
 	{
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
