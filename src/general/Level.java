@@ -1,5 +1,6 @@
 package general;
 
+import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -85,6 +86,6 @@ public class Level
 	
 	public Chunk getChunk(int x, int y) throws IOException
 	{
-		return new Chunk(new File(_chunkDir.getPath() + "/chunk" + x + "_" + y));
+		return new Chunk(new File(_chunkDir.getPath() + "/chunk" + x + "_" + y), new Point(x,y));
 	}
 }
