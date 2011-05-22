@@ -1,6 +1,7 @@
 package general;
 
 import java.awt.Graphics;
+import java.awt.Point;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -13,19 +14,26 @@ import entities.Item;
 
 public class Chunk
 {
+	private Point _location;
 	private Block[][] _blocks;
 	private Item[][] _items;
 
-	public Chunk()
+	private Chunk()
 	{
 		setBlocks(new Block[World.CHUNK_SIZE][World.CHUNK_SIZE]);
 		setItems(new Item[World.CHUNK_SIZE][World.CHUNK_SIZE]);
 	}
 	
-	public Chunk(File file) throws IOException
+	public Chunk(Point location)
 	{
 		this();
-		loadFile(file);
+		_location = location;
+	}
+	
+	public Chunk(File file, Point location) throws IOException
+	{
+		this(location);
+		this.loadFile(file);
 	}
 	
 	public void setBlocks(Block[][] blocks)
@@ -62,12 +70,13 @@ public class Chunk
 		}
 		fs.close();
 	}
+	/*
 	/**
 	 * Returns a new Chunk generated based on the specified binary file
 	 * @param file The binary file
 	 * @throws IOException If an I/O error occurs
 	 * @throws IllegalArgumentException If there is an illegal value in the input file
-	 */
+	 /
 	public static Block[][] createFromFile(File file) throws IOException
 	{
 		FileInputStream fs = new FileInputStream(file);
@@ -83,6 +92,7 @@ public class Chunk
 		fs.close();
 		return blocks;
 	}
+	*/
 	/**
 	 * Saves the current Chunk instance in the specified binary file
 	 * Note: If the file not exists, it is automatically generated

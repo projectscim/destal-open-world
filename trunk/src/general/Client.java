@@ -1,5 +1,6 @@
 package general;
 
+import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class Client
 
 	public Client() throws IOException
 	{
-		_currentChunk = new Chunk(new File("data/world/test.chnk"));
+		_currentChunk = new Chunk(new File("data/world/test.chnk"), new Point(0,0));
 		_localPlayer = new Player();
 		_gui = new GUI(600, 200, this);
 	}
