@@ -3,8 +3,9 @@ package entities;
 import general.DataContainer;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public abstract class Entity
+public abstract class Entity implements Serializable
 {
 	private Image _image;
 	private Point _location;
@@ -12,7 +13,10 @@ public abstract class Entity
 	public Entity()
 	{
 		_location = new Point();
-		this.setImage(DataContainer.getTexture(this.getDataValue()));
+		if(DataContainer.check())
+		{
+			this.setImage(DataContainer.getTexture(this.getDataValue()));
+		}
 	}
 	
 	protected Image getImage()

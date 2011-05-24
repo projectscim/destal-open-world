@@ -1,5 +1,6 @@
 package general;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -10,6 +11,8 @@ public class ClientConnection implements Runnable
 	private ObjectInputStream _input;
 	private ObjectOutputStream _output;
 	private NetworkManager _networkManager;
+	
+	private String _clientName;
 	
 	public ClientConnection(Socket s, NetworkManager network) throws Exception
 	{
@@ -30,21 +33,22 @@ public class ClientConnection implements Runnable
 				Packet p = recv();
 				if(p.getType() == MSGType.MSG_CL_TEST)
 				{
-					System.out.println("Client: " + (String)p.get());
+					_clientName = (String)p.get();
+					_networkManager.controller().onClientEnter(this);
 				}
-				
-				Packet r = new Packet(MSGType.MSG_SV_TEST);
-				r.set("Hi");
-				r.set(10);
-				send(r);
 			}
         }
 		catch(Exception e)
 		{
-			System.out.println("exception occured");
+			e.printStackTrace();
 		}
 		System.out.println("thread stopped");
 		_networkManager.clientDisconnected(this);
+	}
+	
+	public String getName()
+	{
+		return _clientName;
 	}
 	
 	public Packet recv() throws Exception
@@ -52,9 +56,16 @@ public class ClientConnection implements Runnable
 		return (Packet)_input.readObject();
 	}
 	
-	public void send(Packet data) throws Exception
+	public void send(Packet data)
 	{
-		_output.writeObject(data);
-		_output.flush();
+		try
+        {
+			_output.writeObject(data);
+			_output.flush();
+		}
+		catch(IOException e)
+		{
+			System.out.println("exception occured: couldn't send the packet");
+		}
 	}
 }

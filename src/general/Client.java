@@ -15,12 +15,15 @@ public class Client
 	private ArrayList<Character> _characters;
 	private Player _localPlayer;
 	private GUI _gui;
-
+	
+	private NetworkClient _networkClient;
+	
 	public Client() throws IOException
 	{
-		_currentChunk = new Chunk(new File("data/world/test.chnk"), new Point(0,0));
+		DataContainer.create();
 		_localPlayer = new Player();
 		_gui = new GUI(600, 200, this);
+		_networkClient = new NetworkClient(this);
 	}
 	
 	public Chunk getCurrentChunk()
@@ -50,7 +53,7 @@ public class Client
 	
 	public void run()
 	{
-
+		(new Thread(_networkClient)).start();
 	}
 	
 	public static void main(String[] args)

@@ -8,13 +8,20 @@ import java.util.ArrayList;
 public class NetworkManager implements Runnable
 {
 	private Server _server;
+	private Controller _controller;
 	private ServerSocket _serverSocket;
 	private ArrayList<ClientConnection> _clientConnections;
 	
-	public NetworkManager(Server server)
+	public NetworkManager(Server server, Controller controller)
 	{
 		_server = server;
+		_controller = controller;
 		_clientConnections = new ArrayList<ClientConnection>();
+	}
+	
+	public Controller controller()
+	{
+		return _controller;
 	}
 	
 	@Override
@@ -40,6 +47,7 @@ public class NetworkManager implements Runnable
 			}
 			catch (Exception e)
 			{
+				e.printStackTrace();
 				break;
 			}
         }
@@ -47,22 +55,15 @@ public class NetworkManager implements Runnable
 	
 	public void send(int ID, Packet data)
 	{
-		try
+		// TODO: use real ID or something else to identify the client
+		if(ID >= 0 && ID < _clientConnections.size())
 		{
-			// TODO: use real ID or something else to identify the client
-			if(ID >= 0 && ID < _clientConnections.size())
-			{
-				_clientConnections.get(ID).send(data);
-			}
-			else if(ID == -1) // broadcast
-			{
-				for(ClientConnection clientCon : _clientConnections)
-					clientCon.send(data);
-			}
+			_clientConnections.get(ID).send(data);
 		}
-		catch (Exception e)
+		else if(ID == -1) // broadcast
 		{
-			System.out.println("exception occured");
+			for(ClientConnection clientCon : _clientConnections)
+				clientCon.send(data);
 		}
 	}
 	
