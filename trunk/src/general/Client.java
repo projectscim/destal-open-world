@@ -33,7 +33,8 @@ public class Client
 
 	public void setCurrentChunk(Chunk _currentChunk)
 	{
-		this._currentChunk = _currentChunk;
+		_currentChunk = _currentChunk;
+		_gui.getGame().setChunk(_currentChunk);
 	}
 
 	public Chunk[] getChunkBuffer()

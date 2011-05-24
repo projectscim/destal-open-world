@@ -69,7 +69,7 @@ public class NetworkManager implements Runnable
 	
 	public void clientDisconnected(ClientConnection c)
 	{
-		System.out.println("client left");
+		System.out.println("client left: '" + c.getName() + "'");
 		_clientConnections.remove(c);
 	}
 }

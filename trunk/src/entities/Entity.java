@@ -15,8 +15,13 @@ public abstract class Entity implements Serializable
 		_location = new Point();
 		if(DataContainer.check())
 		{
-			this.setImage(DataContainer.getTexture(this.getDataValue()));
+			this.initImage();
 		}
+	}
+	
+	public void initImage()
+	{
+		this.setImage(DataContainer.getTexture(this.getDataValue()));
 	}
 	
 	protected Image getImage()
