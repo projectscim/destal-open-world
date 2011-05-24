@@ -40,7 +40,7 @@ public class ClientConnection implements Runnable
         }
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			System.out.println("exception occured");
 		}
 		System.out.println("thread stopped");
 		_networkManager.clientDisconnected(this);

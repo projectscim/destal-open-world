@@ -31,7 +31,7 @@ public class GUI extends JFrame
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.setBounds(0,0,width,height);
 	    
-	    _game = new GamePanel(this, _client.getLocalCharacter(), _client.getCurrentChunk());
+	    _game = new GamePanel(this, _client.getLocalCharacter());
 	    _game.setSize(new Dimension(width,height));
 	    _game.setLayout(null);
 	    
@@ -51,6 +51,11 @@ public class GUI extends JFrame
 	    setBackground(Color.RED);
 	    //this.addMouseMotionListener(_client.getLocalCharacter());
 
+	}
+	
+	public GamePanel getGame()
+	{
+		return _game;
 	}
 	
 	public void setGUIMode(GUIMode mode)

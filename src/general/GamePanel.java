@@ -20,17 +20,21 @@ public class GamePanel extends JPanel implements MouseMotionListener
 	private Player _player;
 	private Chunk _chunk;
 	
-	public GamePanel (GUI gui, Player player, Chunk chunk)
+	public GamePanel (GUI gui, Player player)
 	{
 		super();
 		_gui = gui;
 		_player = player;
-		_chunk = chunk;
 		this.addMouseMotionListener(this);
 		this.addMouseMotionListener(_player);
 		this.addKeyListener(_player);
 		_player.setContainer(this);
 		setDoubleBuffered(true);
+	}
+	
+	public void setChunk(Chunk chunk)
+	{
+		_chunk = chunk;
 	}
 	
 	@Override
