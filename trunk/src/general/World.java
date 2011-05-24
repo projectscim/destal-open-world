@@ -13,8 +13,7 @@ public class World
 	public final static int LEVEL_SIZE = 16;
 	public final static int LEVEL_QUANTITY = 3;
 	
-	public final static String WORLD_PATH = "data/world";
-	public final static String LEVEL_PATH = World.WORLD_PATH + "/lvl";
+	public final static String WORLD_PATH = "data/world/";
 
 	private Level[] _levels;
 	private String _name;
@@ -28,34 +27,51 @@ public class World
 	{
 		this._levels = levels;
 	}
+	
+	public String getPath()
+	{
+		return WORLD_PATH + _name + "/";
+	}
 
-	public World(String name) throws IOException
+	public World(String name)
 	{
 		_name = name;
 		_levels = new Level[LEVEL_QUANTITY];
-		if (!(new File(WORLD_PATH + "/" + _name + ".world")).exists())
+		try
 		{
-			createDefaultDirectories();
+			if(!(new File(getPath() + ".world")).exists())
+			{
+				createWorld();
+				loadLevels();
+				System.out.println("created world: '" + _name + "'");
+			}
+			else
+			{
+				loadLevels();
+				System.out.println("loaded world: '" + _name + "'");
+			}
 		}
-		createLevels();
+		catch (IOException e)
+		{
+			System.out.println("couldn't load world: '" + _name + "'");
+		}
 	}
 	
-	private void createDefaultDirectories() throws IOException
+	private void createWorld() throws IOException
 	{
 		// Create directory for the worlds
 		(new File(WORLD_PATH)).mkdir();
+		// Create directory for the new world
+		(new File(getPath())).mkdir();
 		// Create new World
-		(new File(WORLD_PATH + "/" + _name + ".world")).createNewFile();
-		// Create directory for the levels of the new World
-		(new File(LEVEL_PATH + "_" + _name)).mkdir();
+		(new File(getPath() + ".world")).createNewFile();
 	}
 	
-	private void createLevels() throws IOException
+	private void loadLevels() throws IOException
 	{
 		for (int i = 0; i < LEVEL_QUANTITY; i++)
 		{
-			_levels[i] = new Level(LEVEL_PATH + "_" + _name + "/lvl" + i + ".lvl",
-					LEVEL_PATH + "_" + _name + "/chunks_" + i);
+			_levels[i] = new Level(getPath() + "lvl_" + i + "/");
 		}
 	}
 	
@@ -77,7 +93,6 @@ public class World
 				getChunk(xChunk, yChunk, level).getBlocks()[x][y].paint(g);
 			}
 		}
-		
 	}
 	
 	public Point getAbsoluteLocation(int ChunkX, int ChunkY, Point location)

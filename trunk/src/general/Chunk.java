@@ -6,13 +6,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Random;
 
 import entities.Block;
 import entities.Item;
 
 
-public class Chunk
+public class Chunk implements Serializable
 {
 	private Point _location;
 	private Block[][] _blocks;
@@ -126,7 +127,7 @@ public class Chunk
 	 * Returns a new Chunk with random blocks
 	 * @return The generated Chunk
 	 */
-	public static Chunk createDefaultChunk()
+	public static Chunk createChunk()
 	{
 		Chunk chunk = new Chunk();
 		for (int x = 0; x < World.CHUNK_SIZE; x++)

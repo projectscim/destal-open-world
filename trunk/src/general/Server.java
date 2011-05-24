@@ -12,13 +12,14 @@ public class Server
 	
 	public Server()
 	{
-		_networkManager = new NetworkManager(this);
+		_controller = new Controller();
+		_networkManager = new NetworkManager(this, _controller);
 	}
 	
 	public void run()
 	{
 		(new Thread(_networkManager)).start();
 		
-		// TODO: load world, handle players etc
+		_controller.loadWorld("main");
 	}
 }

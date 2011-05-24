@@ -12,7 +12,7 @@ import entities.Values;
 public class DataContainer
 {
 	private ArrayList<Texture> _textures;
-	private static DataContainer _data = new DataContainer();
+	private static DataContainer _self;
 	
 	private class Texture
 	{
@@ -70,12 +70,22 @@ public class DataContainer
 		}
 	}
 	
+	public static void create()
+	{
+		_self = new DataContainer();
+	}
+	
+	public static boolean check()
+	{
+		return _self != null;
+	}
+	
 	public static Image getTexture(int tex)
 	{
-		for(int i = 0; i < _data._textures.size(); i++)
+		for(int i = 0; i < _self._textures.size(); i++)
 		{
-			if(_data._textures.get(i).getID() == tex)
-				return _data._textures.get(i).getImage();
+			if(_self._textures.get(i).getID() == tex)
+				return _self._textures.get(i).getImage();
 		}
 		return null;
 	}

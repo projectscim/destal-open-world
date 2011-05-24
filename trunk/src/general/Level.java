@@ -3,31 +3,31 @@ package general;
 import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.util.ArrayList;
 
 public class Level
 {
 	@SuppressWarnings("unused")
 	private ArrayList<Character> _characters;
-	private File _chunkDir;
-	private File _levelFile;
+	private String _dir;
 
-	public Level(String filePath, String chunkDir) throws IOException
+	public Level(String dir) throws IOException
 	{
 		// Create data file
-		_levelFile = new File(filePath);
-		_chunkDir = new File(chunkDir);
-		if (!_levelFile.exists())
-		{
-			_levelFile.createNewFile();
-			// Create Chunk folder for the current Level
-			_chunkDir.mkdir();
-			
-			this.createDefaultLevel();
-			_characters = new ArrayList<Character>();
-		}
+		_dir = dir;
+		_characters = new ArrayList<Character>();
 		
-		//this.saveLevel();
+		if (!new File(_dir + ".level").exists())
+		{
+			// Create folder for the current Level
+			(new File(_dir)).mkdir();
+			// Create the current Level
+			(new File(_dir + ".level")).createNewFile();
+			
+			createLevel(3, 3);
+			System.out.println("created new level");
+		}
 	}
 /*
 	public void setChunks(Chunk[][] chunks)
@@ -56,18 +56,22 @@ public class Level
 		return chunk;
 	}*/
 	
-	public Chunk[][] createDefaultLevel() throws NullPointerException, IOException
+	public void createLevel(int width, int height) throws IOException
 	{
-		Chunk[][] chunk = new Chunk[World.LEVEL_SIZE][World.LEVEL_SIZE];
-		for (int x = 0; x < World.LEVEL_SIZE; x++)
+		for (int x = 0; x < width; x++)
 		{
-			for (int y = 0; y < World.LEVEL_SIZE; y++)
+			for (int y = 0; y < height; y++)
 			{
-				Chunk.createDefaultChunk().saveChunk(new File(_chunkDir.getPath() + "/chunk" + x + "_" + y));
+				getChunk(x, y);
 			}
 		}
-		return chunk;
 	}
+	
+	public void createCompleteLevel() throws IOException
+	{
+		createLevel(World.LEVEL_SIZE, World.LEVEL_SIZE);
+	}
+	
 	/*
 	public void saveLevel() throws IOException, NullPointerException
 	{
@@ -84,8 +88,33 @@ public class Level
 		fs.close();
 	}*/
 	
-	public Chunk getChunk(int x, int y) throws IOException
+	public Chunk getChunk(int x, int y)
 	{
-		return new Chunk(new File(_chunkDir.getPath() + "/chunk" + x + "_" + y), new Point(x,y));
+		// load chunk or create new one
+		try 
+		{
+			if(getChunkFile(x,y).exists())
+			{
+				return new Chunk(getChunkFile(x,y), new Point(x,y));
+			}
+			else
+			{
+				System.out.println("generating chunk (" + x + "/" + y + ")");
+				Chunk c = Chunk.createChunk();
+				c.saveChunk(getChunkFile(x,y));
+				return c;
+			}
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	private File getChunkFile(int x, int y) throws IOException
+	{
+		return new File(_dir + "chunk" + "_" + x + "_" + y);
 	}
 }
