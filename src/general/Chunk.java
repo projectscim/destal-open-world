@@ -135,7 +135,7 @@ public class Chunk implements Serializable
 			for (int y = 0; y < World.CHUNK_SIZE; y++)
 			{
 				Random rnd = new Random();
-				chunk.getBlocks()[x][y] = Block.create(rnd.nextInt(2));
+				chunk.getBlocks()[x][y] = Block.create(rnd.nextInt(3));
 			}
 		}
 		return chunk;
