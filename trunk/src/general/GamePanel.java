@@ -41,9 +41,9 @@ public class GamePanel extends JPanel implements MouseMotionListener
 	public void paintComponent(Graphics g)
 	{
 		// Add what's to draw:
-		for (int x = 0; x <= _gui.getWidth()/World.BLOCK_PAINTSIZE; x++)
+		for (int x = 0; x < World.CHUNK_SIZE; x++)
 		{
-			for (int y = 0; y <= _gui.getHeight()/World.BLOCK_PAINTSIZE; y++)
+			for (int y = 0; y < World.CHUNK_SIZE; y++)
 			{
 				_chunk.getBlocks()[x][y].paint(g);
 			}
