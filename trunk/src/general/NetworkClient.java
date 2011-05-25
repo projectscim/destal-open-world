@@ -37,13 +37,7 @@ public class NetworkClient implements Runnable
 			if(r.getType() == MSGType.MSG_SV_TEST)
 			{
 				Chunk c = (Chunk)r.get();
-				for (int x = 0; x < World.CHUNK_SIZE; x++)
-				{
-					for (int y = 0; y < World.CHUNK_SIZE; y++)
-					{
-						c.getBlocks()[x][y].initImage();
-					}
-				}
+				c.initImages();
 				_client.setCurrentChunk(c);
 				System.out.println("received chunk from server");
 			}
