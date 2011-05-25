@@ -20,6 +20,6 @@ public class Server
 	{
 		(new Thread(_networkManager)).start();
 		
-		_controller.loadWorld("main");
+		_controller.loadWorld("hans");
 	}
 }

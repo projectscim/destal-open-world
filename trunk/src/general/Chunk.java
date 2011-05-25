@@ -182,4 +182,15 @@ public class Chunk implements Serializable
 			}
 		}
 	}
+	
+	public void initImages()
+	{
+		for (int x = 0; x < World.CHUNK_SIZE; x++)
+		{
+			for (int y = 0; y < World.CHUNK_SIZE; y++)
+			{
+				getBlocks()[x][y].initImage();
+			}
+		}
+	}
 }
