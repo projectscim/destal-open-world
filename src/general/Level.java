@@ -25,7 +25,7 @@ public class Level
 			// Create the current Level
 			(new File(_dir + ".level")).createNewFile();
 			
-			createLevel(3, 3);
+			createLevel(3,3);
 			System.out.println("created new level");
 		}
 	}
