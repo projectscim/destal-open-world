@@ -31,9 +31,9 @@ public class Client
 		return _currentChunk;
 	}
 
-	public void setCurrentChunk(Chunk _currentChunk)
+	public void setCurrentChunk(Chunk currentChunk)
 	{
-		_currentChunk = _currentChunk;
+		_currentChunk = currentChunk;
 		_gui.getGame().setChunk(_currentChunk);
 	}
 
