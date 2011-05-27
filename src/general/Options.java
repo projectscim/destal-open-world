@@ -1,12 +1,8 @@
 package general;
 
 
-import java.io.*;
-import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.lang.*;
-
 import javax.swing.*;
 
 public class Options extends JPanel implements ActionListener

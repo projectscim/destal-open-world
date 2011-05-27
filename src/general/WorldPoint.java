@@ -2,7 +2,7 @@ package general;
 
 import java.awt.Point;
 
-public class WorldPoint extends Point
+public class WorldPoint extends Point.Double
 {
 	public WorldPoint()
 	{
@@ -11,6 +11,10 @@ public class WorldPoint extends Point
 	public WorldPoint(int x, int y)
 	{
 		super(x, y);
+	}
+	public WorldPoint(double x, double y)
+	{
+		super(x,y);
 	}
 	public WorldPoint(int xLevel, int yLevel, int xChunk, int yChunk)
 	{
@@ -33,8 +37,8 @@ public class WorldPoint extends Point
 						 (int)(this.getY()-this.getChunkLocation().getY()*World.CHUNK_SIZE));
 	}
 	
-	public Point getLocationOnPanel(int x, int y)
+	public Point getLocationOnPanel(double x, double y)
 	{
-		return new Point(((int)this.getX()- x)*World.BLOCK_PAINTSIZE, ((int)this.getY()- y)*World.BLOCK_PAINTSIZE);
+		return new Point((int)((this.getX()- x)*World.BLOCK_PAINTSIZE), (int)((this.getY()- y)*World.BLOCK_PAINTSIZE));
 	}
 }

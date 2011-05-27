@@ -34,12 +34,22 @@ public class NetworkClient implements Runnable
 			send(p);
 			
 			Packet r = recv();
-			if(r.getType() == MSGType.MSG_SV_TEST)
+			/*if(r.getType() == MSGType.MSG_SV_TEST)
 			{
 				Chunk c = (Chunk)r.get();
 				c.initImages();
-				_client.setCurrentChunk(c);
+				//_client.setCurrentChunk(c);
 				System.out.println("received chunk from server");
+			}*/
+			if (r.getType() == MSGType.MSG_SV_SEND_CHUNKBUFFER)
+			{
+				Chunk[] buffer = (Chunk[])r.get();
+				for (Chunk c : buffer)
+				{
+					c.initImages();
+				}
+				_client.setChunkBuffer(buffer);
+				System.out.println("received chunk buffer from server");
 			}
 		}
 		catch(Exception e)

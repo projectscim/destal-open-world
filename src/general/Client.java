@@ -1,7 +1,5 @@
 package general;
 
-import java.awt.Point;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -31,11 +29,11 @@ public class Client
 		return _currentChunk;
 	}
 
-	public void setCurrentChunk(Chunk currentChunk)
+	/*public void setCurrentChunk(Chunk currentChunk)
 	{
 		_currentChunk = currentChunk;
 		_gui.getGame().setChunk(_currentChunk);
-	}
+	}*/
 
 	public Chunk[] getChunkBuffer()
 	{
@@ -45,6 +43,7 @@ public class Client
 	public void setChunkBuffer(Chunk[] _chunkBuffer)
 	{
 		this._chunkBuffer = _chunkBuffer;
+		_gui.getGame().setChunkBuffer(_chunkBuffer);
 	}
 
 	public Player getLocalCharacter()

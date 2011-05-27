@@ -1,10 +1,5 @@
 package test;
 
-import java.io.File;
-
-import general.Chunk;
-import general.World;
-
 public class ChunkTest
 {
 
