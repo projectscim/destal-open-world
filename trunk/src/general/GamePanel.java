@@ -2,13 +2,8 @@ package general;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import java.awt.geom.Point2D;
-
 import javax.swing.JPanel;
 
 import entities.Player;
@@ -18,7 +13,7 @@ public class GamePanel extends JPanel implements MouseMotionListener
 	private GUI _gui;
 	private MouseEvent _lastMouseEvent;
 	private Player _player;
-	private Chunk _chunk;
+	private Chunk[] _chunkBuffer;
 	
 	public GamePanel (GUI gui, Player player)
 	{
@@ -33,31 +28,25 @@ public class GamePanel extends JPanel implements MouseMotionListener
 
 	}
 	
-	public void setChunk(Chunk chunk)
+	public void setChunkBuffer(Chunk[] chunk)
 	{
-		_chunk = chunk;
-		for (int x = 0; x < World.CHUNK_SIZE; x++)
-		{
-			for (int y = 0; y < World.CHUNK_SIZE; y++)
-			{
-				System.out.println(_chunk.getBlocks()[x][y].getLocation().toString());
-				System.out.println("\t"+_chunk.getBlocks()[x][y].getLocation().getLocationOnPanel(0, 0));
-			}
-		}
+		_chunkBuffer = chunk;
 	}
 	
 	@Override
 	public void paintComponent(Graphics g)
 	{
 		// Add what's to draw:
-		WorldPoint p = new WorldPoint((int)_player.getLocation().getX()-this.getWidth()/2/World.BLOCK_PAINTSIZE,
-				(int)_player.getLocation().getY()-this.getHeight()/2/World.BLOCK_PAINTSIZE);
-		System.out.println(p.toString());
-		for (int x = 0; x < World.CHUNK_SIZE; x++)
+		WorldPoint p = new WorldPoint(_player.getLocation().getX()-this.getWidth()/2/World.BLOCK_PAINTSIZE,
+				_player.getLocation().getY()-this.getHeight()/2/World.BLOCK_PAINTSIZE);
+		for (Chunk c : _chunkBuffer)
 		{
-			for (int y = 0; y < World.CHUNK_SIZE; y++)
+			for (int x = 0; x < World.CHUNK_SIZE; x++)
 			{
-				_chunk.getBlocks()[x][y].paint(g, p);
+				for (int y = 0; y < World.CHUNK_SIZE; y++)
+				{
+					c.getBlocks()[x][y].paint(g, p);
+				}
 			}
 		}
 		if (_lastMouseEvent != null)
