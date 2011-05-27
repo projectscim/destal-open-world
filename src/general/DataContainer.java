@@ -26,9 +26,18 @@ public class DataContainer
 			_file = file;
 		}
 		
-		public void load() throws IOException
+		public void load() throws Exception
 		{
-			_image = ImageIO.read(new File(_file));
+			try
+			{
+				System.out.println(getClass().getResource(_file));
+				_image = ImageIO.read(getClass().getResource(_file));
+
+			}
+			catch(Exception ex)
+			{
+				throw ex;
+			}
 		}
 		
 		public Image getImage()
@@ -51,11 +60,16 @@ public class DataContainer
 	{
 		_textures = new ArrayList<Texture>();
 		
-		_textures.add(new Texture(Values.BLOCK_DIRT, "data/gfx/dirt.png"));
-		_textures.add(new Texture(Values.BLOCK_STONE, "data/gfx/stone.png"));
-		_textures.add(new Texture(Values.BLOCK_TREE, "data/gfx/tree.png"));
-		_textures.add(new Texture(Values.ENTITY_CHARACTER, "data/gfx/player.gif"));
-		
+		_textures.add(new Texture(Values.BLOCK_DIRT, "/gfx/dirt.png"));
+		_textures.add(new Texture(Values.BLOCK_STONE, "/gfx/stone.png"));
+		_textures.add(new Texture(Values.BLOCK_TREE, "/gfx/tree.png"));
+		_textures.add(new Texture(Values.ENTITY_CHARACTER, "/gfx/Player.gif"));
+		/*
+		_textures.add(new Texture(Values.BLOCK_DIRT, "/dirt.png"));
+		_textures.add(new Texture(Values.BLOCK_STONE, "/stone.png"));
+		_textures.add(new Texture(Values.BLOCK_TREE, "/tree.png"));
+		_textures.add(new Texture(Values.ENTITY_CHARACTER, "/player.gif"));
+		*/
 		for(int i = 0; i < _textures.size(); i++)
 		{
 			try
@@ -63,7 +77,7 @@ public class DataContainer
 				_textures.get(i).load();
 				System.out.println("loaded file: '" + _textures.get(i).getFile() + "'");
 			}
-			catch (IOException e)
+			catch (Exception e)
 			{
 				System.out.println("couldn't load file: '" + _textures.get(i).getFile() + "'");
 			}
