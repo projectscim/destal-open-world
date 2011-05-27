@@ -17,7 +17,7 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	public Player()
 	{
 		super();
-		this.setLocation(20, 100);
+		this.setLocation(10, 10);
 	}
 	
 	public Player(GamePanel container)
@@ -34,8 +34,8 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	public void move(boolean forward)
 	{
 		Point p = new Point(_gamePanel.getWidth()/2, _gamePanel.getHeight()/2);
-		double dx = (p.distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY())) > 1 ? (_lastMouseEvent.getX()-p.getX()) * 3 / p.distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY())) : 0);
-		double dy = (p.distance(new Point(_lastMouseEvent.getY(), _lastMouseEvent.getY())) > 1 ? (_lastMouseEvent.getY()-p.getY()) * 3 / p.distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY())) : 0);
+		double dx = (p.distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY())) > 1 ? (_lastMouseEvent.getX()-p.getX()) * 1 / p.distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY())) : 0);
+		double dy = (p.distance(new Point(_lastMouseEvent.getY(), _lastMouseEvent.getY())) > 1 ? (_lastMouseEvent.getY()-p.getY()) * 1 / p.distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY())) : 0);
 				
 		if (forward)
 		{

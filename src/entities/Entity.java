@@ -54,10 +54,15 @@ public abstract class Entity implements Serializable
 	{
 		g.drawImage(_image, (int)_location.getX()-16, (int)_location.getY()-16, null);
 	}
-	
-	public void paint(Graphics g, WorldPoint playerLocation, Point p)
+	/**
+	 * 
+	 * @param g
+	 * @param p The point in the upper left hand corner of the Graphics object on which to paint on
+	 */
+	public void paint(Graphics g, WorldPoint p)
 	{
-		g.drawImage(_image, _location.getRelativePoint(playerLocation, (int)p.getX(), (int)p.getY()));
+		Point loc = _location.getLocationOnPanel((int)p.getX(), (int)p.getY());
+		g.drawImage(_image, (int)loc.getX(), (int)loc.getY(), null);
 	}
 	
 	public abstract int getDataValue();

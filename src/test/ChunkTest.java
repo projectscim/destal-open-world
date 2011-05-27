@@ -14,8 +14,8 @@ public class ChunkTest
 	 */
 	public static void main(String[] args) throws Exception
 	{
-		Chunk c = Chunk.createChunk();
-		c.saveChunk(new File("data/world/test.chnk"));
+		//Chunk c = Chunk.createChunk();
+		//c.saveChunk(new File("data/world/test.chnk"));
 	}
 
 }
