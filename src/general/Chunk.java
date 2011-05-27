@@ -66,7 +66,7 @@ public class Chunk implements Serializable
 			for (int y = 0; y < World.CHUNK_SIZE; y++)
 			{
 				getBlocks()[x][y] = Block.create(fs.read());
-				getBlocks()[x][y].setLocation(x*World.BLOCK_PAINTSIZE, y*World.BLOCK_PAINTSIZE);
+				getBlocks()[x][y].setLocation(new WorldPoint((int)_location.getX(), (int)_location.getY(), x, y));
 			}
 		}
 		fs.close();
@@ -127,18 +127,17 @@ public class Chunk implements Serializable
 	 * Returns a new Chunk with random blocks
 	 * @return The generated Chunk
 	 */
-	public static Chunk createChunk()
+	public void create()
 	{
-		Chunk chunk = new Chunk();
 		for (int x = 0; x < World.CHUNK_SIZE; x++)
 		{
 			for (int y = 0; y < World.CHUNK_SIZE; y++)
 			{
 				Random rnd = new Random();
-				chunk.getBlocks()[x][y] = Block.create(rnd.nextInt(3));
+				this.getBlocks()[x][y] = Block.create(rnd.nextInt(3));
+				this.getBlocks()[x][y].setLocation(new WorldPoint((int)_location.getX(), (int)_location.getY(), x, y));
 			}
 		}
-		return chunk;
 	}
 	
 	public byte[] toByteArray()

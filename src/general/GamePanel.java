@@ -56,17 +56,6 @@ public class GamePanel extends JPanel implements MouseMotionListener
 		_player.paint(g);
 	}
 	
-	private Point getRelativeLocation(int x, int y)
-	{
-		return new Point((int)(_player.getLocation().getX()-this.getWidth()/2),
-				(int)(_player.getLocation().getY()-this.getHeight()/2));
-	}
-	
-	private Point getChunkPosition(int x, int y)
-	{
-		return null;
-	}
-	
 	@Override
 	public void mouseDragged(MouseEvent e)
 	{
