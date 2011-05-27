@@ -1,6 +1,7 @@
 package entities;
 
 import general.DataContainer;
+import general.WorldPoint;
 
 import java.awt.*;
 import java.io.Serializable;
@@ -8,11 +9,11 @@ import java.io.Serializable;
 public abstract class Entity implements Serializable
 {
 	private Image _image;
-	private Point _location;
+	private WorldPoint _location;
 
 	public Entity()
 	{
-		_location = new Point();
+		_location = new WorldPoint();
 		if(DataContainer.check())
 		{
 			this.initImage();
@@ -34,12 +35,12 @@ public abstract class Entity implements Serializable
 		this._image = _image;
 	}
 
-	public Point getLocation()
+	public WorldPoint getLocation()
 	{
-		return _location.getLocation();
+		return _location;
 	}
 
-	public void setLocation(Point value)
+	public void setLocation(WorldPoint value)
 	{
 		_location.setLocation(value);
 	}
@@ -51,7 +52,12 @@ public abstract class Entity implements Serializable
 
 	public void paint(Graphics g)
 	{
-		g.drawImage(_image, (int)this.getLocation().getX() - 16, (int)this.getLocation().getY() - 16, null);
+		g.drawImage(_image, (int)_location.getX()-16, (int)_location.getY()-16, null);
+	}
+	
+	public void paint(Graphics g, WorldPoint playerLocation, Point p)
+	{
+		g.drawImage(_image, _location.getRelativePoint(playerLocation, (int)p.getX(), (int)p.getY()));
 	}
 	
 	public abstract int getDataValue();

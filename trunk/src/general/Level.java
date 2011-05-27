@@ -100,7 +100,8 @@ public class Level
 			else
 			{
 				System.out.println("generating chunk (" + x + "/" + y + ")");
-				Chunk c = Chunk.createChunk();
+				Chunk c = new Chunk(new Point(x,y));
+				c.create();
 				c.saveChunk(getChunkFile(x,y));
 				return c;
 			}
