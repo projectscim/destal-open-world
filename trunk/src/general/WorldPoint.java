@@ -33,8 +33,8 @@ public class WorldPoint extends Point
 						 (int)(this.getY()-this.getChunkLocation().getY()*World.CHUNK_SIZE));
 	}
 	
-	public Point getLocationOnPanel()
+	public Point getLocationOnPanel(int x, int y)
 	{
-		return null;
+		return new Point(((int)this.getX()- x)*World.BLOCK_PAINTSIZE, ((int)this.getY()- y)*World.BLOCK_PAINTSIZE);
 	}
 }
