@@ -2,6 +2,7 @@ package general;
 
 
 import java.awt.Button;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,12 +11,19 @@ import javax.swing.JPanel;
 public class MenuPanel extends JPanel implements ActionListener
 {
 	private Button[] _button;
+	private TextField _textField;
 	private GUI _gui;
+	private String _serverIp;
 	
 	public MenuPanel (GUI gui)
 	{
 		super();
 		_gui = gui;
+		
+		_textField = new TextField("Server IP");
+		_textField.setLocation(50, 50);
+		_textField.setSize(150, 20);
+		this.add(_textField);
 		_button = new Button[]{	new Button ("Start Game"),
 								new Button ("Options"),
 								new Button ("Exit") };
