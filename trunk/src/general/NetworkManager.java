@@ -29,7 +29,7 @@ public class NetworkManager implements Runnable
 	{
 		try 
 		{
-			_serverSocket = new ServerSocket(4185);
+			_serverSocket = new ServerSocket(3000);
 		}
 		catch (IOException e)
 		{
