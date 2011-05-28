@@ -5,7 +5,7 @@ public class Server
 	private Controller _controller;
 	private NetworkManager _networkManager;
 
-	public static void main(String[] args) throws Exception
+	public static void main(String[] args)
 	{
 		(new Server()).run();
 	}
