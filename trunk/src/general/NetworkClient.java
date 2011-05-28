@@ -24,7 +24,7 @@ public class NetworkClient implements Runnable
 		System.out.println("started netclient");
 		try
 		{
-			Socket _socket = new Socket("5.42.239.172", 4185);
+			Socket _socket = new Socket("localhost", 4185);
 			_output = new ObjectOutputStream(_socket.getOutputStream());
 			_input = new ObjectInputStream(_socket.getInputStream());
 			System.out.println("connected to server");
