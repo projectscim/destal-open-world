@@ -19,11 +19,6 @@ public class NetworkManager implements Runnable
 		_clientConnections = new ArrayList<ClientConnection>();
 	}
 	
-	public Controller controller()
-	{
-		return _controller;
-	}
-	
 	@Override
 	public void run()
 	{
@@ -71,5 +66,33 @@ public class NetworkManager implements Runnable
 	{
 		System.out.println("client left: '" + c.getName() + "'");
 		_clientConnections.remove(c);
+	}
+	
+	public void clientConnected(ClientConnection c)
+	{
+		System.out.println("client connected: '" + c.getName() + "'");
+		Packet p = new Packet(MSGType.MSG_SV_INIT);
+		p.set(true);
+		p.set("Welcome :)");
+		c.send(p);
+	}
+	
+	public void clientRequestChunkbuffer(ClientConnection c)
+	{
+		System.out.println("sending chunk to client: '" + c.getName() + "'");
+		
+		Chunk[] buffer = new Chunk[9];
+		int i = 0;
+		for (int x = 0; x < 3; x++)
+		{
+			for (int y = 0; y < 3; y++)
+			{
+				buffer[i++] = _controller.world().getLevels()[0].getChunk(x, y);
+			}
+		}
+		
+		Packet p = new Packet(MSGType.MSG_SV_RESPONSE_CHUNKBUFFER);
+		p.set(buffer);
+		c.send(p);
 	}
 }

@@ -58,6 +58,11 @@ public class GUI extends JFrame
 		return _game;
 	}
 	
+	public Client getClient()
+	{
+		return _client;
+	}
+	
 	public void setGUIMode(GUIMode mode)
 	{
 		_guiMode = mode;

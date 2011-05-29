@@ -20,6 +20,7 @@ public class ClientConnection implements Runnable
 		_input = new ObjectInputStream(_socket.getInputStream());
 		_output = new ObjectOutputStream(_socket.getOutputStream());
 		_networkManager = network;
+		_clientName = "< connecting >";
 	}
 	
 	@Override
@@ -28,21 +29,40 @@ public class ClientConnection implements Runnable
 		System.out.println("thread started");
 		try
         {
-			while(true) // TODO stop function
+			boolean error = false;
+			while(!error)
 			{
 				Packet p = recv();
-				if(p.getType() == MSGType.MSG_CL_TEST)
+				byte type = p.getType();
+				System.out.println("received packet from client: '" + _clientName + "' (type: " + type + ")");
+				
+				if(type == MSGType.MSG_CL_INIT)
 				{
-					_clientName = (String)p.get();
-					_networkManager.controller().onClientEnter(this);
+					if((Integer)p.get() != MSGType.PROTOCOL_VERSION)
+					{
+						System.out.println("error: wrong version... dropping client");
+						Packet r = new Packet(MSGType.MSG_SV_INIT);
+						r.set(false);
+						send(r);
+						error = true;
+					}
+					else
+					{
+						_clientName = (String)p.get();
+						_networkManager.clientConnected(this);
+					}
+				}
+				if(type == MSGType.MSG_CL_REQUEST_CHUNKBUFFER)
+				{
+					_networkManager.clientRequestChunkbuffer(this);
 				}
 			}
+			_socket.close();
         }
 		catch(Exception e)
 		{
 			System.out.println("exception occured");
 		}
-		System.out.println("thread stopped");
 		_networkManager.clientDisconnected(this);
 	}
 	
