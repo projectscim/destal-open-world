@@ -12,45 +12,81 @@ public class NetworkClient implements Runnable
 	private ObjectOutputStream _output;
 	
 	private Client _client;
+	State _state;
+	
+	private enum State { NONE, CONNECTING, CHECKED, READY };
 	
 	public NetworkClient(Client client)
 	{
 		_client = client;
+		_state = State.NONE;
 	}
 
 	@Override
 	public void run()
 	{
-		System.out.println("started netclient");
+		System.out.println("netclient started... listening...");
 		try
 		{
-			Socket _socket = new Socket("localhost", 4185);
+			boolean error = false;
+			while(!error)
+			{
+				Packet r = recv();
+				byte type = r.getType();
+				System.out.println("received packet (type: " + type + ")");
+				
+				if(type == MSGType.MSG_SV_INIT && _state == State.CONNECTING)
+				{
+					if(!(Boolean)r.get())
+					{
+						System.out.println("wrong version");
+						error = true;
+					}
+					else
+					{
+						System.out.println("[server] MOTD: " + (String)r.get());
+						send(new Packet(MSGType.MSG_CL_REQUEST_CHUNKBUFFER));
+						_state = State.CHECKED;
+					}
+				}
+				if (type == MSGType.MSG_SV_RESPONSE_CHUNKBUFFER && _state == State.CHECKED)
+				{
+					Chunk[] buffer = (Chunk[])r.get();
+					for (Chunk c : buffer)
+					{
+						c.initImages();
+					}
+					_client.setChunkBuffer(buffer);
+					_state = State.READY;
+					_client.connected();
+					System.out.println("received chunk buffer from server");
+				}
+			}
+			_socket.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void connect(String address)
+	{
+		System.out.println("connecting to '" + address + "'");
+		try
+		{
+			_state = State.CONNECTING;
+			_socket = new Socket(address, 4185);
 			_output = new ObjectOutputStream(_socket.getOutputStream());
 			_input = new ObjectInputStream(_socket.getInputStream());
 			System.out.println("connected to server");
 			
-			Packet p = new Packet(MSGType.MSG_CL_TEST);
+			Packet p = new Packet(MSGType.MSG_CL_INIT);
+			p.set(MSGType.PROTOCOL_VERSION);
 			p.set("John Doe");
 			send(p);
 			
-			Packet r = recv();
-			/*if(r.getType() == MSGType.MSG_SV_TEST)
-			{
-				Chunk c = (Chunk)r.get();
-				c.initImages();
-				//_client.setCurrentChunk(c);
-				System.out.println("received chunk from server");
-			}*/
-			if (r.getType() == MSGType.MSG_SV_SEND_CHUNKBUFFER)
-			{
-				Chunk[] buffer = (Chunk[])r.get();
-				for (Chunk c : buffer)
-				{
-					c.initImages();
-				}
-				_client.setChunkBuffer(buffer);
-				System.out.println("received chunk buffer from server");
-			}
+			(new Thread(this)).start();
 		}
 		catch(Exception e)
 		{

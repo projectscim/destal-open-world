@@ -8,7 +8,7 @@ import entities.Player;
 
 public class Client
 {
-	private Chunk _currentChunk;
+	//private Chunk _currentChunk;
 	private Chunk[] _chunkBuffer;
 	private ArrayList<Character> _characters;
 	private Player _localPlayer;
@@ -23,17 +23,6 @@ public class Client
 		_gui = new GUI(600, 200, this);
 		_networkClient = new NetworkClient(this);
 	}
-	
-	public Chunk getCurrentChunk()
-	{
-		return _currentChunk;
-	}
-
-	/*public void setCurrentChunk(Chunk currentChunk)
-	{
-		_currentChunk = currentChunk;
-		_gui.getGame().setChunk(_currentChunk);
-	}*/
 
 	public Chunk[] getChunkBuffer()
 	{
@@ -51,9 +40,19 @@ public class Client
 		return _localPlayer;
 	}
 	
+	public void connect(String address)
+	{
+		_networkClient.connect(address);
+	}
+	
 	public void run()
 	{
-		(new Thread(_networkClient)).start();
+		
+	}
+	
+	public void connected()
+	{
+		_gui.setGUIMode (GUI.GUIMode.GAME);
 	}
 	
 	public static void main(String[] args)

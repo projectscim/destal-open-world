@@ -20,7 +20,7 @@ public class MenuPanel extends JPanel implements ActionListener
 		super();
 		_gui = gui;
 		
-		_textField = new TextField("Server IP");
+		_textField = new TextField("localhost");
 		_textField.setLocation(50, 50);
 		_textField.setSize(150, 20);
 		this.add(_textField);
@@ -41,7 +41,7 @@ public class MenuPanel extends JPanel implements ActionListener
     {
     	if (e.getActionCommand().equals("Start Game"))
     	{
-    		_gui.setGUIMode (GUI.GUIMode.GAME);
+    		_gui.getClient().connect(_textField.getText());
     	}
     	if (e.getActionCommand().equals("Options"))
     	{
