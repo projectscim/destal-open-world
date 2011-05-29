@@ -8,7 +8,6 @@ import entities.Player;
 
 public class Client
 {
-	//private Chunk _currentChunk;
 	private Chunk[] _chunkBuffer;
 	private ArrayList<Character> _characters;
 	private Player _localPlayer;
