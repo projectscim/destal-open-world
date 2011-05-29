@@ -2,6 +2,7 @@ package general;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import javax.swing.JPanel;
@@ -45,7 +46,12 @@ public class GamePanel extends JPanel implements MouseMotionListener
 			{
 				for (int y = 0; y < World.CHUNK_SIZE; y++)
 				{
-					c.getBlocks()[x][y].paint(g, p);
+					Point loc = c.getBlocks()[x][y].getLocation().getLocationOnPanel((int)p.getX(), (int)p.getY());
+					if (loc.getX() >= 0 && loc.getX()-World.BLOCK_PAINTSIZE <= this.getWidth() &&
+						loc.getY() >= 0 && loc.getY()-World.BLOCK_PAINTSIZE <= this.getHeight())
+					{
+						c.getBlocks()[x][y].paint(g, p);
+					}
 				}
 			}
 		}
