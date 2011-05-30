@@ -5,19 +5,20 @@ import java.awt.Button;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class OptionPanel extends JPanel implements ActionListener
 {
-	private Button[] _button;
+	private JButton[] _button;
 	private GUI _gui;
 	
 	public OptionPanel (GUI gui)
 	{
 		super();
 		_gui = gui;
-		_button = new Button[]{	new Button ("Pointless Button"),
-								new Button ("Back") };
+		_button = new JButton[]{	new JButton ("Pointless Button"),
+								new JButton ("Back") };
 		for (int i = 0; i < _button.length; i++)
 		{
 			_button[i].setLocation(100, (i+1) * 20);
