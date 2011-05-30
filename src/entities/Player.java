@@ -1,5 +1,6 @@
 package entities;
 
+import general.Chunk;
 import general.GamePanel;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -12,6 +13,7 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 {
 	private MouseEvent _lastMouseEvent;
 	private GamePanel _gamePanel;
+	private Chunk _currentChunk;
 	
 	public Player()
 	{
@@ -29,14 +31,22 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	{
 		_gamePanel = container;
 	}
+	
+	public void setCurrentChunk(Chunk chunk)
+	{
+		_currentChunk = chunk;
+	}
 
 	public void move(int direction)
 	{
 		Point p = new Point(_gamePanel.getWidth()/2, _gamePanel.getHeight()/2);
 		double dx = (p.distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY())) > 1 ? (_lastMouseEvent.getX()-p.getX()) * 0.3 / p.distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY())) : 0);
 		double dy = (p.distance(new Point(_lastMouseEvent.getY(), _lastMouseEvent.getY())) > 1 ? (_lastMouseEvent.getY()-p.getY()) * 0.3 / p.distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY())) : 0);
-				
-		this.setLocation(this.getLocation().getX()+dx*direction, this.getLocation().getY()+dy*direction);
+			
+		//if (_currentChunk.getBlock((int)this.getLocation().getX(), (int)this.getLocation().getY()) instanceof IWalkable)
+		{
+			this.setLocation(this.getLocation().getX()+dx*direction, this.getLocation().getY()+dy*direction);
+		}
 		
 		_gamePanel.invokeRepaint();
 	}

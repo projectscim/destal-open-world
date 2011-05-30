@@ -46,6 +46,20 @@ public class Chunk implements Serializable
 	{
 		return _blocks;
 	}
+	
+	public Block getBlock(int x, int y)
+	{
+		for (Block[] bl : _blocks)
+		{
+			for (Block b : bl)
+			{
+				if (b.getLocation() == new WorldPoint(x, y))
+					return b;
+				
+			}
+		}
+		return null;
+	}
 
 	public void setItems(Item[][] items)
 	{

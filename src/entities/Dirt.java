@@ -1,7 +1,7 @@
 package entities;
 
 
-public class Dirt extends Block
+public class Dirt extends Block implements IWalkable
 {
 	@Override
 	public int getDataValue()
