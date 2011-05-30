@@ -26,7 +26,6 @@ public class GamePanel extends JPanel implements MouseMotionListener
 		this.addKeyListener(_player);
 		_player.setContainer(this);
 		setDoubleBuffered(true);
-
 	}
 	
 	public void setChunkBuffer(Chunk[] chunk)

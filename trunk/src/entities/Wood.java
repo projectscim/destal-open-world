@@ -1,6 +1,6 @@
 package entities;
 
-public class Wood
+public class Wood implements IWalkable
 {
 	
 }
