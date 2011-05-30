@@ -6,12 +6,14 @@ import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class MenuPanel extends JPanel implements ActionListener
 {
-	private Button[] _button;
-	private TextField _textField;
+	private JButton[] _button;
+	private JTextField _textField;
 	private GUI _gui;
 	private String _serverIp;
 	
@@ -20,13 +22,13 @@ public class MenuPanel extends JPanel implements ActionListener
 		super();
 		_gui = gui;
 		
-		_textField = new TextField("localhost");
+		_textField = new JTextField("localhost");
 		_textField.setLocation(50, 50);
 		_textField.setSize(150, 20);
 		this.add(_textField);
-		_button = new Button[]{	new Button ("Start Game"),
-								new Button ("Options"),
-								new Button ("Exit") };
+		_button = new JButton[]{	new JButton ("Start Game"),
+								new JButton ("Options"),
+								new JButton ("Exit") };
 		for (int i = 0; i < _button.length; i++)
 		{
 			_button[i].setLocation((i+1) * 100, 100);
