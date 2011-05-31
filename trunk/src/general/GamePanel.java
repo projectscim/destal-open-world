@@ -42,6 +42,9 @@ public class GamePanel extends JPanel implements MouseMotionListener
 				_player.getLocation().getY()-this.getHeight()/2/World.BLOCK_PAINTSIZE);
 		for (Chunk c : _chunkBuffer)
 		{
+			if(c == null)
+				continue;
+			
 			for (int x = 0; x < World.CHUNK_SIZE; x++)
 			{
 				for (int y = 0; y < World.CHUNK_SIZE; y++)

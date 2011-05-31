@@ -1,5 +1,6 @@
 package general;
 
+import java.awt.Point;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -77,21 +78,26 @@ public class NetworkManager implements Runnable
 		c.send(p);
 	}
 	
-	public void clientRequestChunkbuffer(ClientConnection c)
+	public void clientRequestEnter(ClientConnection c)
 	{
 		System.out.println("sending chunk buffer to client: '" + c.getName() + "'");
+		// TODO: change default position
+		WorldPoint pos = new WorldPoint(40, 40);
+		Point chunkPos = pos.getChunkLocation();
 		
 		Chunk[] buffer = new Chunk[9];
 		int i = 0;
-		for (int x = 0; x < 3; x++)
+		for (int x = chunkPos.x-1; x <= chunkPos.x+1; x++)
 		{
-			for (int y = 0; y < 3; y++)
+			for (int y = chunkPos.y-1; y <= chunkPos.y+1; y++)
 			{
 				buffer[i++] = _controller.world().getLevels()[0].getChunk(x, y);
 			}
 		}
 		
-		Packet p = new Packet(MSGType.MSG_SV_RESPONSE_CHUNKBUFFER);
+		Packet p = new Packet(MSGType.MSG_SV_RESPONSE_ENTER);
+		p.set(pos.getX());
+		p.set(pos.getY());
 		p.set(buffer);
 		c.send(p);
 	}
