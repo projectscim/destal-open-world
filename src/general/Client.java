@@ -70,7 +70,9 @@ public class Client
 		try
 		{
 			(new Client()).run();
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

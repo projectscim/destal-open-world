@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 import entities.Player;
 
-public class GamePanel extends JPanel implements MouseMotionListener
+public class GamePanel extends JPanel implements MouseMotionListener, IPlayerMovementListener
 {
 	private GUI _gui;
 	private MouseEvent _lastMouseEvent;
@@ -26,6 +26,7 @@ public class GamePanel extends JPanel implements MouseMotionListener
 		this.addMouseMotionListener(_player);
 		this.addKeyListener(_player);
 		_player.setContainer(this);
+		_player.addPlayerMovementListener(this);
 		setDoubleBuffered(true);
 	}
 	
@@ -86,6 +87,12 @@ public class GamePanel extends JPanel implements MouseMotionListener
 	public void invokeRepaint(int x1, int y1, int x2, int y2)
 	{
 		_gui.repaint(x1, y1, x2, y2);		
+	}
+
+	@Override
+	public void playerMoved(PlayerMovementEvent e)
+	{
+		this.repaint();		
 	}
 	
 }
