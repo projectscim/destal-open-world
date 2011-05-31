@@ -88,7 +88,7 @@ public class NetworkClient implements Runnable
 		}
 	}
 	
-	public void connect(String address)
+	public void connect(String address, String username)
 	{
 		System.out.println("connecting to '" + address + "'");
 		try
@@ -101,7 +101,7 @@ public class NetworkClient implements Runnable
 			
 			Packet p = new Packet(MSGType.MSG_CL_INIT);
 			p.set(MSGType.PROTOCOL_VERSION);
-			p.set("John Doe");
+			p.set(username);
 			send(p);
 			
 			(new Thread(this)).start();
