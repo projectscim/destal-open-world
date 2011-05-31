@@ -56,6 +56,12 @@ public class ClientConnection implements Runnable
 				{
 					_networkManager.clientRequestChunkbuffer(this);
 				}
+				if(type == MSGType.MSG_CL_REQUEST_CHUNK)
+				{
+					int x = (Integer)p.get();
+					int y = (Integer)p.get();
+					_networkManager.clientRequestChunk(this, x, y);
+				}
 			}
 			_socket.close();
         }

@@ -15,11 +15,17 @@ public class MSGType
 	 * Server -> Client (MSG_SV_INIT: accepted?, MOTD)
 	 * Client -> Server (MSG_CL_REQUEST_CHUNKBUFFER)
 	 * Server -> Client (MSG_SV_RESPONSE_CHUNKBUFFER: Chunkbuffer/Array)
+	 * 
+	 * -- Chunk Request --
+	 * Client -> Server (MSG_CL_REQUEST_CHUNK: xPos, yPos)
+	 * Server -> Client (MSG_SV_RESPONSE_CHUNK: Chunk)
 	 */
 	
 	public final static byte MSG_CL_INIT= 0x01;
 	public final static byte MSG_CL_REQUEST_CHUNKBUFFER = 0x02;
+	public final static byte MSG_CL_REQUEST_CHUNK = 0x03;
 	
 	public final static byte MSG_SV_INIT = 0x11;
 	public final static byte MSG_SV_RESPONSE_CHUNKBUFFER = 0x12;
+	public final static byte MSG_SV_RESPONSE_CHUNK = 0x13;
 }

@@ -1,10 +1,10 @@
 package general;
 
-import entities.Player;
-
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
+
+import entities.Player;
 
 public class ChunkPanel extends JPanel
 {
