@@ -20,6 +20,6 @@ public class Server
 	{
 		(new Thread(_networkManager)).start();
 		
-		_controller.loadWorld("gross");
+		_controller.loadWorld("klein");
 	}
 }
