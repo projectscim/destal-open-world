@@ -20,13 +20,13 @@ public class MenuPanel extends JPanel implements ActionListener
 		_gui = gui;
 		
 		_textField = new JTextField[] { new JTextField("localhost"),
-										new JTextField("Username") };
-	for (int i = 0; i < _textField.length; i++)
-	{
-		_textField[i].setLocation(i * 300 + 50, 50);
-		_textField[i].setSize(150, 20);
-		this.add(_textField[i]);
-	}
+										new JTextField("username") };
+		for (int i = 0; i < _textField.length; i++)
+		{
+			_textField[i].setLocation(i * 300 + 50, 50);
+			_textField[i].setSize(150, 20);
+			this.add(_textField[i]);
+		}
 
 		_button = new JButton[]{	new JButton ("Start Game"),
 								new JButton ("Options"),
@@ -45,7 +45,7 @@ public class MenuPanel extends JPanel implements ActionListener
     {
     	if (e.getActionCommand().equals("Start Game"))
     	{
-    		_gui.getClient().connect(_textField[0].getText());
+    		_gui.getClient().connect(_textField[0].getText(), _textField[1].getText());
     	}
     	if (e.getActionCommand().equals("Options"))
     	{

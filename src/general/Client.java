@@ -40,9 +40,9 @@ public class Client
 		return _localPlayer;
 	}
 	
-	public void connect(String address)
+	public void connect(String address, String username)
 	{
-		_networkClient.connect(address);
+		_networkClient.connect(address, username);
 	}
 	
 	public void run()
