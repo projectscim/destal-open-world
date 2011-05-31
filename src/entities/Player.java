@@ -32,15 +32,29 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	
 	public void searchCurrentChunk()
 	{
-		for (Chunk c : _client.getChunkBuffer())
+		// move this somewhere else
+		Chunk newCurrent = null;
+		for (int i = 0; i < _client.getChunkBuffer().length; i++)
 		{
-			if(getLocation().getChunkLocation().equals(c.getLocation()))
+			if(_client.getChunkBuffer()[i] == null)
+				continue;
+			
+			if(getLocation().getChunkLocation().equals(_client.getChunkBuffer()[i].getLocation()))
 			{
-				_currentChunk = c;
-				return;
+				newCurrent = _client.getChunkBuffer()[i];
+			}
+			if(Math.abs(_client.getChunkBuffer()[i].getLocation().x - getLocation().getChunkLocation().x) > 1 ||
+			   Math.abs(_client.getChunkBuffer()[i].getLocation().y - getLocation().getChunkLocation().y) > 1)
+			{
+				_client.getChunkBuffer()[i] = null;
 			}
 		}
 		
+		if(newCurrent != null)
+		{
+			_currentChunk = newCurrent;
+		}
+		else
 		_client.chunkNeeded(getLocation().getChunkLocation());
 	}
 	

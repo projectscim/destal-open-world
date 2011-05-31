@@ -52,9 +52,9 @@ public class ClientConnection implements Runnable
 						_networkManager.clientConnected(this);
 					}
 				}
-				if(type == MSGType.MSG_CL_REQUEST_CHUNKBUFFER)
+				if(type == MSGType.MSG_CL_REQUEST_ENTER)
 				{
-					_networkManager.clientRequestChunkbuffer(this);
+					_networkManager.clientRequestEnter(this);
 				}
 				if(type == MSGType.MSG_CL_REQUEST_CHUNK)
 				{

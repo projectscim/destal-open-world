@@ -45,12 +45,13 @@ public class NetworkClient implements Runnable
 					else
 					{
 						System.out.println("[server] MOTD: " + (String)r.get());
-						send(new Packet(MSGType.MSG_CL_REQUEST_CHUNKBUFFER));
+						send(new Packet(MSGType.MSG_CL_REQUEST_ENTER));
 						_state = State.CHECKED;
 					}
 				}
-				if (type == MSGType.MSG_SV_RESPONSE_CHUNKBUFFER && _state == State.CHECKED)
+				if (type == MSGType.MSG_SV_RESPONSE_ENTER && _state == State.CHECKED)
 				{
+					_client.getLocalCharacter().setLocation((Double)r.get(), (Double)r.get());
 					Chunk[] buffer = (Chunk[])r.get();
 					for (Chunk c : buffer)
 					{
@@ -67,9 +68,14 @@ public class NetworkClient implements Runnable
 					{
 						Chunk c = (Chunk)r.get();
 						c.initImages();
-						Chunk[] buffer = _client.getChunkBuffer();
-						buffer[0] = c;
-						_client.setChunkBuffer(buffer);
+						for (int i = 0; i < _client.getChunkBuffer().length; i++)
+						{
+							if(_client.getChunkBuffer()[i] == null)
+							{
+								_client.getChunkBuffer()[i] = c;
+								break;
+							}
+						}
 						System.out.println("received chunk from server");
 					}
 				}
