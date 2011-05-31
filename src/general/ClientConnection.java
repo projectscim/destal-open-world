@@ -68,6 +68,7 @@ public class ClientConnection implements Runnable
 		catch(Exception e)
 		{
 			System.out.println("exception occured");
+			e.printStackTrace();
 		}
 		_networkManager.clientDisconnected(this);
 	}
