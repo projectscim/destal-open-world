@@ -1,7 +1,9 @@
 package entities;
 
 import general.Chunk;
+import general.Client;
 import general.GamePanel;
+
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
@@ -14,27 +16,37 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	private MouseEvent _lastMouseEvent;
 	private GamePanel _gamePanel;
 	private Chunk _currentChunk;
+	private Client _client;
 	
 	public Player()
 	{
 		super();
-		this.setLocation(10, 10);
+		setLocation(10, 10);
 	}
 	
-	public Player(GamePanel container)
+	public Player(Client client)
 	{
 		this();
-		_gamePanel = container;
+		_client = client;
+	}
+	
+	public void searchCurrentChunk()
+	{
+		for (Chunk c : _client.getChunkBuffer())
+		{
+			if(getLocation().getChunkLocation().equals(c.getLocation()))
+			{
+				_currentChunk = c;
+				return;
+			}
+		}
+		
+		_client.chunkNeeded(getLocation().getChunkLocation());
 	}
 	
 	public void setContainer(GamePanel container)
 	{
 		_gamePanel = container;
-	}
-	
-	public void setCurrentChunk(Chunk chunk)
-	{
-		_currentChunk = chunk;
 	}
 
 	public void move(int direction)
@@ -46,6 +58,12 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 		//if (_currentChunk.getBlock((int)this.getLocation().getX(), (int)this.getLocation().getY()) instanceof IWalkable)
 		{
 			this.setLocation(this.getLocation().getX()+dx*direction, this.getLocation().getY()+dy*direction);
+		}
+		
+		if(!getLocation().getChunkLocation().equals(_currentChunk.getLocation()))
+		{
+			System.out.println("left chunk");
+			searchCurrentChunk();
 		}
 		
 		_gamePanel.invokeRepaint();
@@ -62,14 +80,12 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	public void keyPressed(KeyEvent e)
 	{
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e)
 	{
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -79,9 +95,9 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	}
 	
 	@Override
-	public void mouseDragged(MouseEvent e) {
+	public void mouseDragged(MouseEvent e)
+	{
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

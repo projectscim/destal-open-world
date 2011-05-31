@@ -79,7 +79,7 @@ public class NetworkManager implements Runnable
 	
 	public void clientRequestChunkbuffer(ClientConnection c)
 	{
-		System.out.println("sending chunk to client: '" + c.getName() + "'");
+		System.out.println("sending chunk buffer to client: '" + c.getName() + "'");
 		
 		Chunk[] buffer = new Chunk[9];
 		int i = 0;
@@ -93,6 +93,15 @@ public class NetworkManager implements Runnable
 		
 		Packet p = new Packet(MSGType.MSG_SV_RESPONSE_CHUNKBUFFER);
 		p.set(buffer);
+		c.send(p);
+	}
+	
+	public void clientRequestChunk(ClientConnection c, int x, int y)
+	{
+		System.out.println("sending chunk to client: '" + c.getName() + "'");
+		
+		Packet p = new Packet(MSGType.MSG_SV_RESPONSE_CHUNK);
+		p.set(_controller.world().getLevels()[0].getChunk(x, y));
 		c.send(p);
 	}
 }

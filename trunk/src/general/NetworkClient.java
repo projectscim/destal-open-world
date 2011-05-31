@@ -61,6 +61,18 @@ public class NetworkClient implements Runnable
 					_client.connected();
 					System.out.println("received chunk buffer from server");
 				}
+				if(_state == State.READY)
+				{
+					if (type == MSGType.MSG_SV_RESPONSE_CHUNK)
+					{
+						Chunk c = (Chunk)r.get();
+						c.initImages();
+						Chunk[] buffer = _client.getChunkBuffer();
+						buffer[0] = c;
+						_client.setChunkBuffer(buffer);
+						System.out.println("received chunk from server");
+					}
+				}
 			}
 			_socket.close();
 		}

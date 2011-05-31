@@ -26,15 +26,16 @@ public class WorldPoint extends Point.Double
 		return new WorldPoint((int)p.getX()-x, (int)p.getY()-y);
 	}
 	
+	// TODO: does not work for negative values
 	public Point getChunkLocation()
 	{
 		return new Point((int)this.x/World.CHUNK_SIZE, (int)this.y/World.CHUNK_SIZE);
 	}
-	
-	public Point getLocationInChunk ()
+	// TODO: does not work for negative values
+	public Point getLocationInChunk()
 	{
-		return new Point((int)(this.getX()-this.getChunkLocation().getX()*World.CHUNK_SIZE),
-						 (int)(this.getY()-this.getChunkLocation().getY()*World.CHUNK_SIZE));
+		return new Point((int)(this.getX()%World.CHUNK_SIZE),
+						 (int)(this.getY()%World.CHUNK_SIZE));
 	}
 	
 	public Point getLocationOnPanel(double x, double y)

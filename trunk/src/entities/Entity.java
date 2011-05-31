@@ -3,7 +3,9 @@ package entities;
 import general.DataContainer;
 import general.WorldPoint;
 
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Point;
 import java.io.Serializable;
 
 public abstract class Entity implements Serializable

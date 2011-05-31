@@ -37,6 +37,11 @@ public class Chunk implements Serializable
 		this.loadFile(file);
 	}
 	
+	public Point getLocation()
+	{
+		return _location;
+	}
+	
 	public void setBlocks(Block[][] blocks)
 	{
 		this._blocks = blocks;

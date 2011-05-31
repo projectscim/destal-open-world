@@ -1,5 +1,6 @@
 package general;
 
+import java.awt.Point;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -18,7 +19,7 @@ public class Client
 	public Client() throws IOException
 	{
 		DataContainer.create();
-		_localPlayer = new Player();
+		_localPlayer = new Player(this);
 		_gui = new GUI(600, 200, this);
 		_networkClient = new NetworkClient(this);
 	}
@@ -28,9 +29,9 @@ public class Client
 		return _chunkBuffer;
 	}
 
-	public void setChunkBuffer(Chunk[] _chunkBuffer)
+	public void setChunkBuffer(Chunk[] chunkBuffer)
 	{
-		this._chunkBuffer = _chunkBuffer;
+		_chunkBuffer = chunkBuffer;
 		_gui.getGame().setChunkBuffer(_chunkBuffer);
 	}
 
@@ -51,7 +52,17 @@ public class Client
 	
 	public void connected()
 	{
+		_localPlayer.searchCurrentChunk();
 		_gui.setGUIMode (GUI.GUIMode.GAME);
+	}
+	
+	public void chunkNeeded(Point pos)
+	{
+		System.out.println("need new chunk");
+		Packet p = new Packet(MSGType.MSG_CL_REQUEST_CHUNK);
+		p.set((int)pos.getX());
+		p.set((int)pos.getY());
+		_networkClient.send(p);
 	}
 	
 	public static void main(String[] args)
