@@ -14,7 +14,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
-public class Player extends Character implements KeyListener, MouseMotionListener
+public class Player extends Character implements KeyListener, MouseMotionListener, IPlayerMovementListener
 {
 	private ArrayList<IPlayerMovementListener> _playerMovementListener;
 	private MouseEvent _lastMouseEvent;
@@ -26,6 +26,7 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	{
 		super();
 		_playerMovementListener = new ArrayList<IPlayerMovementListener>();
+		this.addPlayerMovementListener(this);
 	}
 	
 	public Player(Client client)
@@ -76,15 +77,8 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 		//if (_currentChunk.getBlock((int)this.getLocation().getX(), (int)this.getLocation().getY()) instanceof IWalkable)
 		{
 			this.setLocation(this.getLocation().getX()+dx*direction, this.getLocation().getY()+dy*direction);
-		}
-		
-		if(!getLocation().getChunkLocation().equals(_currentChunk.getLocation()))
-		{
-			System.out.println("left chunk");
-			searchCurrentChunk();
-		}
-		
-		_gamePanel.invokeRepaint();
+		}		
+		this.invokePlayerMoved();
 	}
 	
 	/**
@@ -142,6 +136,16 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	public void mouseMoved(MouseEvent e)
 	{
 		_lastMouseEvent = e;
+	}
+
+	@Override
+	public void playerMoved(PlayerMovementEvent e)
+	{
+		if(!getLocation().getChunkLocation().equals(_currentChunk.getLocation()))
+		{
+			System.out.println("left chunk");
+			searchCurrentChunk();
+		}
 	}
 
 }
