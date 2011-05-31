@@ -11,19 +11,23 @@ import javax.swing.JTextField;
 public class MenuPanel extends JPanel implements ActionListener
 {
 	private JButton[] _button;
-	private JTextField _textField;
+	private JTextField[] _textField;
 	private GUI _gui;
-	private String _serverIp;
 	
 	public MenuPanel (GUI gui)
 	{
 		super();
 		_gui = gui;
 		
-		_textField = new JTextField("localhost");
-		_textField.setLocation(50, 50);
-		_textField.setSize(150, 20);
-		this.add(_textField);
+		_textField = new JTextField[] { new JTextField("localhost"),
+										new JTextField("Username") };
+	for (int i = 0; i < _textField.length; i++)
+	{
+		_textField[i].setLocation(i * 300 + 50, 50);
+		_textField[i].setSize(150, 20);
+		this.add(_textField[i]);
+	}
+
 		_button = new JButton[]{	new JButton ("Start Game"),
 								new JButton ("Options"),
 								new JButton ("Exit") };
@@ -41,7 +45,7 @@ public class MenuPanel extends JPanel implements ActionListener
     {
     	if (e.getActionCommand().equals("Start Game"))
     	{
-    		_gui.getClient().connect(_textField.getText());
+    		_gui.getClient().connect(_textField[0].getText());
     	}
     	if (e.getActionCommand().equals("Options"))
     	{
