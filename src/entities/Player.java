@@ -3,6 +3,8 @@ package entities;
 import general.Chunk;
 import general.Client;
 import general.GamePanel;
+import general.IPlayerMovementListener;
+import general.PlayerMovementEvent;
 
 import java.awt.Graphics;
 import java.awt.Point;
@@ -10,9 +12,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 
 public class Player extends Character implements KeyListener, MouseMotionListener
 {
+	private ArrayList<IPlayerMovementListener> _playerMovementListener;
 	private MouseEvent _lastMouseEvent;
 	private GamePanel _gamePanel;
 	private Chunk _currentChunk;
@@ -21,7 +25,7 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	public Player()
 	{
 		super();
-		setLocation(10, 10);
+		_playerMovementListener = new ArrayList<IPlayerMovementListener>();
 	}
 	
 	public Player(Client client)
@@ -81,6 +85,26 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 		}
 		
 		_gamePanel.invokeRepaint();
+	}
+	
+	/**
+	 * Adds the specified player movement listener to receive movement events from this player
+	 */
+	public void addPlayerMovementListener(IPlayerMovementListener listener)
+	{
+		_playerMovementListener.add(listener);
+	}
+	/**
+	 * [intern]
+	 * Invokes all playerMoved() methods in the specified listeners
+	 */
+	private void invokePlayerMoved()
+	{
+		PlayerMovementEvent e = new PlayerMovementEvent(this);
+		for (IPlayerMovementListener l : _playerMovementListener)
+		{
+			l.playerMoved(e);
+		}
 	}
 	
 	@Override
