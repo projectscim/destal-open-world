@@ -92,7 +92,7 @@ public class GamePanel extends JPanel implements MouseMotionListener, IPlayerMov
 	@Override
 	public void playerMoved(PlayerMovementEvent e)
 	{
-		this.repaint();		
+		this.repaint();
 	}
 	
 }
