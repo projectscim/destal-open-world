@@ -1,4 +1,6 @@
-package entities;
+package entities.characters;
+
+import entities.Values;
 
 public abstract class Character extends Entity
 {

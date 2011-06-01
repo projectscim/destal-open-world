@@ -1,4 +1,4 @@
-package entities;
+package entities.characters;
 
 import general.DataContainer;
 import general.world.WorldPoint;

@@ -1,5 +1,6 @@
 package entities;
 
+import entities.characters.Character;
 import general.Client;
 import general.event.events.PlayerMovementEvent;
 import general.event.listener.IPlayerMovementListener;

@@ -1,4 +1,7 @@
-package entities;
+package entities.blocks;
+
+import entities.IWalkable;
+import entities.Values;
 
 
 public class Dirt extends Block implements IWalkable

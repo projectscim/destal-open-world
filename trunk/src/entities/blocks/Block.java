@@ -1,4 +1,7 @@
-package entities;
+package entities.blocks;
+
+import entities.Values;
+import entities.characters.Entity;
 
 
 public abstract class Block extends Entity
