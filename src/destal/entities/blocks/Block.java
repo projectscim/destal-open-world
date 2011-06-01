@@ -22,6 +22,12 @@ public abstract class Block extends Entity
 				return new Stone();
 			case Values.BLOCK_TREE:
 				return new Tree();
+			case Values.BLOCK_SAND:
+				return new Sand();
+			case Values.BLOCK_WATER:
+				return new Water();
+			case Values.BLOCK_WOOD:
+				return new Wood();
 			default:
 				throw new IllegalArgumentException();
 		}

@@ -13,8 +13,6 @@ import destal.general.net.client.NetworkClient;
 import destal.general.ui.GUI;
 import destal.general.world.Chunk;
 
-
-
 public class Client implements IPlayerMovementListener
 {
 	private Chunk[] _chunkBuffer;
