@@ -1,4 +1,11 @@
-package general;
+package general.net.server;
+
+import general.Controller;
+import general.Server;
+import general.net.MSGType;
+import general.net.Packet;
+import general.world.Chunk;
+import general.world.WorldPoint;
 
 import java.awt.Point;
 import java.io.IOException;
@@ -6,14 +13,14 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class NetworkManager implements Runnable
+public class NetworkServer implements Runnable
 {
 	private Server _server;
 	private Controller _controller;
 	private ServerSocket _serverSocket;
 	private ArrayList<ClientConnection> _clientConnections;
 	
-	public NetworkManager(Server server, Controller controller)
+	public NetworkServer(Server server, Controller controller)
 	{
 		_server = server;
 		_controller = controller;

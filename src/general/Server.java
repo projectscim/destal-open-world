@@ -1,9 +1,11 @@
 package general;
 
+import general.net.server.NetworkServer;
+
 public class Server
 {
 	private Controller _controller;
-	private NetworkManager _networkManager;
+	private NetworkServer _networkManager;
 
 	public static void main(String[] args)
 	{
@@ -13,7 +15,7 @@ public class Server
 	public Server()
 	{
 		_controller = new Controller();
-		_networkManager = new NetworkManager(this, _controller);
+		_networkManager = new NetworkServer(this, _controller);
 	}
 	
 	public void run()

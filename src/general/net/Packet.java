@@ -1,4 +1,4 @@
-package general;
+package general.net;
 
 import java.io.Serializable;
 import java.util.ArrayList;

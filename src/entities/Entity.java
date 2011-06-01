@@ -1,7 +1,7 @@
 package entities;
 
 import general.DataContainer;
-import general.WorldPoint;
+import general.world.WorldPoint;
 
 import java.awt.Graphics;
 import java.awt.Image;

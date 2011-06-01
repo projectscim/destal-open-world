@@ -1,4 +1,6 @@
-package general;
+package general.ui;
+
+import general.Client;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -20,7 +22,7 @@ public class GUI extends JFrame
 	
 	private JPanel _curPanel; 
 
-	protected enum GUIMode {TITLE, MENU, OPTIONS, GAME}
+	public enum GUIMode {TITLE, MENU, OPTIONS, GAME}
 	
 	public GUI(int width, int height, Client client)
 	{
