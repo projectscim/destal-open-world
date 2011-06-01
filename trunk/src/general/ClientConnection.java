@@ -62,6 +62,12 @@ public class ClientConnection implements Runnable
 					int y = (Integer)p.get();
 					_networkManager.clientRequestChunk(this, x, y);
 				}
+				if (type == MSGType.MSG_CL_PLAYER_POSITION)
+				{
+					double x = (Double)p.get();
+					double y = (Double)p.get();
+					_networkManager.clientPlayerPosition(this, x, y);
+				}
 			}
 			_socket.close();
         }
