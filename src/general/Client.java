@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import entities.Player;
 
 
-public class Client
+public class Client implements IPlayerMovementListener
 {
 	private Chunk[] _chunkBuffer;
 	private ArrayList<Character> _characters;
@@ -20,6 +20,7 @@ public class Client
 	{
 		DataContainer.create();
 		_localPlayer = new Player(this);
+		_localPlayer.addPlayerMovementListener(this);
 		_gui = new GUI(600, 200, this);
 		_networkClient = new NetworkClient(this);
 	}
@@ -76,5 +77,14 @@ public class Client
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void playerMoved(PlayerMovementEvent e)
+	{
+		Packet p = new Packet(MSGType.MSG_CL_PLAYER_POSITION);
+		p.set(e.getLocation().getX());
+		p.set(e.getLocation().getY());
+		_networkClient.send(p);
 	}
 }

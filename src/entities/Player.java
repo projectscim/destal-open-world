@@ -94,7 +94,7 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	 */
 	private void invokePlayerMoved()
 	{
-		PlayerMovementEvent e = new PlayerMovementEvent(this);
+		PlayerMovementEvent e = new PlayerMovementEvent(this, this.getLocation());
 		for (IPlayerMovementListener l : _playerMovementListener)
 		{
 			l.playerMoved(e);

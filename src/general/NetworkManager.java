@@ -110,4 +110,9 @@ public class NetworkManager implements Runnable
 		p.set(_controller.world().getLevels()[0].getChunk(x, y));
 		c.send(p);
 	}
+	
+	public void clientPlayerPosition(ClientConnection c, double x, double y)
+	{
+		System.out.println("received player position from client: " + c.getName() + ", Position: " + x + "|" + y);
+	}
 }
