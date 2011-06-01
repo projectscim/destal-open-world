@@ -1,6 +1,7 @@
-package test;
+package destal.general.ui;
 
 import java.awt.Dimension;
+import java.io.OutputStream;
 
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -10,12 +11,7 @@ import javax.swing.JTextArea;
 public class ServerGUI extends JFrame
 {
 	private JTextArea _area;
-	
-    public static void main(String[] args)
-    {
-    	new ServerGUI(800,600);
-    }
-    
+	  
 	public ServerGUI(int width, int height)
 	{
 		super();
@@ -25,13 +21,17 @@ public class ServerGUI extends JFrame
 		JPanel panel = (JPanel) this.getContentPane();
         panel.setPreferredSize(new Dimension(width,height));
         panel.setLayout(null);
-		JTextArea _area = new JTextArea ();
+		_area = new JTextArea ();
 		_area.setBounds(10, 10, 200, 200);
 	    panel.add(_area);
-	    _area.append("blubb");
 	    this.setVisible(true);
 	    this.toFront();
 	    
+	}
+	
+	public void addMessage(String message)
+	{
+	    _area.append(message + "\n");
 	}
 }
 

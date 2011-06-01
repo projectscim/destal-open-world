@@ -1,11 +1,13 @@
 package destal.general;
 
 import destal.general.net.server.NetworkServer;
+import destal.general.ui.ServerGUI;
 
 public class Server
 {
 	private Controller _controller;
-	private NetworkServer _networkManager;
+	private NetworkServer _networkServer;
+	private ServerGUI _serverGui;
 
 	public static void main(String[] args)
 	{
@@ -15,13 +17,19 @@ public class Server
 	public Server()
 	{
 		_controller = new Controller();
-		_networkManager = new NetworkServer(this, _controller);
+		_networkServer = new NetworkServer(this, _controller);
+		_serverGui = new ServerGUI(300, 300);
 	}
 	
 	public void run()
 	{
-		(new Thread(_networkManager)).start();
+		(new Thread(_networkServer)).start();
 		
 		_controller.loadWorld("o");
+	}
+	
+	public void showMessage(String message)
+	{
+		_serverGui.addMessage(message);
 	}
 }

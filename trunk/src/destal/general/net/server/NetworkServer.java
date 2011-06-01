@@ -46,7 +46,7 @@ public class NetworkServer implements Runnable
 			{
 				Socket s = _serverSocket.accept();
 				_clientConnections.add(new ClientConnection(s, this));
-				System.out.println("new client: " + (_clientConnections.size()-1));
+				_server.showMessage("new client: " + (_clientConnections.size()-1));
 	            new Thread(_clientConnections.get(_clientConnections.size()-1)).start();
 			}
 			catch (Exception e)
@@ -73,13 +73,13 @@ public class NetworkServer implements Runnable
 	
 	public void clientDisconnected(ClientConnection c)
 	{
-		System.out.println("client left: '" + c.getName() + "'");
+		_server.showMessage("client left: '" + c.getName() + "'");
 		_clientConnections.remove(c);
 	}
 	
 	public void clientConnected(ClientConnection c)
 	{
-		System.out.println("client connected: '" + c.getName() + "'");
+		_server.showMessage("client connected: '" + c.getName() + "'");
 		Packet p = new Packet(MSGType.MSG_SV_INIT);
 		p.set(true);
 		p.set("Welcome :)");
@@ -88,7 +88,7 @@ public class NetworkServer implements Runnable
 	
 	public void clientRequestEnter(ClientConnection c)
 	{
-		System.out.println("sending chunk buffer to client: '" + c.getName() + "'");
+		_server.showMessage("sending chunk buffer to client: '" + c.getName() + "'");
 		// TODO: change default position
 		WorldPoint pos = new WorldPoint(40, 40);
 		Point chunkPos = pos.getChunkLocation();
@@ -112,7 +112,7 @@ public class NetworkServer implements Runnable
 	
 	public void clientRequestChunk(ClientConnection c, int x, int y)
 	{
-		System.out.println("sending chunk to client: '" + c.getName() + "'");
+		_server.showMessage("sending chunk to client: '" + c.getName() + "'");
 		
 		Packet p = new Packet(MSGType.MSG_SV_RESPONSE_CHUNK);
 		p.set(_controller.world().getLevels()[0].getChunk(x, y));
@@ -121,6 +121,6 @@ public class NetworkServer implements Runnable
 	
 	public void clientPlayerPosition(ClientConnection c, double x, double y)
 	{
-		System.out.println("received player position from client: " + c.getName() + ", Position: " + x + "|" + y);
+		_server.showMessage("received player position from client: " + c.getName() + ", Position: " + x + "|" + y);
 	}
 }
