@@ -10,9 +10,8 @@ import java.io.Serializable;
 import java.util.Random;
 
 import destal.entities.Item;
+import destal.entities.Values;
 import destal.entities.blocks.Block;
-
-
 
 public class Chunk implements Serializable
 {
@@ -154,7 +153,20 @@ public class Chunk implements Serializable
 			for (int y = 0; y < World.CHUNK_SIZE; y++)
 			{
 				Random rnd = new Random();
-				this.getBlocks()[x][y] = Block.create(rnd.nextInt(3));
+				int r = rnd.nextInt(100);
+				if (r <= 5)
+				{
+					this.getBlocks()[x][y] = Block.create(Values.BLOCK_TREE);
+				}
+				else if (r <= 15)
+				{
+					this.getBlocks()[x][y] = Block.create(Values.BLOCK_STONE);
+				}
+				else
+				{
+					this.getBlocks()[x][y] = Block.create(Values.BLOCK_DIRT);
+				}
+				
 				this.getBlocks()[x][y].setLocation(new WorldPoint((int)_location.getX(), (int)_location.getY(), x, y));
 			}
 		}
