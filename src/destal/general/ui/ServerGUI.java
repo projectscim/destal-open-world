@@ -22,7 +22,9 @@ public class ServerGUI extends JFrame
         panel.setPreferredSize(new Dimension(width,height));
         panel.setLayout(null);
 		_area = new JTextArea ();
-		_area.setBounds(10, 10, 200, 200);
+		_area.setBounds(10, 10, width-10, 200);
+		_area.setEditable(false);
+		
 	    panel.add(_area);
 	    this.setVisible(true);
 	    this.toFront();
@@ -32,6 +34,7 @@ public class ServerGUI extends JFrame
 	public void addMessage(String message)
 	{
 	    _area.append(message + "\n");
+	    
 	}
 }
 
