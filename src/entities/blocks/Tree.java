@@ -1,7 +1,9 @@
-package entities;
+package entities.blocks;
 
 import java.awt.Color;
 import java.awt.Graphics;
+
+import entities.Values;
 
 public class Tree extends Block
 {

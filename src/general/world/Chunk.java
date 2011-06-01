@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.Random;
 
-import entities.Block;
 import entities.Item;
+import entities.blocks.Block;
 
 
 public class Chunk implements Serializable
