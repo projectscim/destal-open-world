@@ -1,4 +1,4 @@
-package general;
+package general.ui;
 
 
 import java.awt.event.ActionEvent;

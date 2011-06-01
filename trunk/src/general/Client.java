@@ -5,6 +5,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import entities.Player;
+import general.event.events.PlayerMovementEvent;
+import general.event.listener.IPlayerMovementListener;
+import general.net.MSGType;
+import general.net.Packet;
+import general.net.client.NetworkClient;
+import general.ui.GUI;
+import general.world.Chunk;
 
 
 public class Client implements IPlayerMovementListener

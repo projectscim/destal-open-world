@@ -1,4 +1,7 @@
-package general;
+package general.net.server;
+
+import general.net.MSGType;
+import general.net.Packet;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -10,11 +13,11 @@ public class ClientConnection implements Runnable
 	private Socket _socket;
 	private ObjectInputStream _input;
 	private ObjectOutputStream _output;
-	private NetworkManager _networkManager;
+	private NetworkServer _networkManager;
 	
 	private String _clientName;
 	
-	public ClientConnection(Socket s, NetworkManager network) throws Exception
+	public ClientConnection(Socket s, NetworkServer network) throws Exception
 	{
 		_socket = s;
 		_input = new ObjectInputStream(_socket.getInputStream());

@@ -1,4 +1,6 @@
-package general;
+package general.event.listener;
+
+import general.event.events.PlayerMovementEvent;
 
 /**
  * 

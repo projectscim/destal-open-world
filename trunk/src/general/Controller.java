@@ -1,5 +1,7 @@
 package general;
 
+import general.world.World;
+
 public class Controller
 {
 	private World _world;

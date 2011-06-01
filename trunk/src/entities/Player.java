@@ -1,10 +1,10 @@
 package entities;
 
-import general.Chunk;
 import general.Client;
-import general.GamePanel;
-import general.IPlayerMovementListener;
-import general.PlayerMovementEvent;
+import general.event.events.PlayerMovementEvent;
+import general.event.listener.IPlayerMovementListener;
+import general.ui.GamePanel;
+import general.world.Chunk;
 
 import java.awt.Graphics;
 import java.awt.Point;

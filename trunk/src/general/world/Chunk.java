@@ -1,4 +1,4 @@
-package general;
+package general.world;
 
 import java.awt.Graphics;
 import java.awt.Point;

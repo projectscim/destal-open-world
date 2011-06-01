@@ -1,6 +1,6 @@
 package test;
 
-import general.Packet;
+import general.net.Packet;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

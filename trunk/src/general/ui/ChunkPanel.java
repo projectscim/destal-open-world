@@ -1,10 +1,11 @@
-package general;
+package general.ui;
 
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
 import entities.Player;
+import general.world.Chunk;
 
 public class ChunkPanel extends JPanel
 {

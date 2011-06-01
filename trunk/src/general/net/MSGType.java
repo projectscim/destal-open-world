@@ -1,4 +1,4 @@
-package general;
+package general.net;
 
 public class MSGType
 {

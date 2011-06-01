@@ -1,4 +1,6 @@
-package general;
+package general.event.events;
+
+import general.world.WorldPoint;
 
 import java.util.EventObject;
 

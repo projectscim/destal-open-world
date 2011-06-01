@@ -1,4 +1,9 @@
-package general;
+package general.net.client;
+
+import general.Client;
+import general.net.MSGType;
+import general.net.Packet;
+import general.world.Chunk;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

@@ -1,4 +1,4 @@
-package general;
+package general.ui;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -9,6 +9,11 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.JPanel;
 
 import entities.Player;
+import general.event.events.PlayerMovementEvent;
+import general.event.listener.IPlayerMovementListener;
+import general.world.Chunk;
+import general.world.World;
+import general.world.WorldPoint;
 
 public class GamePanel extends JPanel implements MouseMotionListener, IPlayerMovementListener
 {
