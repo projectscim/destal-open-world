@@ -18,14 +18,14 @@ public class Server
 	{
 		_controller = new Controller();
 		_networkServer = new NetworkServer(this, _controller);
-		_serverGui = new ServerGUI(300, 300);
+		_serverGui = new ServerGUI(600, 300);
 	}
 	
 	public void run()
 	{
 		(new Thread(_networkServer)).start();
 		
-		_controller.loadWorld("o");
+		_controller.loadWorld("g");
 	}
 	
 	public void showMessage(String message)

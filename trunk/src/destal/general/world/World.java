@@ -37,27 +37,28 @@ public class World
 	{
 		_name = name;
 		_levels = new Level[LEVEL_QUANTITY];
+		
 		try
 		{
 			if(!(new File(getPath() + ".world")).exists())
 			{
 				createWorld();
 				loadLevels();
-				System.out.println("created world: '" + _name + "'");
+				System.out.println("created world: '" + getName() + "'");
 			}
 			else
 			{
 				loadLevels();
-				System.out.println("loaded world: '" + _name + "'");
+				System.out.println("loaded world: '" + getName() + "'");
 			}
 		}
 		catch (IOException e)
 		{
-			System.out.println("couldn't load world: '" + _name + "'");
+			System.out.println("couldn't load world: '" + getName() + "'");
 		}
 	}
 	
-	private void createWorld() throws IOException
+	protected void createWorld() throws IOException
 	{
 		// Create directory for the worlds
 		(new File(WORLD_PATH)).mkdir();
@@ -67,7 +68,12 @@ public class World
 		(new File(getPath() + ".world")).createNewFile();
 	}
 	
-	private void loadLevels() throws IOException
+	protected String getName()
+	{
+		return _name;
+	}
+	
+	protected void loadLevels() throws IOException
 	{
 		for (int i = 0; i < LEVEL_QUANTITY; i++)
 		{
