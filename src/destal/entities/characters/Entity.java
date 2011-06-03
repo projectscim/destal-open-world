@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 import destal.general.DataContainer;
 import destal.general.world.WorldPoint;
-
+// TODO: change package to destal.entities
 public abstract class Entity implements Serializable
 {
 	private Image _image;

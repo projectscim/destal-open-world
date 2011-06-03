@@ -22,6 +22,7 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 	private GamePanel _gamePanel;
 	private Chunk _currentChunk;
 	private Client _client;
+
 	
 	public HumanPlayer()
 	{

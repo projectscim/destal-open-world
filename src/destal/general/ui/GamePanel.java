@@ -5,10 +5,12 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
 import destal.entities.HumanPlayer;
+import destal.entities.characters.Player;
 import destal.general.event.events.PlayerMovementEvent;
 import destal.general.event.listener.PlayerMovementListener;
 import destal.general.world.Chunk;
@@ -66,6 +68,14 @@ public class GamePanel extends JPanel implements MouseMotionListener, PlayerMove
 			g.fillOval(_lastMouseEvent.getX(), _lastMouseEvent.getY(), 5, 5);
 		}
 		_player.paint(g, p);
+		
+		ArrayList<Player> players = _gui.getClient().getCharacters();
+		{
+			for (Player pl : players)
+			{
+				pl.paint(g, p);
+			}
+		}
 	}
 	
 	@Override

@@ -25,6 +25,11 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 	private GUI _gui;
 	private int _id;
 	
+	public ArrayList<Player> getCharacters()
+	{
+		return _characters;
+	}
+	
 	public int getID()
 	{
 		return _id;
@@ -33,6 +38,7 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 	public void setID(int id)
 	{
 		_id = id;
+		_localPlayer.setID(_id);
 	}
 	
 	private NetworkClient _networkClient;
@@ -46,6 +52,20 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 		_networkClient = new NetworkClient();
 		_networkClient.addPacketReceivedClientListener(this);
 		_characters = new ArrayList<Player>();
+		_characters.add(_localPlayer);
+		// Just to test features
+		Player p1 = new Player();
+		p1.setID(1);
+		Player p2 = new Player();
+		p2.setID(2);
+		Player p3 = new Player();
+		p3.setID(3);
+		Player p4 = new Player();
+		p4.setID(4);
+		_characters.add(p1);
+		_characters.add(p2);
+		_characters.add(p3);
+		_characters.add(p4);
 	}
 
 	public Chunk[] getChunkBuffer()
@@ -81,7 +101,6 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 	public void playerMoved(PlayerMovementEvent e)
 	{
 		Packet p = new Packet(MSGType.MSG_CL_PLAYER_POSITION);
-		
 		p.set(e.getLocation().getX());
 		p.set(e.getLocation().getY());
 		_networkClient.send(p);
@@ -141,6 +160,24 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 	@Override
 	public void serverResponsePlayerPositions(PacketReceivedClientEvent e)
 	{
-		System.out.println("Player " + e.getClientID() + " changed location to: " + e.getPoint().toString());
+		int id = e.getClientID();
+		WorldPoint loc = e.getPoint();
+		
+		if (id != this.getID())
+		{
+			for (Player p : _characters)
+			{
+				if (p.getID() == id)
+				{
+					p.setLocation(loc);
+				}
+			}
+			System.out.println("Player " + e.getClientID() + " changed location to: " + e.getPoint().toString());
+		}
+		else
+		{
+			
+		}
+		_gui.repaint();
 	}
 }
