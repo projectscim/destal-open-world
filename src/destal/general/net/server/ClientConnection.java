@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import destal.general.event.events.PacketReceivedServerEvent;
 import destal.general.event.listener.PacketRecievedServerListener;
-import destal.general.event.listener.PlayerMovementListener;
 import destal.general.net.MSGType;
 import destal.general.net.Packet;
 
