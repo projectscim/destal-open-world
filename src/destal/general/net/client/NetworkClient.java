@@ -90,9 +90,10 @@ public class NetworkClient implements Runnable
 					else if (type == MSGType.MSG_SV_PLAYER_POSITIONS)
 					{
 						PacketReceivedClientEvent e = new PacketReceivedClientEvent(this);
+						int id = (Integer)r.get();
 						double x = (Double)r.get();
 						double y = (Double)r.get();
-						Object source = r.get();
+						e.setClientID(id);
 						e.setPoint(x, y);
 						for (PacketRecievedClientListener l : _packetReceivedClientListener)
 						{

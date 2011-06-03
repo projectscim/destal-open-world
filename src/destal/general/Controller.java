@@ -12,6 +12,7 @@ import destal.general.event.listener.PacketRecievedServerListener;
 import destal.general.event.listener.PlayerMovementListener;
 import destal.general.net.MSGType;
 import destal.general.net.Packet;
+import destal.general.net.server.ClientConnection;
 import destal.general.world.Chunk;
 import destal.general.world.World;
 import destal.general.world.WorldPoint;
@@ -73,13 +74,11 @@ public class Controller implements PacketRecievedServerListener, ClientConnected
 	{
 		Player player = _characters.get(e.getClientID());
 		player.setLocation(e.getPoint());
-		System.out.println("Player " + e.getClientID() + " changed location to: " + e.getPoint().toString());
-		this.invokePlayerMoved(player);
 	}
-
+/*
 	/**
 	 * Adds the specified player movement listener to receive movement events from this player
-	 */
+	 /
 	public void addPlayerMovementListener(PlayerMovementListener listener)
 	{
 		_playerMovementListener.add(listener);
@@ -87,7 +86,7 @@ public class Controller implements PacketRecievedServerListener, ClientConnected
 	/**
 	 * [intern]
 	 * Invokes all playerMoved() methods in the specified listeners
-	 */
+	 /
 	private void invokePlayerMoved(Player p)
 	{
 		PlayerMovementEvent e = new PlayerMovementEvent(p);
@@ -96,7 +95,7 @@ public class Controller implements PacketRecievedServerListener, ClientConnected
 		{
 			l.playerMoved(e);
 		}
-	}
+	}*/
 	
 	@Override
 	public void clientConnected(PacketReceivedServerEvent e) { }
