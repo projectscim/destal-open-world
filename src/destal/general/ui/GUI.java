@@ -59,6 +59,14 @@ public class GUI extends JFrame
 	
 	public void setGUIMode(GUIMode mode)
 	{
+		if (mode == GUIMode.GAME)
+		{
+			disableCursor();
+		}
+		else
+		{
+			enableCursor();
+		}
 		JPanel panel = _panels[mode.ordinal()];
 		if(panel != null)
 		{
