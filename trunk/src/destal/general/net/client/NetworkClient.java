@@ -90,7 +90,8 @@ public class NetworkClient implements Runnable
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			System.out.println("lost connection");
+			//e.printStackTrace();
 		}
 	}
 	

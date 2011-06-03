@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import destal.general.Controller;
 import destal.general.Server;
@@ -19,13 +20,13 @@ public class NetworkServer implements Runnable
 	private Server _server;
 	private Controller _controller;
 	private ServerSocket _serverSocket;
-	private ArrayList<ClientConnection> _clientConnections;
+	private Vector<ClientConnection> _clientConnections;
 	
 	public NetworkServer(Server server, Controller controller)
 	{
 		_server = server;
 		_controller = controller;
-		_clientConnections = new ArrayList<ClientConnection>();
+		_clientConnections = new Vector<ClientConnection>();
 	}
 	
 	@Override
@@ -37,8 +38,8 @@ public class NetworkServer implements Runnable
 		}
 		catch (IOException e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("couldn't create socket");
 		}
 		while(true)
         {
@@ -46,7 +47,7 @@ public class NetworkServer implements Runnable
 			{
 				Socket s = _serverSocket.accept();
 				_clientConnections.add(new ClientConnection(s, this));
-				_server.showMessage("new client: " + (_clientConnections.size()-1));
+				System.out.println("new client: " + (_clientConnections.size()-1));
 	            new Thread(_clientConnections.get(_clientConnections.size()-1)).start();
 			}
 			catch (Exception e)
@@ -55,6 +56,11 @@ public class NetworkServer implements Runnable
 				break;
 			}
         }
+	}
+	
+	public Vector<ClientConnection> getClientList()
+	{
+		return _clientConnections;
 	}
 	
 	public void send(int ID, Packet data)
@@ -73,22 +79,32 @@ public class NetworkServer implements Runnable
 	
 	public void clientDisconnected(ClientConnection c)
 	{
-		_server.showMessage("client left: '" + c.getName() + "'");
+		System.out.println("client left: '" + c + "'");
 		_clientConnections.remove(c);
+		
+		if(_server.getServerGUI() != null)
+		{
+			_server.getServerGUI().setClientList(_clientConnections);
+		}
 	}
 	
 	public void clientConnected(ClientConnection c)
 	{
-		_server.showMessage("client connected: '" + c.getName() + "'");
+		System.out.println("client connected: '" + c + "'");
 		Packet p = new Packet(MSGType.MSG_SV_INIT);
 		p.set(true);
 		p.set("Welcome :)");
 		c.send(p);
+		
+		if(_server.getServerGUI() != null)
+		{
+			_server.getServerGUI().setClientList(_clientConnections);
+		}
 	}
 	
 	public void clientRequestEnter(ClientConnection c)
 	{
-		_server.showMessage("sending chunk buffer to client: '" + c.getName() + "'");
+		System.out.println("sending chunk buffer to client: '" + c + "'");
 		// TODO: change default position
 		WorldPoint pos = new WorldPoint(40, 40);
 		Point chunkPos = pos.getChunkLocation();
@@ -112,7 +128,7 @@ public class NetworkServer implements Runnable
 	
 	public void clientRequestChunk(ClientConnection c, int x, int y)
 	{
-		_server.showMessage("sending chunk to client: '" + c.getName() + "'");
+		System.out.println("sending chunk to client: '" + c + "'");
 		
 		Packet p = new Packet(MSGType.MSG_SV_RESPONSE_CHUNK);
 		p.set(_controller.world().getLevels()[0].getChunk(x, y));
@@ -121,6 +137,6 @@ public class NetworkServer implements Runnable
 	
 	public void clientPlayerPosition(ClientConnection c, double x, double y)
 	{
-		_server.showMessage("received player position from client: " + c.getName() + ", Position: " + x + "|" + y);
+		System.out.println("received player position from client: " + c + ", Position: " + x + "|" + y);
 	}
 }

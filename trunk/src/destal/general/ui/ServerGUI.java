@@ -1,17 +1,29 @@
 package destal.general.ui;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintStream;
+import java.util.Vector;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-public class ServerGUI extends JFrame
+import destal.general.net.server.ClientConnection;
+
+public class ServerGUI extends JFrame implements ActionListener
 {
 	private JTextArea _area;
-	  
+	private JList _clientList;
+	private JButton _kickButton;
+	private JScrollPane _scroll;
+	
 	public ServerGUI(int width, int height)
 	{
 		super();
@@ -21,20 +33,67 @@ public class ServerGUI extends JFrame
 		JPanel panel = (JPanel) this.getContentPane();
         panel.setPreferredSize(new Dimension(width,height));
         panel.setLayout(null);
-		_area = new JTextArea ();
-		_area.setBounds(10, 10, width-10, 200);
+        
+		_area = new JTextArea();
 		_area.setEditable(false);
 		
-	    panel.add(_area);
+		_scroll = new JScrollPane(_area);
+		_scroll.setBounds(10, 10, width/3*2-20, height-90);
+		
+		_clientList = new JList();
+		_clientList.setBounds(20+width/3*2-20, 10, width/3-30, height-90);
+		
+		_kickButton = new JButton("Kick");
+		_kickButton.setBounds(20+width/3*2-20, height-70, 100, 20);
+		_kickButton.addActionListener(this);
+		
+	    panel.add(_scroll);
+	    panel.add(_clientList);
+	    panel.add(_kickButton);
+	    
 	    this.setVisible(true);
 	    this.toFront();
 	    
+		OutputStream output = new OutputStream()
+		{
+			public void write(int b) throws IOException
+			{
+				addMessage(String.valueOf((char) b));
+			}
+			
+			public void write(byte[] b, int off, int len)
+			{
+				addMessage(new String(b, off, len));
+			}
+		};
+	    
+	    System.setOut(new PrintStream(output, true));
 	}
 	
-	public void addMessage(String message)
+	private void addMessage(String str)
 	{
-	    _area.append(message + "\n");
-	    
+		_area.append(str);
+		_area.setCaretPosition(_area.getDocument().getLength());
+		//_scroll.getVerticalScrollBar().setValue(_scroll.getVerticalScrollBar().getMaximum());
+		//_scroll.repaint();
 	}
+	
+	public void setClientList(Vector<?> data)
+	{
+		_clientList.setListData(data);
+	}
+	
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+    	if (e.getActionCommand().equals("Kick"))
+    	{
+    		ClientConnection clCon = (ClientConnection)_clientList.getSelectedValue();
+    		if(clCon != null)
+    		{
+    			clCon.drop();
+    		}
+    	}
+    }
 }
 

@@ -11,14 +11,31 @@ public class Server
 
 	public static void main(String[] args)
 	{
-		(new Server()).run();
+		boolean gui = true;
+		for(String arg : args)
+		{
+			if(arg.equals("--nogui"))
+			{
+				gui = false;
+			}
+		}
+		
+		(new Server(gui)).run();
 	}
 	
-	public Server()
+	public Server(boolean gui)
 	{
 		_controller = new Controller();
 		_networkServer = new NetworkServer(this, _controller);
-		_serverGui = new ServerGUI(600, 300);
+		if(gui)
+		{
+			_serverGui = new ServerGUI(800, 400);
+		}
+	}
+	
+	public ServerGUI getServerGUI()
+	{
+		return _serverGui;
 	}
 	
 	public void run()
@@ -26,10 +43,5 @@ public class Server
 		(new Thread(_networkServer)).start();
 		
 		_controller.loadWorld("g");
-	}
-	
-	public void showMessage(String message)
-	{
-		_serverGui.addMessage(message);
 	}
 }

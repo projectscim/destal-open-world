@@ -38,7 +38,7 @@ public class ClientConnection implements Runnable
 			{
 				Packet p = recv();
 				byte type = p.getType();
-				System.out.println("received packet from client: '" + _clientName + "' (type: " + type + ")");
+				System.out.println("received packet from client: '" + this + "' (type: " + type + ")");
 				
 				if(type == MSGType.MSG_CL_INIT)
 				{
@@ -78,9 +78,22 @@ public class ClientConnection implements Runnable
 		catch(Exception e)
 		{
 			System.out.println("exception occured");
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		_networkManager.clientDisconnected(this);
+	}
+	
+	public void drop()
+	{
+		System.out.println("dropping client: '" + this + "'");
+		try
+        {
+			_socket.close();
+        }
+		catch(Exception e)
+		{
+			System.out.println("error: cant't drop the client: '" + this + "'");
+		}
 	}
 	
 	public String getName()
@@ -104,5 +117,10 @@ public class ClientConnection implements Runnable
 		{
 			System.out.println("exception occured: couldn't send the packet");
 		}
+	}
+	
+	public String toString()
+	{
+		return getName();
 	}
 }
