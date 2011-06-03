@@ -22,6 +22,7 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener, Pl
 	private ServerSocket _serverSocket;
 	private Vector<ClientConnection> _clientConnections;
 	private ArrayList<ClientConnectedListener> _clientConnectedListener;
+	private int _currentID = 0;
 	
 	public NetworkServer(Server server)
 	{
@@ -48,7 +49,7 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener, Pl
 			try
 			{
 				Socket s = _serverSocket.accept();
-				ClientConnection clCon = new ClientConnection(s, _clientConnections.size());
+				ClientConnection clCon = new ClientConnection(s, _currentID++);
 				clCon.addPacketReceivedServerListener(this);
 				clCon.addPacketReceivedServerListener(_server.getController());
 				_clientConnections.add(clCon);
@@ -91,7 +92,7 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener, Pl
 		Packet p = new Packet(MSGType.MSG_SV_INIT);
 		p.set(true);
 		p.set("Welcome :)");
-		p.set(_clientConnections.indexOf(e.getClient()));
+		p.set(((ClientConnection)e.getSource()).getID());
 		
 		e.getClient().send(p);
 		
@@ -131,11 +132,22 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener, Pl
 	@Override
 	public void clientRequestChunk(PacketReceivedServerEvent e) { }
 	@Override
-	public void clientPlayerPosition(PacketReceivedServerEvent e) { }
+	public void clientPlayerPosition(PacketReceivedServerEvent e)
+	{
+		for (ClientConnection c : _clientConnections)
+		{
+			Packet p = new Packet(MSGType.MSG_SV_PLAYER_POSITIONS);
+			p.set(e.getClientID());
+			p.set(e.getPoint().getX());
+			p.set(e.getPoint().getY());
+			c.send(p);
+			System.out.println("Player " + e.getClientID() + " changed location to: " + e.getPoint().toString());
+		}
+	}
 
 	@Override
 	public void playerMoved(PlayerMovementEvent e)
-	{
+	{/*
 		for (ClientConnection c : _clientConnections)
 		{
 			Packet p = new Packet(MSGType.MSG_SV_PLAYER_POSITIONS);
@@ -143,6 +155,6 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener, Pl
 			p.set(e.getLocation().getY());
 			p.set(e.getSource());
 			c.send(p);
-		}
+		}*/
 	}
 }

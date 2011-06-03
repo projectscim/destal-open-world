@@ -144,6 +144,16 @@ public class ClientConnection implements Runnable
 		return getName();
 	}
 	
+	public int getID()
+	{
+		return _id;
+	}
+	
+	public void setID(int id)
+	{
+		_id = id;
+	}
+	
 	public void addPacketReceivedServerListener(PacketRecievedServerListener listener)
 	{
 		_packetReceivedServerListener.add(listener);

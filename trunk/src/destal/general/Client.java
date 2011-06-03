@@ -141,7 +141,6 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 	@Override
 	public void serverResponsePlayerPositions(PacketReceivedClientEvent e)
 	{
-		WorldPoint p = e.getPoint();
-		System.out.println("Received position: " + p.toString());
+		System.out.println("Player " + e.getClientID() + " changed location to: " + e.getPoint().toString());
 	}
 }
