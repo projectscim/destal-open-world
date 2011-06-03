@@ -15,7 +15,7 @@ import destal.general.event.listener.PlayerMovementListener;
 import destal.general.ui.GamePanel;
 import destal.general.world.Chunk;
 
-public class Player extends Character implements KeyListener, MouseMotionListener, PlayerMovementListener
+public class HumanPlayer extends Character implements KeyListener, MouseMotionListener, PlayerMovementListener
 {
 	private ArrayList<PlayerMovementListener> _playerMovementListener;
 	private MouseEvent _lastMouseEvent;
@@ -23,14 +23,14 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	private Chunk _currentChunk;
 	private Client _client;
 	
-	public Player()
+	public HumanPlayer()
 	{
 		super();
 		_playerMovementListener = new ArrayList<PlayerMovementListener>();
 		this.addPlayerMovementListener(this);
 	}
 	
-	public Player(Client client)
+	public HumanPlayer(Client client)
 	{
 		this();
 		_client = client;

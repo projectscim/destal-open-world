@@ -1,6 +1,7 @@
 package destal.general;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 import destal.general.event.events.PacketReceivedServerEvent;
 import destal.general.event.listener.PacketRecievedServerListener;
@@ -13,6 +14,7 @@ import destal.general.world.WorldPoint;
 public class Controller implements PacketRecievedServerListener
 {
 	private World _world;
+	private ArrayList<Character> _characters;
 	
 	public Controller()
 	{
@@ -61,7 +63,8 @@ public class Controller implements PacketRecievedServerListener
 	@Override
 	public void clientPlayerPosition(PacketReceivedServerEvent e)
 	{
-		//System.out.println("received player position from client: " + e.getClient() + ", Position: " + e.getPoint().getX() + "|" + e.getPoint().getY());
+		destal.entities.characters.Character c = (destal.entities.characters.Character)_characters.get(e.getClientID());
+		
 	}
 
 	@Override
