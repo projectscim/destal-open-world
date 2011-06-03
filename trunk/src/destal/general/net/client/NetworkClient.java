@@ -1,12 +1,13 @@
 package destal.general.net.client;
 
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
-import destal.general.Client;
+import destal.general.event.events.PacketReceivedClientEvent;
+import destal.general.event.listener.PacketRecievedClientListener;
 import destal.general.net.MSGType;
 import destal.general.net.Packet;
 import destal.general.world.Chunk;
@@ -16,15 +17,15 @@ public class NetworkClient implements Runnable
 	private Socket _socket;
 	private ObjectInputStream _input;
 	private ObjectOutputStream _output;
+	private ArrayList<PacketRecievedClientListener> _packetReceivedClientListener;
 	
-	private Client _client;
-	State _state;
+	private State _state;
 	
 	private enum State { NONE, CONNECTING, CHECKED, READY };
 	
-	public NetworkClient(Client client)
+	public NetworkClient()
 	{
-		_client = client;
+		_packetReceivedClientListener = new ArrayList<PacketRecievedClientListener>();
 		_state = State.NONE;
 	}
 
@@ -50,39 +51,39 @@ public class NetworkClient implements Runnable
 					}
 					else
 					{
-						System.out.println("[server] MOTD: " + (String)r.get());
 						send(new Packet(MSGType.MSG_CL_REQUEST_ENTER));
 						_state = State.CHECKED;
+						
+						PacketReceivedClientEvent e = new PacketReceivedClientEvent(this);
+						e.setMOTD((String)r.get());
+						for (PacketRecievedClientListener l : _packetReceivedClientListener)
+						{
+							l.serverConnected(e);
+						}
 					}
 				}
 				if (type == MSGType.MSG_SV_RESPONSE_ENTER && _state == State.CHECKED)
 				{
-					_client.getLocalCharacter().setLocation((Double)r.get(), (Double)r.get());
-					Chunk[] buffer = (Chunk[])r.get();
-					for (Chunk c : buffer)
-					{
-						c.initImages();
-					}
-					_client.setChunkBuffer(buffer);
 					_state = State.READY;
-					_client.connected();
-					System.out.println("received chunk buffer from server");
+					
+					PacketReceivedClientEvent e = new PacketReceivedClientEvent(this);
+					e.setPoint((Double)r.get(), (Double)r.get());
+					e.setChunkBuffer((Chunk[])r.get());
+					for (PacketRecievedClientListener l : _packetReceivedClientListener)
+					{
+						l.serverResponseEnter(e);
+					}
 				}
 				if(_state == State.READY)
 				{
 					if (type == MSGType.MSG_SV_RESPONSE_CHUNK)
 					{
-						Chunk c = (Chunk)r.get();
-						c.initImages();
-						for (int i = 0; i < _client.getChunkBuffer().length; i++)
+						PacketReceivedClientEvent e = new PacketReceivedClientEvent(this);
+						e.setChunk((Chunk)r.get());
+						for (PacketRecievedClientListener l : _packetReceivedClientListener)
 						{
-							if(_client.getChunkBuffer()[i] == null)
-							{
-								_client.getChunkBuffer()[i] = c;
-								break;
-							}
+							l.serverResponseChunk(e);
 						}
-						System.out.println("received chunk from server");
 					}
 				}
 			}
@@ -91,7 +92,24 @@ public class NetworkClient implements Runnable
 		catch(Exception e)
 		{
 			System.out.println("lost connection");
-			//e.printStackTrace();
+			e.printStackTrace();
+		}
+		for (PacketRecievedClientListener l : _packetReceivedClientListener)
+		{
+			l.serverDisconnected(new PacketReceivedClientEvent(this));
+		}
+	}
+	
+	public void disconnect()
+	{
+		System.out.println("disconnecting from server");
+		try
+		{
+			_socket.close();
+		}
+		catch (IOException e)
+		{
+			System.out.println("exception occured (disconnect)");
 		}
 	}
 	
@@ -115,7 +133,8 @@ public class NetworkClient implements Runnable
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			System.out.println("can't connect to server");
+			//e.printStackTrace();
 		}
 	}
 	
@@ -135,5 +154,10 @@ public class NetworkClient implements Runnable
 		{
 			System.out.println("exception occured: couldn't send the packet");
 		}
+	}
+	
+	public void addPacketReceivedClientListener(PacketRecievedClientListener listener)
+	{
+		_packetReceivedClientListener.add(listener);
 	}
 }

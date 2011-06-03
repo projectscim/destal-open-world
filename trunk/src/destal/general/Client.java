@@ -4,7 +4,9 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import destal.entities.Player;
+import destal.general.event.events.PacketReceivedClientEvent;
 import destal.general.event.events.PlayerMovementEvent;
+import destal.general.event.listener.PacketRecievedClientListener;
 import destal.general.event.listener.PlayerMovementListener;
 import destal.general.net.MSGType;
 import destal.general.net.Packet;
@@ -12,7 +14,7 @@ import destal.general.net.client.NetworkClient;
 import destal.general.ui.GUI;
 import destal.general.world.Chunk;
 
-public class Client implements PlayerMovementListener
+public class Client implements PlayerMovementListener, PacketRecievedClientListener
 {
 	// TODO: divide into Client and GameClient?
 	private Chunk[] _chunkBuffer;
@@ -28,17 +30,13 @@ public class Client implements PlayerMovementListener
 		_localPlayer = new Player(this);
 		_localPlayer.addPlayerMovementListener(this);
 		_gui = new GUI(600, 200, this);
-		_networkClient = new NetworkClient(this);
+		_networkClient = new NetworkClient();
+		_networkClient.addPacketReceivedClientListener(this);
 	}
 
 	public Chunk[] getChunkBuffer()
 	{
 		return _chunkBuffer;
-	}
-
-	public void setChunkBuffer(Chunk[] chunkBuffer)
-	{
-		_chunkBuffer = chunkBuffer;
 	}
 
 	public Player getLocalCharacter()
@@ -56,12 +54,6 @@ public class Client implements PlayerMovementListener
 		
 	}
 	
-	public void connected()
-	{
-		_localPlayer.searchCurrentChunk();
-		_gui.setGUIMode (GUI.GUIMode.GAME);
-	}
-	
 	public void chunkNeeded(Point pos)
 	{
 		System.out.println("need new chunk");
@@ -69,11 +61,6 @@ public class Client implements PlayerMovementListener
 		p.set((int)pos.getX());
 		p.set((int)pos.getY());
 		_networkClient.send(p);
-	}
-	
-	public static void main(String[] args)
-	{
-		(new Client()).run();
 	}
 
 	@Override
@@ -83,5 +70,55 @@ public class Client implements PlayerMovementListener
 		p.set(e.getLocation().getX());
 		p.set(e.getLocation().getY());
 		_networkClient.send(p);
+	}
+
+	@Override
+	public void serverConnected(PacketReceivedClientEvent e)
+	{
+		System.out.println("sucessfully connected to server");
+		System.out.println("[Server] MOTD: " + e.getMOTD());
+	}
+
+	@Override
+	public void serverDisconnected(PacketReceivedClientEvent e)
+	{
+		System.out.println("disconnected from server");
+		_gui.setGUIMode(GUI.GUIMode.MENU);
+	}
+
+	@Override
+	public void serverResponseEnter(PacketReceivedClientEvent e)
+	{
+		System.out.println("received start info from server");
+		_chunkBuffer = e.getChunkBuffer();
+		for(Chunk c : _chunkBuffer)
+		{
+			c.initImages();
+		}
+		_localPlayer.setLocation(e.getPoint());
+		_localPlayer.searchCurrentChunk();
+		_gui.setGUIMode(GUI.GUIMode.GAME);
+	}
+
+	@Override
+	public void serverResponseChunk(PacketReceivedClientEvent e)
+	{
+		System.out.println("received chunk from server");
+		Chunk c = e.getChunk();
+		c.initImages();
+		for (int i = 0; i < _chunkBuffer.length; i++)
+		{
+			if(_chunkBuffer[i] == null)
+			{
+				_chunkBuffer[i] = c;
+				break;
+			}
+		}
+		_gui.repaint();
+	}
+	
+	public static void main(String[] args)
+	{
+		(new Client()).run();
 	}
 }

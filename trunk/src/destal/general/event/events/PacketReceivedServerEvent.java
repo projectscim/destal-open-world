@@ -1,21 +1,18 @@
 package destal.general.event.events;
 
-import java.awt.Point;
 import java.util.EventObject;
 
 import destal.general.net.server.ClientConnection;
-import destal.general.world.Chunk;
+import destal.general.world.WorldPoint;
 
 public class PacketReceivedServerEvent extends EventObject
 {
-	//private Chunk _chunk[];
-	private Point _point;
+	private WorldPoint _point;
 	
 	public PacketReceivedServerEvent(ClientConnection client)
 	{
 		super(client);
-		//_chunk = new Chunk[9];
-		_point = new Point(0,0);
+		_point = new WorldPoint(0,0);
 	}
 	
 	public ClientConnection getClient()
@@ -23,27 +20,7 @@ public class PacketReceivedServerEvent extends EventObject
 		return (ClientConnection)getSource();
 	}
 	
-	/*public void setChunk(Chunk chunk)
-	{
-		_chunk[0] = chunk;
-	}
-	
-	public Chunk getChunk()
-	{
-		return _chunk[0];
-	}
-	
-	public void setChunkBuffer(Chunk[] chunk)
-	{
-		_chunk = chunk;
-	}
-	
-	public Chunk[] getChunkBuffer()
-	{
-		return _chunk;
-	}*/
-	
-	public void setPoint(Point point)
+	public void setPoint(WorldPoint point)
 	{
 		_point = point;
 	}
@@ -58,7 +35,7 @@ public class PacketReceivedServerEvent extends EventObject
 		_point.setLocation(x, y);
 	}
 	
-	public Point getPoint()
+	public WorldPoint getPoint()
 	{
 		return _point;
 	}
