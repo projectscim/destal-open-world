@@ -37,6 +37,8 @@ public class GamePanel extends JPanel implements MouseMotionListener, PlayerMove
 	@Override
 	public void paintComponent(Graphics g)
 	{
+		g.setColor(Color.BLACK);
+		g.fillRect((int)g.getClipBounds().getX(), (int)g.getClipBounds().getY(), (int)g.getClipBounds().getWidth(), (int)g.getClipBounds().getHeight());
 		// Add what's to draw:
 		WorldPoint p = new WorldPoint(_player.getLocation().getX()-this.getWidth()/2/World.BLOCK_PAINTSIZE,
 				_player.getLocation().getY()-this.getHeight()/2/World.BLOCK_PAINTSIZE);
