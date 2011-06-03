@@ -91,7 +91,7 @@ public class ClientConnection implements Runnable
         }
 		catch(Exception e)
 		{
-			System.out.println("exception occured");
+			System.out.println("lost client: '" + this + "'");
 			//e.printStackTrace();
 		}
 		for (PacketRecievedServerListener l : _packetReceivedServerListener)
@@ -109,7 +109,7 @@ public class ClientConnection implements Runnable
         }
 		catch(Exception e)
 		{
-			System.out.println("error: cant't drop the client: '" + this + "'");
+			System.out.println("exception occured (drop client)");
 		}
 	}
 	

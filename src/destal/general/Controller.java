@@ -54,14 +54,14 @@ public class Controller implements PacketRecievedServerListener
 		System.out.println("sending chunk to client: '" + e.getClient() + "'");
 		
 		Packet p = new Packet(MSGType.MSG_SV_RESPONSE_CHUNK);
-		p.set(_world.getLevels()[0].getChunk(e.getPoint().x, e.getPoint().y));
+		p.set(_world.getLevels()[0].getChunk((int)e.getPoint().getX(), (int)e.getPoint().getY()));
 		e.getClient().send(p);
 	}
 	
 	@Override
 	public void clientPlayerPosition(PacketReceivedServerEvent e)
 	{
-		System.out.println("received player position from client: " + e.getClient() + ", Position: " + e.getPoint().getX() + "|" + e.getPoint().getY());
+		//System.out.println("received player position from client: " + e.getClient() + ", Position: " + e.getPoint().getX() + "|" + e.getPoint().getY());
 	}
 
 	@Override
