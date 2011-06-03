@@ -1,7 +1,7 @@
 package destal.entities;
 
-import destal.entities.characters.Character;
+import destal.entities.characters.Player;
 
-public abstract class NPC extends Character {
+public abstract class NPC extends Player {
 
 }

@@ -17,12 +17,14 @@ public class ClientConnection implements Runnable
 	private ObjectInputStream _input;
 	private ObjectOutputStream _output;
 	private ArrayList<PacketRecievedServerListener> _packetReceivedServerListener;
+	private int _id;
 	
 	private String _clientName;
 	
-	public ClientConnection(Socket s) throws Exception
+	public ClientConnection(Socket s, int id) throws Exception
 	{
 		_socket = s;
+		_id = id;
 		_input = new ObjectInputStream(_socket.getInputStream());
 		_output = new ObjectOutputStream(_socket.getOutputStream());
 		_packetReceivedServerListener = new ArrayList<PacketRecievedServerListener>();
@@ -80,6 +82,7 @@ public class ClientConnection implements Runnable
 				if (type == MSGType.MSG_CL_PLAYER_POSITION)
 				{
 					PacketReceivedServerEvent e = new PacketReceivedServerEvent(this);
+					e.setClientID(_id);
 					e.setPoint((Double)p.get(),(Double)p.get());
 					for (PacketRecievedServerListener l : _packetReceivedServerListener)
 					{
@@ -92,7 +95,7 @@ public class ClientConnection implements Runnable
 		catch(Exception e)
 		{
 			System.out.println("lost client: '" + this + "'");
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 		for (PacketRecievedServerListener l : _packetReceivedServerListener)
 		{

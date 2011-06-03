@@ -8,14 +8,14 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
-import destal.entities.characters.Character;
+import destal.entities.characters.Player;
 import destal.general.Client;
 import destal.general.event.events.PlayerMovementEvent;
 import destal.general.event.listener.PlayerMovementListener;
 import destal.general.ui.GamePanel;
 import destal.general.world.Chunk;
 
-public class HumanPlayer extends Character implements KeyListener, MouseMotionListener, PlayerMovementListener
+public class HumanPlayer extends Player implements KeyListener, MouseMotionListener, PlayerMovementListener
 {
 	private ArrayList<PlayerMovementListener> _playerMovementListener;
 	private MouseEvent _lastMouseEvent;
