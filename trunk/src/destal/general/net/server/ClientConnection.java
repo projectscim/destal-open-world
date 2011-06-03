@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import destal.general.event.events.PacketReceivedServerEvent;
 import destal.general.event.listener.PacketRecievedServerListener;
+import destal.general.event.listener.PlayerMovementListener;
 import destal.general.net.MSGType;
 import destal.general.net.Packet;
 
@@ -25,6 +26,7 @@ public class ClientConnection implements Runnable
 		_socket = s;
 		_input = new ObjectInputStream(_socket.getInputStream());
 		_output = new ObjectOutputStream(_socket.getOutputStream());
+		_packetReceivedServerListener = new ArrayList<PacketRecievedServerListener>();
 		_clientName = "< connecting >";
 	}
 	
