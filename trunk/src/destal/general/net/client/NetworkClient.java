@@ -92,7 +92,7 @@ public class NetworkClient implements Runnable
 		catch(Exception e)
 		{
 			System.out.println("lost connection");
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		for (PacketRecievedClientListener l : _packetReceivedClientListener)
 		{
