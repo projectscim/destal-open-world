@@ -8,7 +8,34 @@ public class Server
 	private Controller _controller;
 	private NetworkServer _networkServer;
 	private ServerGUI _serverGui;
-
+	
+	public Server(boolean gui)
+	{
+		_controller = new Controller();
+		_networkServer = new NetworkServer(this);
+		if(gui)
+		{
+			_serverGui = new ServerGUI(800, 400);
+		}
+	}
+	
+	public ServerGUI getServerGUI()
+	{
+		return _serverGui;
+	}
+	
+	public Controller getController()
+	{
+		return _controller;
+	}
+	
+	public void run()
+	{
+		(new Thread(_networkServer)).start();
+		
+		_controller.loadWorld("g");
+	}
+	
 	public static void main(String[] args)
 	{
 		boolean gui = true;
@@ -21,27 +48,5 @@ public class Server
 		}
 		
 		(new Server(gui)).run();
-	}
-	
-	public Server(boolean gui)
-	{
-		_controller = new Controller();
-		_networkServer = new NetworkServer(this, _controller);
-		if(gui)
-		{
-			_serverGui = new ServerGUI(800, 400);
-		}
-	}
-	
-	public ServerGUI getServerGUI()
-	{
-		return _serverGui;
-	}
-	
-	public void run()
-	{
-		(new Thread(_networkServer)).start();
-		
-		_controller.loadWorld("g");
 	}
 }

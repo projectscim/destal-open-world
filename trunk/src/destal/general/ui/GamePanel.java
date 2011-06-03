@@ -10,13 +10,13 @@ import javax.swing.JPanel;
 
 import destal.entities.Player;
 import destal.general.event.events.PlayerMovementEvent;
-import destal.general.event.listener.IPlayerMovementListener;
+import destal.general.event.listener.PlayerMovementListener;
 import destal.general.world.Chunk;
 import destal.general.world.World;
 import destal.general.world.WorldPoint;
 
 
-public class GamePanel extends JPanel implements MouseMotionListener, IPlayerMovementListener
+public class GamePanel extends JPanel implements MouseMotionListener, PlayerMovementListener
 {
 	private GUI _gui;
 	private MouseEvent _lastMouseEvent;

@@ -1,11 +1,13 @@
 package destal.general.net.server;
 
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
+import destal.general.event.events.PacketReceivedServerEvent;
+import destal.general.event.listener.PacketRecievedServerListener;
 import destal.general.net.MSGType;
 import destal.general.net.Packet;
 
@@ -14,16 +16,15 @@ public class ClientConnection implements Runnable
 	private Socket _socket;
 	private ObjectInputStream _input;
 	private ObjectOutputStream _output;
-	private NetworkServer _networkManager;
+	private ArrayList<PacketRecievedServerListener> _packetReceivedServerListener;
 	
 	private String _clientName;
 	
-	public ClientConnection(Socket s, NetworkServer network) throws Exception
+	public ClientConnection(Socket s) throws Exception
 	{
 		_socket = s;
 		_input = new ObjectInputStream(_socket.getInputStream());
 		_output = new ObjectOutputStream(_socket.getOutputStream());
-		_networkManager = network;
 		_clientName = "< connecting >";
 	}
 	
@@ -44,33 +45,45 @@ public class ClientConnection implements Runnable
 				{
 					if((Integer)p.get() != MSGType.PROTOCOL_VERSION)
 					{
+						error = true;
 						System.out.println("error: wrong version... dropping client");
 						Packet r = new Packet(MSGType.MSG_SV_INIT);
 						r.set(false);
 						send(r);
-						error = true;
 					}
 					else
 					{
 						_clientName = (String)p.get();
-						_networkManager.clientConnected(this);
+						for (PacketRecievedServerListener l : _packetReceivedServerListener)
+						{
+							l.clientConnected(new PacketReceivedServerEvent(this));
+						}
 					}
 				}
 				if(type == MSGType.MSG_CL_REQUEST_ENTER)
 				{
-					_networkManager.clientRequestEnter(this);
+					for (PacketRecievedServerListener l : _packetReceivedServerListener)
+					{
+						l.clientRequestEnter(new PacketReceivedServerEvent(this));
+					}
 				}
 				if(type == MSGType.MSG_CL_REQUEST_CHUNK)
 				{
-					int x = (Integer)p.get();
-					int y = (Integer)p.get();
-					_networkManager.clientRequestChunk(this, x, y);
+					PacketReceivedServerEvent e = new PacketReceivedServerEvent(this);
+					e.setPoint((Integer)p.get(),(Integer)p.get());
+					for (PacketRecievedServerListener l : _packetReceivedServerListener)
+					{
+						l.clientRequestChunk(e);
+					}
 				}
 				if (type == MSGType.MSG_CL_PLAYER_POSITION)
 				{
-					double x = (Double)p.get();
-					double y = (Double)p.get();
-					_networkManager.clientPlayerPosition(this, x, y);
+					PacketReceivedServerEvent e = new PacketReceivedServerEvent(this);
+					e.setPoint((Double)p.get(),(Double)p.get());
+					for (PacketRecievedServerListener l : _packetReceivedServerListener)
+					{
+						l.clientPlayerPosition(e);
+					}
 				}
 			}
 			_socket.close();
@@ -80,7 +93,10 @@ public class ClientConnection implements Runnable
 			System.out.println("exception occured");
 			//e.printStackTrace();
 		}
-		_networkManager.clientDisconnected(this);
+		for (PacketRecievedServerListener l : _packetReceivedServerListener)
+		{
+			l.clientDisconnected(new PacketReceivedServerEvent(this));
+		}
 	}
 	
 	public void drop()
@@ -94,11 +110,6 @@ public class ClientConnection implements Runnable
 		{
 			System.out.println("error: cant't drop the client: '" + this + "'");
 		}
-	}
-	
-	public String getName()
-	{
-		return _clientName;
 	}
 	
 	public Packet recv() throws Exception
@@ -119,8 +130,18 @@ public class ClientConnection implements Runnable
 		}
 	}
 	
+	public String getName()
+	{
+		return _clientName;
+	}
+	
 	public String toString()
 	{
 		return getName();
+	}
+	
+	public void addPacketReceivedServerListener(PacketRecievedServerListener listener)
+	{
+		_packetReceivedServerListener.add(listener);
 	}
 }

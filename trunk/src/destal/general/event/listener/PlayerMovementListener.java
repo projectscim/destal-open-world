@@ -7,7 +7,7 @@ import destal.general.event.events.PlayerMovementEvent;
  * @author Steffen
  *
  */
-public interface IPlayerMovementListener
+public interface PlayerMovementListener
 {
 	/**
 	 * Invoked when a player moves

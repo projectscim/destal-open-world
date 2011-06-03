@@ -3,7 +3,7 @@ package destal.entities;
 import destal.entities.characters.Character;
 import destal.general.Client;
 import destal.general.event.events.PlayerMovementEvent;
-import destal.general.event.listener.IPlayerMovementListener;
+import destal.general.event.listener.PlayerMovementListener;
 import destal.general.ui.GamePanel;
 import destal.general.world.Chunk;
 
@@ -15,9 +15,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
-public class Player extends Character implements KeyListener, MouseMotionListener, IPlayerMovementListener
+public class Player extends Character implements KeyListener, MouseMotionListener, PlayerMovementListener
 {
-	private ArrayList<IPlayerMovementListener> _playerMovementListener;
+	private ArrayList<PlayerMovementListener> _playerMovementListener;
 	private MouseEvent _lastMouseEvent;
 	private GamePanel _gamePanel;
 	private Chunk _currentChunk;
@@ -26,7 +26,7 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	public Player()
 	{
 		super();
-		_playerMovementListener = new ArrayList<IPlayerMovementListener>();
+		_playerMovementListener = new ArrayList<PlayerMovementListener>();
 		this.addPlayerMovementListener(this);
 	}
 	
@@ -85,7 +85,7 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	/**
 	 * Adds the specified player movement listener to receive movement events from this player
 	 */
-	public void addPlayerMovementListener(IPlayerMovementListener listener)
+	public void addPlayerMovementListener(PlayerMovementListener listener)
 	{
 		_playerMovementListener.add(listener);
 	}
@@ -96,7 +96,7 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	private void invokePlayerMoved()
 	{
 		PlayerMovementEvent e = new PlayerMovementEvent(this, this.getLocation());
-		for (IPlayerMovementListener l : _playerMovementListener)
+		for (PlayerMovementListener l : _playerMovementListener)
 		{
 			l.playerMoved(e);
 		}
