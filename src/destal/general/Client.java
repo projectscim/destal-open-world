@@ -1,7 +1,6 @@
 package destal.general;
 
 import java.awt.Point;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import destal.entities.Player;
@@ -15,6 +14,7 @@ import destal.general.world.Chunk;
 
 public class Client implements PlayerMovementListener
 {
+	// TODO: divide into Client and GameClient?
 	private Chunk[] _chunkBuffer;
 	private ArrayList<Character> _characters;
 	private Player _localPlayer;
@@ -22,7 +22,7 @@ public class Client implements PlayerMovementListener
 	
 	private NetworkClient _networkClient;
 	
-	public Client() throws IOException
+	public Client()
 	{
 		DataContainer.create();
 		_localPlayer = new Player(this);
@@ -39,7 +39,6 @@ public class Client implements PlayerMovementListener
 	public void setChunkBuffer(Chunk[] chunkBuffer)
 	{
 		_chunkBuffer = chunkBuffer;
-		_gui.getGame().setChunkBuffer(_chunkBuffer);
 	}
 
 	public Player getLocalCharacter()
@@ -74,15 +73,7 @@ public class Client implements PlayerMovementListener
 	
 	public static void main(String[] args)
 	{
-		try
-		{
-			(new Client()).run();
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		(new Client()).run();
 	}
 
 	@Override

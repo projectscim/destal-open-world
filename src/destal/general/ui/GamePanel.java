@@ -15,19 +15,17 @@ import destal.general.world.Chunk;
 import destal.general.world.World;
 import destal.general.world.WorldPoint;
 
-
 public class GamePanel extends JPanel implements MouseMotionListener, PlayerMovementListener
 {
 	private GUI _gui;
 	private MouseEvent _lastMouseEvent;
 	private Player _player;
-	private Chunk[] _chunkBuffer;
 	
-	public GamePanel (GUI gui, Player player)
+	public GamePanel (GUI gui)
 	{
 		super();
 		_gui = gui;
-		_player = player;
+		_player = _gui.getClient().getLocalCharacter();
 		this.addMouseMotionListener(this);
 		this.addMouseMotionListener(_player);
 		this.addKeyListener(_player);
@@ -36,18 +34,13 @@ public class GamePanel extends JPanel implements MouseMotionListener, PlayerMove
 		setDoubleBuffered(true);
 	}
 	
-	public void setChunkBuffer(Chunk[] chunk)
-	{
-		_chunkBuffer = chunk;
-	}
-	
 	@Override
 	public void paintComponent(Graphics g)
 	{
 		// Add what's to draw:
 		WorldPoint p = new WorldPoint(_player.getLocation().getX()-this.getWidth()/2/World.BLOCK_PAINTSIZE,
 				_player.getLocation().getY()-this.getHeight()/2/World.BLOCK_PAINTSIZE);
-		for (Chunk c : _chunkBuffer)
+		for (Chunk c : _gui.getClient().getChunkBuffer())
 		{
 			if(c == null)
 				continue;
@@ -74,10 +67,7 @@ public class GamePanel extends JPanel implements MouseMotionListener, PlayerMove
 	}
 	
 	@Override
-	public void mouseDragged(MouseEvent e)
-	{
-		// TODO Auto-generated method stub
-	}
+	public void mouseDragged(MouseEvent e) { }
 
 	@Override
 	public void mouseMoved(MouseEvent e)
@@ -100,5 +90,4 @@ public class GamePanel extends JPanel implements MouseMotionListener, PlayerMove
 	{
 		this.repaint();
 	}
-	
 }
