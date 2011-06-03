@@ -50,7 +50,8 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener
 			}
 			catch (Exception e)
 			{
-				e.printStackTrace();
+				System.out.println("exception occured (client listener)");
+				//e.printStackTrace();
 				break;
 			}
         }
