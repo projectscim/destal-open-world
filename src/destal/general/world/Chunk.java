@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Random;
+import java.util.Vector;
 
 import destal.entities.Item;
 import destal.entities.Values;
@@ -17,12 +18,12 @@ public class Chunk implements Serializable
 {
 	private Point _location;
 	private Block[][] _blocks;
-	private Item[][] _items;
+	private Vector<Item> _items;
 
 	private Chunk()
 	{
 		setBlocks(new Block[World.CHUNK_SIZE][World.CHUNK_SIZE]);
-		setItems(new Item[World.CHUNK_SIZE][World.CHUNK_SIZE]);
+		setItems(new Vector<Item>());
 	}
 	
 	public Chunk(Point location)
@@ -66,12 +67,12 @@ public class Chunk implements Serializable
 		return null;
 	}
 
-	public void setItems(Item[][] items)
+	public void setItems(Vector<Item> items)
 	{
-		this._items = items;
+		_items = items;
 	}
 
-	public Item[][] getItems()
+	public Vector<Item> getItems()
 	{
 		return _items;
 	}

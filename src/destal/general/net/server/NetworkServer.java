@@ -1,31 +1,25 @@
 package destal.general.net.server;
 
-
-import java.awt.Point;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Vector;
 
-import destal.general.Controller;
 import destal.general.Server;
+import destal.general.event.events.PacketReceivedServerEvent;
+import destal.general.event.listener.PacketRecievedServerListener;
 import destal.general.net.MSGType;
 import destal.general.net.Packet;
-import destal.general.world.Chunk;
-import destal.general.world.WorldPoint;
 
-public class NetworkServer implements Runnable
+public class NetworkServer implements Runnable, PacketRecievedServerListener
 {
 	private Server _server;
-	private Controller _controller;
 	private ServerSocket _serverSocket;
 	private Vector<ClientConnection> _clientConnections;
 	
-	public NetworkServer(Server server, Controller controller)
+	public NetworkServer(Server server)
 	{
 		_server = server;
-		_controller = controller;
 		_clientConnections = new Vector<ClientConnection>();
 	}
 	
@@ -40,15 +34,19 @@ public class NetworkServer implements Runnable
 		{
 			//e.printStackTrace();
 			System.out.println("couldn't create socket");
+			return;
 		}
 		while(true)
         {
 			try
 			{
 				Socket s = _serverSocket.accept();
-				_clientConnections.add(new ClientConnection(s, this));
-				System.out.println("new client: " + (_clientConnections.size()-1));
-	            new Thread(_clientConnections.get(_clientConnections.size()-1)).start();
+				ClientConnection clCon = new ClientConnection(s);
+				clCon.addPacketReceivedServerListener(this);
+				clCon.addPacketReceivedServerListener(_server.getController());
+				_clientConnections.add(clCon);
+	            new Thread(clCon).start();
+	            System.out.println("new client: " + (_clientConnections.size()-1));
 			}
 			catch (Exception e)
 			{
@@ -76,67 +74,38 @@ public class NetworkServer implements Runnable
 				clientCon.send(data);
 		}
 	}
-	
-	public void clientDisconnected(ClientConnection c)
+
+	@Override
+	public void clientConnected(PacketReceivedServerEvent e)
 	{
-		System.out.println("client left: '" + c + "'");
-		_clientConnections.remove(c);
-		
-		if(_server.getServerGUI() != null)
-		{
-			_server.getServerGUI().setClientList(_clientConnections);
-		}
-	}
-	
-	public void clientConnected(ClientConnection c)
-	{
-		System.out.println("client connected: '" + c + "'");
+		System.out.println("client connected: '" + e.getClient() + "'");
 		Packet p = new Packet(MSGType.MSG_SV_INIT);
 		p.set(true);
 		p.set("Welcome :)");
-		c.send(p);
+		e.getClient().send(p);
 		
 		if(_server.getServerGUI() != null)
 		{
 			_server.getServerGUI().setClientList(_clientConnections);
 		}
 	}
-	
-	public void clientRequestEnter(ClientConnection c)
+
+	@Override
+	public void clientDisconnected(PacketReceivedServerEvent e)
 	{
-		System.out.println("sending chunk buffer to client: '" + c + "'");
-		// TODO: change default position
-		WorldPoint pos = new WorldPoint(40, 40);
-		Point chunkPos = pos.getChunkLocation();
+		System.out.println("client left: '" + e.getClient() + "'");
+		_clientConnections.remove(e.getClient());
 		
-		Chunk[] buffer = new Chunk[9];
-		int i = 0;
-		for (int x = chunkPos.x-1; x <= chunkPos.x+1; x++)
+		if(_server.getServerGUI() != null)
 		{
-			for (int y = chunkPos.y-1; y <= chunkPos.y+1; y++)
-			{
-				buffer[i++] = _controller.world().getLevels()[0].getChunk(x, y);
-			}
+			_server.getServerGUI().setClientList(_clientConnections);
 		}
-		
-		Packet p = new Packet(MSGType.MSG_SV_RESPONSE_ENTER);
-		p.set(pos.getX());
-		p.set(pos.getY());
-		p.set(buffer);
-		c.send(p);
 	}
-	
-	public void clientRequestChunk(ClientConnection c, int x, int y)
-	{
-		System.out.println("sending chunk to client: '" + c + "'");
-		
-		Packet p = new Packet(MSGType.MSG_SV_RESPONSE_CHUNK);
-		p.set(_controller.world().getLevels()[0].getChunk(x, y));
-		c.send(p);
-	}
-	
-	public void clientPlayerPosition(ClientConnection c, double x, double y)
-	{
-		System.out.println("received player position from client: " + c + ", Position: " + x + "|" + y);
-	}
+
+	@Override
+	public void clientRequestEnter(PacketReceivedServerEvent e) { }
+	@Override
+	public void clientRequestChunk(PacketReceivedServerEvent e) { }
+	@Override
+	public void clientPlayerPosition(PacketReceivedServerEvent e) { }
 }

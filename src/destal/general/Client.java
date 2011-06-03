@@ -6,14 +6,14 @@ import java.util.ArrayList;
 
 import destal.entities.Player;
 import destal.general.event.events.PlayerMovementEvent;
-import destal.general.event.listener.IPlayerMovementListener;
+import destal.general.event.listener.PlayerMovementListener;
 import destal.general.net.MSGType;
 import destal.general.net.Packet;
 import destal.general.net.client.NetworkClient;
 import destal.general.ui.GUI;
 import destal.general.world.Chunk;
 
-public class Client implements IPlayerMovementListener
+public class Client implements PlayerMovementListener
 {
 	private Chunk[] _chunkBuffer;
 	private ArrayList<Character> _characters;
