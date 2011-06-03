@@ -1,12 +1,5 @@
 package destal.entities;
 
-import destal.entities.characters.Character;
-import destal.general.Client;
-import destal.general.event.events.PlayerMovementEvent;
-import destal.general.event.listener.PlayerMovementListener;
-import destal.general.ui.GamePanel;
-import destal.general.world.Chunk;
-
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
@@ -14,6 +7,13 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
+
+import destal.entities.characters.Character;
+import destal.general.Client;
+import destal.general.event.events.PlayerMovementEvent;
+import destal.general.event.listener.PlayerMovementListener;
+import destal.general.ui.GamePanel;
+import destal.general.world.Chunk;
 
 public class Player extends Character implements KeyListener, MouseMotionListener, PlayerMovementListener
 {
