@@ -74,8 +74,6 @@ public class ServerGUI extends JFrame implements ActionListener
 	{
 		_area.append(str);
 		_area.setCaretPosition(_area.getDocument().getLength());
-		//_scroll.getVerticalScrollBar().setValue(_scroll.getVerticalScrollBar().getMaximum());
-		//_scroll.repaint();
 	}
 	
 	public void setClientList(Vector<?> data)
