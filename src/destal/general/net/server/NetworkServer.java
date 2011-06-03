@@ -9,12 +9,14 @@ import java.util.Vector;
 import destal.general.Server;
 import destal.general.event.events.ClientConnectedEvent;
 import destal.general.event.events.PacketReceivedServerEvent;
+import destal.general.event.events.PlayerMovementEvent;
 import destal.general.event.listener.ClientConnectedListener;
 import destal.general.event.listener.PacketRecievedServerListener;
+import destal.general.event.listener.PlayerMovementListener;
 import destal.general.net.MSGType;
 import destal.general.net.Packet;
 
-public class NetworkServer implements Runnable, PacketRecievedServerListener
+public class NetworkServer implements Runnable, PacketRecievedServerListener, PlayerMovementListener
 {
 	private Server _server;
 	private ServerSocket _serverSocket;
@@ -130,4 +132,17 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener
 	public void clientRequestChunk(PacketReceivedServerEvent e) { }
 	@Override
 	public void clientPlayerPosition(PacketReceivedServerEvent e) { }
+
+	@Override
+	public void playerMoved(PlayerMovementEvent e)
+	{
+		for (ClientConnection c : _clientConnections)
+		{
+			Packet p = new Packet(MSGType.MSG_SV_PLAYER_POSITIONS);
+			p.set(e.getLocation().getX());
+			p.set(e.getLocation().getY());
+			p.set(e.getSource());
+			c.send(p);
+		}
+	}
 }

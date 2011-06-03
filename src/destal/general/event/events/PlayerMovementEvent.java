@@ -30,7 +30,7 @@ public class PlayerMovementEvent extends EventObject
 	{
 		return _location;
 	}
-	private void setLocation(WorldPoint location)
+	public void setLocation(WorldPoint location)
 	{
 		_location = location;
 	}

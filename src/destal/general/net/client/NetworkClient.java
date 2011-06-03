@@ -87,6 +87,18 @@ public class NetworkClient implements Runnable
 							l.serverResponseChunk(e);
 						}
 					}
+					else if (type == MSGType.MSG_SV_PLAYER_POSITIONS)
+					{
+						PacketReceivedClientEvent e = new PacketReceivedClientEvent(this);
+						double x = (Double)r.get();
+						double y = (Double)r.get();
+						Object source = r.get();
+						e.setPoint(x, y);
+						for (PacketRecievedClientListener l : _packetReceivedClientListener)
+						{
+							l.serverResponsePlayerPositions(e);
+						}
+					}
 				}
 			}
 			_socket.close();

@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import destal.entities.HumanPlayer;
+import destal.entities.characters.Player;
 import destal.general.event.events.PacketReceivedClientEvent;
 import destal.general.event.events.PlayerMovementEvent;
 import destal.general.event.listener.PacketRecievedClientListener;
@@ -13,12 +14,13 @@ import destal.general.net.Packet;
 import destal.general.net.client.NetworkClient;
 import destal.general.ui.GUI;
 import destal.general.world.Chunk;
+import destal.general.world.WorldPoint;
 
 public class Client implements PlayerMovementListener, PacketRecievedClientListener
 {
 	// TODO: divide into Client and GameClient?
 	private Chunk[] _chunkBuffer;
-	private ArrayList<Character> _characters;
+	private ArrayList<Player> _characters;
 	private HumanPlayer _localPlayer;
 	private GUI _gui;
 	private int _id;
@@ -43,6 +45,7 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 		_gui = new GUI(600, 200, this);
 		_networkClient = new NetworkClient();
 		_networkClient.addPacketReceivedClientListener(this);
+		_characters = new ArrayList<Player>();
 	}
 
 	public Chunk[] getChunkBuffer()
@@ -133,5 +136,12 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 	public static void main(String[] args)
 	{
 		(new Client()).run();
+	}
+
+	@Override
+	public void serverResponsePlayerPositions(PacketReceivedClientEvent e)
+	{
+		WorldPoint p = e.getPoint();
+		System.out.println("Received position: " + p.toString());
 	}
 }
