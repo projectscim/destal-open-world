@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import destal.entities.characters.Player;
 import destal.general.event.events.ClientConnectedEvent;
 import destal.general.event.events.PacketReceivedServerEvent;
+import destal.general.event.events.PlayerMovementEvent;
 import destal.general.event.listener.ClientConnectedListener;
 import destal.general.event.listener.PacketRecievedServerListener;
+import destal.general.event.listener.PlayerMovementListener;
 import destal.general.net.MSGType;
 import destal.general.net.Packet;
 import destal.general.world.Chunk;
@@ -16,17 +18,19 @@ import destal.general.world.WorldPoint;
 
 public class Controller implements PacketRecievedServerListener, ClientConnectedListener
 {
+	private ArrayList<PlayerMovementListener> _playerMovementListener;
 	private World _world;
 	private ArrayList<Player> _characters;
 	
 	public Controller()
 	{
+		_playerMovementListener = new ArrayList<PlayerMovementListener>();
+		_characters = new ArrayList<Player>();
 	}
 	
 	public void loadWorld(String name)
 	{
 		_world = new World(name);
-		_characters = new ArrayList<Player>();
 	}
 	
 	@Override
@@ -67,11 +71,33 @@ public class Controller implements PacketRecievedServerListener, ClientConnected
 	@Override
 	public void clientPlayerPosition(PacketReceivedServerEvent e)
 	{
-		Player c = _characters.get(e.getClientID());
-		c.setLocation(e.getPoint());
+		Player player = _characters.get(e.getClientID());
+		player.setLocation(e.getPoint());
 		System.out.println("Player " + e.getClientID() + " changed location to: " + e.getPoint().toString());
+		this.invokePlayerMoved(player);
 	}
 
+	/**
+	 * Adds the specified player movement listener to receive movement events from this player
+	 */
+	public void addPlayerMovementListener(PlayerMovementListener listener)
+	{
+		_playerMovementListener.add(listener);
+	}
+	/**
+	 * [intern]
+	 * Invokes all playerMoved() methods in the specified listeners
+	 */
+	private void invokePlayerMoved(Player p)
+	{
+		PlayerMovementEvent e = new PlayerMovementEvent(p);
+		e.setLocation(p.getLocation());
+		for (PlayerMovementListener l : _playerMovementListener)
+		{
+			l.playerMoved(e);
+		}
+	}
+	
 	@Override
 	public void clientConnected(PacketReceivedServerEvent e) { }
 	@Override

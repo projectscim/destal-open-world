@@ -29,4 +29,5 @@ public class MSGType
 	public final static byte MSG_SV_INIT = 0x11;
 	public final static byte MSG_SV_RESPONSE_ENTER = 0x12;
 	public final static byte MSG_SV_RESPONSE_CHUNK = 0x13;
+	public final static byte MSG_SV_PLAYER_POSITIONS = 0x14;
 }
