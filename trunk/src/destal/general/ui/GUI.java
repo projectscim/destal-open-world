@@ -1,6 +1,5 @@
 package destal.general.ui;
 
-
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -16,12 +15,8 @@ import destal.general.Client;
 public class GUI extends JFrame
 {
 	private Client _client;
-	private GUIMode _guiMode;
-	private GamePanel _game;
-	private MenuPanel _menu;
-	private OptionPanel _options;
-	
-	private JPanel _curPanel; 
+	private JPanel[] _panels;
+	private JPanel _curPanel;
 
 	public enum GUIMode {TITLE, MENU, OPTIONS, GAME}
 	
@@ -30,21 +25,23 @@ public class GUI extends JFrame
 	    super("destal open world");
 	    
 		_client = client;
+		_panels = new JPanel[GUIMode.values().length];
 		
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.setBounds(0,0,width,height);
 	    
-	    _game = new GamePanel(this, _client.getLocalCharacter());
-	    _game.setSize(new Dimension(width,height));
-	    _game.setLayout(null);
+	    _panels[GUIMode.MENU.ordinal()] = new MenuPanel(this);
+	    _panels[GUIMode.GAME.ordinal()] = new GamePanel(this);
+	    _panels[GUIMode.OPTIONS.ordinal()] = new OptionPanel(this);
 	    
-	    _menu = new MenuPanel(this);
-	    _menu.setSize(new Dimension(width,height));
-	    _menu.setLayout(null);
-	    
-	    _options = new OptionPanel(this);
-	    _options.setSize(new Dimension(width,height));
-	    _options.setLayout(null);
+	    for(int i = 0; i < _panels.length; i++)
+	    {
+	    	if(_panels[i] != null)
+	    	{
+		    	_panels[i].setSize(new Dimension(width,height));
+		    	_panels[i].setLayout(null);
+	    	}
+	    }
 	    
 	    this.setGUIMode(GUIMode.MENU);
 	    
@@ -53,12 +50,6 @@ public class GUI extends JFrame
 	    
 	    setBackground(Color.RED);
 	    //this.addMouseMotionListener(_client.getLocalCharacter());
-
-	}
-	
-	public GamePanel getGame()
-	{
-		return _game;
 	}
 	
 	public Client getClient()
@@ -68,34 +59,22 @@ public class GUI extends JFrame
 	
 	public void setGUIMode(GUIMode mode)
 	{
-		_guiMode = mode;
-		if (_curPanel != null)
+		JPanel panel = _panels[mode.ordinal()];
+		if(panel != null)
 		{
-			this.remove(_curPanel);
-		}
-		switch (_guiMode)
-		{
-			case TITLE:
-				break;
-			case MENU:
-				_curPanel = _menu;
-				break;
-			case OPTIONS:
-				_curPanel = _options;
-				break;
-			case GAME:
-				_curPanel = _game;
-				disableCursor();
-				break;
-		}
-		if (_curPanel != null)
-		{
+			if (_curPanel != null)
+			{
+				this.remove(_curPanel);
+			}
+			
+			_curPanel = panel;
+			
 			this.add(_curPanel);
 			this.invalidate();
 			this.validate();
 			_curPanel.requestFocusInWindow();
+			this.repaint();
 		}
-		this.repaint();
 	}
 	
 	public void disableCursor()

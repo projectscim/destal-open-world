@@ -81,7 +81,6 @@ public class Level
 			{
 				// Save the current Chunk
 				_chunks[x][y].saveChunk(new File(_chunkDir.getPath() + "/chunk" + x + "_" + y));
-				// TODO: Write Chunk data into Level file
 			}
 		}
 		fs.close();
@@ -107,8 +106,8 @@ public class Level
 		}
 		catch (IOException e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("couldn't load chunk (" + x + "|" + y + ")");
+			//e.printStackTrace();
 			return null;
 		}
 	}

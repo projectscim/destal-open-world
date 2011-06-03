@@ -110,16 +110,10 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	
 	
 	@Override
-	public void keyPressed(KeyEvent e)
-	{
-		// TODO Auto-generated method stub
-	}
+	public void keyPressed(KeyEvent e) { }
 
 	@Override
-	public void keyReleased(KeyEvent e)
-	{
-		// TODO Auto-generated method stub
-	}
+	public void keyReleased(KeyEvent e) { }
 
 	@Override
 	public void keyTyped(KeyEvent e)
@@ -128,10 +122,7 @@ public class Player extends Character implements KeyListener, MouseMotionListene
 	}
 	
 	@Override
-	public void mouseDragged(MouseEvent e)
-	{
-		// TODO Auto-generated method stub
-	}
+	public void mouseDragged(MouseEvent e) { }
 
 	@Override
 	public void mouseMoved(MouseEvent e)
