@@ -8,7 +8,7 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
 
-import destal.entities.Player;
+import destal.entities.HumanPlayer;
 import destal.general.event.events.PlayerMovementEvent;
 import destal.general.event.listener.PlayerMovementListener;
 import destal.general.world.Chunk;
@@ -19,7 +19,7 @@ public class GamePanel extends JPanel implements MouseMotionListener, PlayerMove
 {
 	private GUI _gui;
 	private MouseEvent _lastMouseEvent;
-	private Player _player;
+	private HumanPlayer _player;
 	
 	public GamePanel (GUI gui)
 	{

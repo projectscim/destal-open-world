@@ -83,6 +83,8 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener
 		Packet p = new Packet(MSGType.MSG_SV_INIT);
 		p.set(true);
 		p.set("Welcome :)");
+		p.set(_clientConnections.indexOf(e.getClient()));
+		
 		e.getClient().send(p);
 		
 		if(_server.getServerGUI() != null)

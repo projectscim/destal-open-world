@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import destal.entities.Player;
+import destal.entities.HumanPlayer;
 import destal.general.world.Chunk;
 
 
@@ -13,7 +13,7 @@ public class ChunkPanel extends JPanel
 	private GUI _gui;
 	private Chunk _chunk;
 	private Chunk[] _chunkBuffer;
-	private Player _player;
+	private HumanPlayer _player;
 	
 	public ChunkPanel (GUI gui, Chunk chunk)
 	{

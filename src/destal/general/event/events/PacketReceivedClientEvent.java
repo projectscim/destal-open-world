@@ -11,6 +11,7 @@ public class PacketReceivedClientEvent extends EventObject
 	private Chunk _chunk[];
 	private WorldPoint _point;
 	private String _MOTD;
+	private int _clientID;
 	
 	public PacketReceivedClientEvent(NetworkClient source)
 	{
@@ -73,5 +74,15 @@ public class PacketReceivedClientEvent extends EventObject
 	public String getMOTD()
 	{
 		return _MOTD;
+	}
+	
+	public void setClientID(int id)
+	{
+		_clientID = id;
+	}
+	
+	public int getClientID()
+	{
+		return _clientID;
 	}
 }

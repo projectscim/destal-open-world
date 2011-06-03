@@ -74,7 +74,6 @@ public class GUI extends JFrame
 			{
 				this.remove(_curPanel);
 			}
-			
 			_curPanel = panel;
 			
 			this.add(_curPanel);

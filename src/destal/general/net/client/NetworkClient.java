@@ -56,6 +56,7 @@ public class NetworkClient implements Runnable
 						
 						PacketReceivedClientEvent e = new PacketReceivedClientEvent(this);
 						e.setMOTD((String)r.get());
+						e.setClientID((Integer)r.get());
 						for (PacketRecievedClientListener l : _packetReceivedClientListener)
 						{
 							l.serverConnected(e);

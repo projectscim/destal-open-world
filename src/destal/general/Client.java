@@ -3,7 +3,7 @@ package destal.general;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import destal.entities.Player;
+import destal.entities.HumanPlayer;
 import destal.general.event.events.PacketReceivedClientEvent;
 import destal.general.event.events.PlayerMovementEvent;
 import destal.general.event.listener.PacketRecievedClientListener;
@@ -19,15 +19,26 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 	// TODO: divide into Client and GameClient?
 	private Chunk[] _chunkBuffer;
 	private ArrayList<Character> _characters;
-	private Player _localPlayer;
+	private HumanPlayer _localPlayer;
 	private GUI _gui;
+	private int _id;
+	
+	public int getID()
+	{
+		return _id;
+	}
+	
+	public void setID(int id)
+	{
+		_id = id;
+	}
 	
 	private NetworkClient _networkClient;
 	
 	public Client()
 	{
 		DataContainer.create();
-		_localPlayer = new Player(this);
+		_localPlayer = new HumanPlayer(this);
 		_localPlayer.addPlayerMovementListener(this);
 		_gui = new GUI(600, 200, this);
 		_networkClient = new NetworkClient();
@@ -39,7 +50,7 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 		return _chunkBuffer;
 	}
 
-	public Player getLocalCharacter()
+	public HumanPlayer getLocalCharacter()
 	{
 		return _localPlayer;
 	}
@@ -77,6 +88,7 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 	{
 		System.out.println("sucessfully connected to server");
 		System.out.println("[Server] MOTD: " + e.getMOTD());
+		this.setID(e.getClientID());
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import destal.general.world.WorldPoint;
 public class PacketReceivedServerEvent extends EventObject
 {
 	private WorldPoint _point;
+	private int _clientID;
 	
 	public PacketReceivedServerEvent(ClientConnection client)
 	{
@@ -38,5 +39,15 @@ public class PacketReceivedServerEvent extends EventObject
 	public WorldPoint getPoint()
 	{
 		return _point;
+	}
+	
+	public void setClientID(int id)
+	{
+		_clientID = id;
+	}
+	
+	public int getClientID()
+	{
+		return _clientID;
 	}
 }
