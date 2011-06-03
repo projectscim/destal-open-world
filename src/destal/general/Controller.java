@@ -3,7 +3,10 @@ package destal.general;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import destal.entities.characters.Player;
+import destal.general.event.events.ClientConnectedEvent;
 import destal.general.event.events.PacketReceivedServerEvent;
+import destal.general.event.listener.ClientConnectedListener;
 import destal.general.event.listener.PacketRecievedServerListener;
 import destal.general.net.MSGType;
 import destal.general.net.Packet;
@@ -11,10 +14,10 @@ import destal.general.world.Chunk;
 import destal.general.world.World;
 import destal.general.world.WorldPoint;
 
-public class Controller implements PacketRecievedServerListener
+public class Controller implements PacketRecievedServerListener, ClientConnectedListener
 {
 	private World _world;
-	private ArrayList<Character> _characters;
+	private ArrayList<Player> _characters;
 	
 	public Controller()
 	{
@@ -23,6 +26,7 @@ public class Controller implements PacketRecievedServerListener
 	public void loadWorld(String name)
 	{
 		_world = new World(name);
+		_characters = new ArrayList<Player>();
 	}
 	
 	@Override
@@ -63,12 +67,21 @@ public class Controller implements PacketRecievedServerListener
 	@Override
 	public void clientPlayerPosition(PacketReceivedServerEvent e)
 	{
-		destal.entities.characters.Character c = (destal.entities.characters.Character)_characters.get(e.getClientID());
-		
+		Player c = _characters.get(e.getClientID());
+		c.setLocation(e.getPoint());
+		System.out.println("Player " + e.getClientID() + " changed location to: " + e.getPoint().toString());
 	}
 
 	@Override
 	public void clientConnected(PacketReceivedServerEvent e) { }
 	@Override
 	public void clientDisconnected(PacketReceivedServerEvent e) { }
+
+	@Override
+	public void clientConnected(ClientConnectedEvent e)
+	{
+		Player p = new Player();
+		p.setLocation(0, 0);
+		_characters.add(p);
+	}
 }

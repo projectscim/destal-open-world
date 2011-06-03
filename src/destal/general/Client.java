@@ -78,6 +78,7 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 	public void playerMoved(PlayerMovementEvent e)
 	{
 		Packet p = new Packet(MSGType.MSG_CL_PLAYER_POSITION);
+		
 		p.set(e.getLocation().getX());
 		p.set(e.getLocation().getY());
 		_networkClient.send(p);

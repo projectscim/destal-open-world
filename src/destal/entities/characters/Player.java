@@ -2,8 +2,9 @@ package destal.entities.characters;
 
 import destal.entities.Values;
 
-public abstract class Character extends Entity
+public class Player extends Entity
 {
+	
 	@Override
 	public int getDataValue()
 	{

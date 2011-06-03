@@ -41,4 +41,11 @@ public class WorldPoint extends Point.Double
 	{
 		return new Point((int)((this.getX()- x)*World.BLOCK_PAINTSIZE), (int)((this.getY()- y)*World.BLOCK_PAINTSIZE));
 	}
+	@Override
+	public String toString()
+	{
+		return "WorldPoint [x=" + x + ", y=" + y + "]";
+	}
+	
+	
 }

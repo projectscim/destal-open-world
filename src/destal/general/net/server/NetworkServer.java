@@ -3,10 +3,13 @@ package destal.general.net.server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import destal.general.Server;
+import destal.general.event.events.ClientConnectedEvent;
 import destal.general.event.events.PacketReceivedServerEvent;
+import destal.general.event.listener.ClientConnectedListener;
 import destal.general.event.listener.PacketRecievedServerListener;
 import destal.general.net.MSGType;
 import destal.general.net.Packet;
@@ -16,11 +19,13 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener
 	private Server _server;
 	private ServerSocket _serverSocket;
 	private Vector<ClientConnection> _clientConnections;
+	private ArrayList<ClientConnectedListener> _clientConnectedListener;
 	
 	public NetworkServer(Server server)
 	{
 		_server = server;
 		_clientConnections = new Vector<ClientConnection>();
+		_clientConnectedListener = new ArrayList<ClientConnectedListener>();
 	}
 	
 	@Override
@@ -41,12 +46,13 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener
 			try
 			{
 				Socket s = _serverSocket.accept();
-				ClientConnection clCon = new ClientConnection(s);
+				ClientConnection clCon = new ClientConnection(s, _clientConnections.size());
 				clCon.addPacketReceivedServerListener(this);
 				clCon.addPacketReceivedServerListener(_server.getController());
 				_clientConnections.add(clCon);
 	            new Thread(clCon).start();
 	            System.out.println("new client: " + (_clientConnections.size()-1));
+	            this.invokeClientConnected(new ClientConnectedEvent(this));
 			}
 			catch (Exception e)
 			{
@@ -102,6 +108,19 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener
 		if(_server.getServerGUI() != null)
 		{
 			_server.getServerGUI().setClientList(_clientConnections);
+		}
+	}
+	
+	public void addClientConnectedListener(ClientConnectedListener l)
+	{
+		_clientConnectedListener.add(l);
+	}
+	
+	public void invokeClientConnected(ClientConnectedEvent e)
+	{
+		for (ClientConnectedListener l : _clientConnectedListener)
+		{
+			l.clientConnected(e);
 		}
 	}
 
