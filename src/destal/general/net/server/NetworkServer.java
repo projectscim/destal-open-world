@@ -22,6 +22,7 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener, Pl
 	private ServerSocket _serverSocket;
 	private Vector<ClientConnection> _clientConnections;
 	private ArrayList<ClientConnectedListener> _clientConnectedListener;
+	// TODO: dynamic reset of current ID when client disconnected
 	private int _currentID = 0;
 	
 	public NetworkServer(Server server)
@@ -92,6 +93,7 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener, Pl
 		Packet p = new Packet(MSGType.MSG_SV_INIT);
 		p.set(true);
 		p.set("Welcome :)");
+		// TODO not optimal, but it works
 		p.set(((ClientConnection)e.getSource()).getID());
 		
 		e.getClient().send(p);
@@ -134,6 +136,7 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener, Pl
 	@Override
 	public void clientPlayerPosition(PacketReceivedServerEvent e)
 	{
+		// Send changed player position to all clients
 		for (ClientConnection c : _clientConnections)
 		{
 			Packet p = new Packet(MSGType.MSG_SV_PLAYER_POSITIONS);

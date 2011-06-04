@@ -19,13 +19,13 @@ import destal.general.world.WorldPoint;
 
 public class Controller implements PacketRecievedServerListener, ClientConnectedListener
 {
-	private ArrayList<PlayerMovementListener> _playerMovementListener;
 	private World _world;
+	// TODO: remove?
 	private ArrayList<Player> _characters;
 	
 	public Controller()
 	{
-		_playerMovementListener = new ArrayList<PlayerMovementListener>();
+		// TODO: remove?
 		_characters = new ArrayList<Player>();
 	}
 	
@@ -57,6 +57,7 @@ public class Controller implements PacketRecievedServerListener, ClientConnected
 		p.set(pos.getY());
 		p.set(buffer);
 		e.getClient().send(p);
+		// TODO: Send packet to clients so that they recognize the just entering player
 	}
 
 	@Override
@@ -75,27 +76,6 @@ public class Controller implements PacketRecievedServerListener, ClientConnected
 		Player player = _characters.get(e.getClientID());
 		player.setLocation(e.getPoint());
 	}
-/*
-	/**
-	 * Adds the specified player movement listener to receive movement events from this player
-	 /
-	public void addPlayerMovementListener(PlayerMovementListener listener)
-	{
-		_playerMovementListener.add(listener);
-	}
-	/**
-	 * [intern]
-	 * Invokes all playerMoved() methods in the specified listeners
-	 /
-	private void invokePlayerMoved(Player p)
-	{
-		PlayerMovementEvent e = new PlayerMovementEvent(p);
-		e.setLocation(p.getLocation());
-		for (PlayerMovementListener l : _playerMovementListener)
-		{
-			l.playerMoved(e);
-		}
-	}*/
 	
 	@Override
 	public void clientConnected(PacketReceivedServerEvent e) { }
@@ -105,6 +85,7 @@ public class Controller implements PacketRecievedServerListener, ClientConnected
 	@Override
 	public void clientConnected(ClientConnectedEvent e)
 	{
+		// Nonsense right now
 		Player p = new Player();
 		p.setLocation(0, 0);
 		_characters.add(p);
