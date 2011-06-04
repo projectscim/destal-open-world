@@ -17,6 +17,7 @@ public class ClientConnection implements Runnable
 	private ObjectInputStream _input;
 	private ObjectOutputStream _output;
 	private ArrayList<PacketRecievedServerListener> _packetReceivedServerListener;
+	// Handling via id may be better than by name (?)
 	private int _id;
 	
 	private String _clientName;

@@ -54,6 +54,7 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 		_characters = new ArrayList<Player>();
 		_characters.add(_localPlayer);
 		// Just to test features
+		// TODO: handling of new clients
 		Player p1 = new Player();
 		p1.setID(1);
 		Player p2 = new Player();
