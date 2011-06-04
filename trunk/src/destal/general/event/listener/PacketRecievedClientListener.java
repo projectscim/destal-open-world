@@ -13,4 +13,6 @@ public interface PacketRecievedClientListener
 	public void serverResponseChunk(PacketReceivedClientEvent e);
 	
 	public void serverResponsePlayerPositions(PacketReceivedClientEvent e);
+	
+	public void serverNewClientConnected(PacketReceivedClientEvent e);
 }

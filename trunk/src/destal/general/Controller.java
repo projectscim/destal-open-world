@@ -72,9 +72,9 @@ public class Controller implements PacketRecievedServerListener, ClientConnected
 	
 	@Override
 	public void clientPlayerPosition(PacketReceivedServerEvent e)
-	{
+	{/*
 		Player player = _characters.get(e.getClientID());
-		player.setLocation(e.getPoint());
+		player.setLocation(e.getPoint());*/
 	}
 	
 	@Override
@@ -86,8 +86,10 @@ public class Controller implements PacketRecievedServerListener, ClientConnected
 	public void clientConnected(ClientConnectedEvent e)
 	{
 		// Nonsense right now
+		/*
 		Player p = new Player();
 		p.setLocation(0, 0);
 		_characters.add(p);
+		*/
 	}
 }

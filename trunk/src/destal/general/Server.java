@@ -13,7 +13,6 @@ public class Server
 	{
 		_controller = new Controller();
 		_networkServer = new NetworkServer(this);
-		_networkServer.addClientConnectedListener(_controller);
 		if(gui)
 		{
 			_serverGui = new ServerGUI(800, 400);
