@@ -24,7 +24,7 @@ public class MSGType
 	 * 
 	 * TODO: replace by snapshot system?
 	 * -- Player Position --
-	 * Client -> Server (MSG_SV_PLAYER_POSITION: xPos, yPos)
+	 * Client -> Server (MSG_CL_PLAYER_INPUT: xPos, yPos)
 	 * Server -> Client (all) (MSG_SV_RESPONSE_PLAYER_POSITIONS ID, xPos, yPos)
 	 */
 	
