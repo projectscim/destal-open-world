@@ -12,5 +12,5 @@ public interface PacketRecievedServerListener
 	
 	public void clientRequestChunk(PacketReceivedServerEvent e);
 	
-	public void clientPlayerPosition(PacketReceivedServerEvent e);
+	public void clientPlayerInput(PacketReceivedServerEvent e);
 }

@@ -17,10 +17,9 @@ public class ClientConnection implements Runnable
 	private ObjectInputStream _input;
 	private ObjectOutputStream _output;
 	private ArrayList<PacketRecievedServerListener> _packetReceivedServerListener;
-	// Handling via id may be better than by name (?)
-	private int _id;
 	
-	private String _clientName;
+	private int _id;
+	private String _name;
 	
 	public ClientConnection(Socket s, int id) throws Exception
 	{
@@ -29,7 +28,7 @@ public class ClientConnection implements Runnable
 		_input = new ObjectInputStream(_socket.getInputStream());
 		_output = new ObjectOutputStream(_socket.getOutputStream());
 		_packetReceivedServerListener = new ArrayList<PacketRecievedServerListener>();
-		_clientName = "< connecting >";
+		_name = "< connecting >";
 	}
 	
 	@Override
@@ -57,7 +56,7 @@ public class ClientConnection implements Runnable
 					}
 					else
 					{
-						_clientName = (String)p.get();
+						_name = (String)p.get();
 						for (PacketRecievedServerListener l : _packetReceivedServerListener)
 						{
 							l.clientConnected(new PacketReceivedServerEvent(this));
@@ -80,14 +79,13 @@ public class ClientConnection implements Runnable
 						l.clientRequestChunk(e);
 					}
 				}
-				if (type == MSGType.MSG_CL_PLAYER_POSITION)
+				if (type == MSGType.MSG_CL_PLAYER_INPUT)
 				{
 					PacketReceivedServerEvent e = new PacketReceivedServerEvent(this);
-					e.setClientID(_id);
 					e.setPoint((Double)p.get(),(Double)p.get());
 					for (PacketRecievedServerListener l : _packetReceivedServerListener)
 					{
-						l.clientPlayerPosition(e);
+						l.clientPlayerInput(e);
 					}
 				}
 			}
@@ -117,7 +115,7 @@ public class ClientConnection implements Runnable
 		}
 	}
 	
-	public Packet recv() throws Exception
+	private Packet recv() throws Exception
 	{
 		return (Packet)_input.readObject();
 	}
@@ -135,24 +133,19 @@ public class ClientConnection implements Runnable
 		}
 	}
 	
-	public String getName()
-	{
-		return _clientName;
-	}
-	
-	public String toString()
-	{
-		return getName();
-	}
-	
 	public int getID()
 	{
 		return _id;
 	}
 	
-	public void setID(int id)
+	public String getName()
 	{
-		_id = id;
+		return _name;
+	}
+	
+	public String toString()
+	{
+		return getName() + " (" + getID() + ")";
 	}
 	
 	public void addPacketReceivedServerListener(PacketRecievedServerListener listener)

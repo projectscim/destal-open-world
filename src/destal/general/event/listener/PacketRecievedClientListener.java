@@ -12,7 +12,8 @@ public interface PacketRecievedClientListener
 	
 	public void serverResponseChunk(PacketReceivedClientEvent e);
 	
+	// TODO: replace by snapshot system?
 	public void serverResponsePlayerPositions(PacketReceivedClientEvent e);
-	
+	// TODO: replace by snapshot system?
 	public void serverNewClientConnected(PacketReceivedClientEvent e);
 }
