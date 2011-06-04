@@ -14,13 +14,13 @@ public class MSGType
 	 * Client -> Server (MSG_CL_INIT: PROTOCOL_VERSION, name)
 	 * Server -> Client (MSG_SV_INIT: accepted?, MOTD, ID)
 	 * Client -> Server (MSG_CL_REQUEST_ENTER)
-	 * Server -> Client (MSG_SV_RESPONSE_ENTER: xPos (Player), yPos (Player), Chunkbuffer/Array) // TODO: add client list
+	 * Server -> Client (MSG_SV_RESPONSE_ENTER: xPos (Player), yPos (Player), Chunk/Array) // TODO: add client list
 	 * TODO: replace by snapshot system?
 	 * Server -> Client (all) (MSG_SV_NEW_CLIENT_CONNECTED: ID, xPos, yPos)
 	 * 
 	 * -- Chunk Request --
-	 * Client -> Server (MSG_CL_REQUEST_CHUNK: xPos, yPos)
-	 * Server -> Client (MSG_SV_RESPONSE_CHUNK: Chunk)
+	 * Client -> Server (MSG_CL_REQUEST_CHUNK: Point/Array)
+	 * Server -> Client (MSG_SV_RESPONSE_CHUNK: Chunk) // TODO: all in one packet?
 	 * 
 	 * TODO: replace by snapshot system?
 	 * -- Player Position --

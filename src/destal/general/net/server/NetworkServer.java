@@ -127,7 +127,7 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener
 		p.set(e.getPoint().getX());
 		p.set(e.getPoint().getY());
 		send(-1, p);
-		System.out.println("Player " + e.getClient() + " changed location to: " + e.getPoint());
+		//System.out.println("Player " + e.getClient() + " changed location to: " + e.getPoint());
 	}
 
 	@Override

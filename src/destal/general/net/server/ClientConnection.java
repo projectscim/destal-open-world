@@ -1,5 +1,6 @@
 package destal.general.net.server;
 
+import java.awt.Point;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -42,7 +43,7 @@ public class ClientConnection implements Runnable
 			{
 				Packet p = recv();
 				byte type = p.getType();
-				System.out.println("received packet from client: '" + this + "' (type: " + type + ")");
+				//System.out.println("received packet from client: '" + this + "' (type: " + type + ")");
 				
 				if(type == MSGType.MSG_CL_INIT)
 				{
@@ -73,7 +74,7 @@ public class ClientConnection implements Runnable
 				if(type == MSGType.MSG_CL_REQUEST_CHUNK)
 				{
 					PacketReceivedServerEvent e = new PacketReceivedServerEvent(this);
-					e.setPoint((Integer)p.get(),(Integer)p.get());
+					e.setPoints((Point[])p.get());
 					for (PacketRecievedServerListener l : _packetReceivedServerListener)
 					{
 						l.clientRequestChunk(e);

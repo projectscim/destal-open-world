@@ -2,6 +2,7 @@ package destal.general;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import destal.entities.HumanPlayer;
 import destal.entities.characters.Player;
@@ -66,13 +67,53 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 		
 	}
 	
-	public void chunkNeeded(Point pos)
+	public void leftChunk(Point pos, Point prevChunkPos)
 	{
-		System.out.println("need new chunk");
+		Chunk newCurrent = null;
+		for (int i = 0; i < _chunkBuffer.length; i++)
+		{
+			if(_chunkBuffer[i] != null)
+			{
+				if(pos.equals(_chunkBuffer[i].getLocation()))
+				{
+					newCurrent = _chunkBuffer[i];
+				}
+				if(Math.abs(_chunkBuffer[i].getLocation().x - pos.x) > 1 ||
+				   Math.abs(_chunkBuffer[i].getLocation().y - pos.y) > 1)
+				{
+					_chunkBuffer[i] = null;
+				}
+			}
+		}
+		
+		int xDiff = prevChunkPos.x - pos.x;
+		int yDiff = prevChunkPos.y - pos.y;
+		
+		Vector<Point> needed = new Vector<Point>();
+		if(xDiff != 0)
+		{
+			for(int i = 0; i < 3; i++)
+				needed.add(new Point(pos.x-xDiff, pos.y+i-1));
+		}
+		if(yDiff != 0)
+		{
+			for(int i = 0; i < 3; i++)
+			{
+				Point p = new Point(pos.x+i-1, pos.y-yDiff);
+				if(!needed.equals(p))
+					needed.add(p);
+			}
+		}
+		
+		System.out.println("needed chunks: " + needed);
 		Packet p = new Packet(MSGType.MSG_CL_REQUEST_CHUNK);
-		p.set((int)pos.getX());
-		p.set((int)pos.getY());
+		p.set(needed.toArray(new Point[0]));
 		_networkClient.send(p);
+		
+		if(newCurrent != null)
+		{
+			_localPlayer.setCurrentChunk(newCurrent);
+		}
 	}
 
 	@Override
@@ -104,13 +145,16 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 	public void serverResponseEnter(PacketReceivedClientEvent e)
 	{
 		System.out.println("received start info from server");
+		_localPlayer.setLocation(e.getPoint());
 		_chunkBuffer = e.getChunkBuffer();
 		for(Chunk c : _chunkBuffer)
 		{
 			c.initImages();
+			if(_localPlayer.getLocation().getChunkLocation().equals(c.getLocation()))
+			{
+				_localPlayer.setCurrentChunk(c);
+			}
 		}
-		_localPlayer.setLocation(e.getPoint());
-		_localPlayer.searchCurrentChunk();
 		_gui.setGUIMode(GUI.GUIMode.GAME);
 	}
 
