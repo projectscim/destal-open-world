@@ -4,20 +4,15 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import destal.entities.characters.Player;
-import destal.general.event.events.ClientConnectedEvent;
 import destal.general.event.events.PacketReceivedServerEvent;
-import destal.general.event.events.PlayerMovementEvent;
-import destal.general.event.listener.ClientConnectedListener;
 import destal.general.event.listener.PacketRecievedServerListener;
-import destal.general.event.listener.PlayerMovementListener;
 import destal.general.net.MSGType;
 import destal.general.net.Packet;
-import destal.general.net.server.ClientConnection;
 import destal.general.world.Chunk;
 import destal.general.world.World;
 import destal.general.world.WorldPoint;
 
-public class Controller implements PacketRecievedServerListener, ClientConnectedListener
+public class Controller implements PacketRecievedServerListener
 {
 	private World _world;
 	// TODO: remove?
@@ -81,15 +76,4 @@ public class Controller implements PacketRecievedServerListener, ClientConnected
 	public void clientConnected(PacketReceivedServerEvent e) { }
 	@Override
 	public void clientDisconnected(PacketReceivedServerEvent e) { }
-
-	@Override
-	public void clientConnected(ClientConnectedEvent e)
-	{
-		// Nonsense right now
-		/*
-		Player p = new Player();
-		p.setLocation(0, 0);
-		_characters.add(p);
-		*/
-	}
 }

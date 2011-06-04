@@ -3,15 +3,11 @@ package destal.general.net.server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Vector;
 
-import destal.entities.characters.Player;
 import destal.general.Server;
-import destal.general.event.events.ClientConnectedEvent;
 import destal.general.event.events.PacketReceivedServerEvent;
 import destal.general.event.events.PlayerMovementEvent;
-import destal.general.event.listener.ClientConnectedListener;
 import destal.general.event.listener.PacketRecievedServerListener;
 import destal.general.event.listener.PlayerMovementListener;
 import destal.general.net.MSGType;
