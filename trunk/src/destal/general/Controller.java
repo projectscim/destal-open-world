@@ -59,9 +59,14 @@ public class Controller implements PacketRecievedServerListener
 	{		
 		System.out.println("sending chunk to client: '" + e.getClient() + "'");
 		
-		Packet p = new Packet(MSGType.MSG_SV_RESPONSE_CHUNK);
-		p.set(_world.getLevels()[0].getChunk((int)e.getPoint().getX(), (int)e.getPoint().getY()));
-		e.getClient().send(p);
+		Point[] points = e.getPoints();
+		
+		for(Point pos : points)
+		{
+			Packet p = new Packet(MSGType.MSG_SV_RESPONSE_CHUNK);
+			p.set(_world.getLevels()[0].getChunk(pos.x, pos.y));
+			e.getClient().send(p);
+		}
 	}
 	
 	@Override

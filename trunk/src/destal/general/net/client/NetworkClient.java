@@ -40,7 +40,7 @@ public class NetworkClient implements Runnable
 			{
 				Packet r = recv();
 				byte type = r.getType();
-				System.out.println("received packet (type: " + type + ")");
+				//System.out.println("received packet (type: " + type + ")");
 				
 				if(type == MSGType.MSG_SV_INIT && _state == State.CONNECTING)
 				{

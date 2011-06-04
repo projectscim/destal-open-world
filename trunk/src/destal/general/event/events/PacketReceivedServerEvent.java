@@ -1,5 +1,6 @@
 package destal.general.event.events;
 
+import java.awt.Point;
 import java.util.EventObject;
 
 import destal.general.net.server.ClientConnection;
@@ -8,6 +9,7 @@ import destal.general.world.WorldPoint;
 public class PacketReceivedServerEvent extends EventObject
 {
 	private WorldPoint _point;
+	private Point[] _points;
 	
 	public PacketReceivedServerEvent(ClientConnection client)
 	{
@@ -38,5 +40,15 @@ public class PacketReceivedServerEvent extends EventObject
 	public WorldPoint getPoint()
 	{
 		return _point;
+	}
+	
+	public void setPoints(Point[] points)
+	{
+		_points = points;
+	}
+	
+	public Point[] getPoints()
+	{
+		return _points;
 	}
 }

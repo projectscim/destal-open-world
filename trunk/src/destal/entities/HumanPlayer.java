@@ -37,32 +37,9 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 		_client = client;
 	}
 	
-	public void searchCurrentChunk()
+	public void setCurrentChunk(Chunk c)
 	{
-		// move this somewhere else
-		Chunk newCurrent = null;
-		for (int i = 0; i < _client.getChunkBuffer().length; i++)
-		{
-			if(_client.getChunkBuffer()[i] == null)
-				continue;
-			
-			if(getLocation().getChunkLocation().equals(_client.getChunkBuffer()[i].getLocation()))
-			{
-				newCurrent = _client.getChunkBuffer()[i];
-			}
-			if(Math.abs(_client.getChunkBuffer()[i].getLocation().x - getLocation().getChunkLocation().x) > 1 ||
-			   Math.abs(_client.getChunkBuffer()[i].getLocation().y - getLocation().getChunkLocation().y) > 1)
-			{
-				_client.getChunkBuffer()[i] = null;
-			}
-		}
-		
-		if(newCurrent != null)
-		{
-			_currentChunk = newCurrent;
-		}
-		else
-		_client.chunkNeeded(getLocation().getChunkLocation());
+		_currentChunk = c;
 	}
 	
 	public void setContainer(GamePanel container)
@@ -137,7 +114,7 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 		if(!getLocation().getChunkLocation().equals(_currentChunk.getLocation()))
 		{
 			System.out.println("left chunk");
-			searchCurrentChunk();
+			_client.leftChunk(getLocation().getChunkLocation(), _currentChunk.getLocation());
 		}
 	}
 
