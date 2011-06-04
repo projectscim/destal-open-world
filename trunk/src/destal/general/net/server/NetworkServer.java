@@ -17,8 +17,6 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener
 	private Server _server;
 	private ServerSocket _serverSocket;
 	private Vector<ClientConnection> _clientConnections;
-	// TODO: dynamic reset of current ID when client disconnected
-	private int _currentID = 0;
 	
 	public NetworkServer(Server server)
 	{
@@ -44,7 +42,7 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener
 			try
 			{
 				Socket s = _serverSocket.accept();
-				ClientConnection clCon = new ClientConnection(s, _currentID++);
+				ClientConnection clCon = new ClientConnection(s, getFreeId());
 				clCon.addPacketReceivedServerListener(this);
 				clCon.addPacketReceivedServerListener(_server.getController());
 				_clientConnections.add(clCon);
@@ -58,6 +56,25 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener
 				break;
 			}
         }
+	}
+	
+	private int getFreeId()
+	{
+		int id = 0;
+		int prevId;
+		do
+		{
+			prevId = id;
+			for(ClientConnection clCon : _clientConnections)
+			{
+				if(clCon.getID() == id)
+				{
+					id++;
+					break;
+				}
+			}
+		} while(prevId != id);
+		return id;
 	}
 	
 	public void send(int ID, Packet data)
