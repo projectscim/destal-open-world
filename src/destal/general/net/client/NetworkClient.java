@@ -87,7 +87,7 @@ public class NetworkClient implements Runnable
 							l.serverResponseChunk(e);
 						}
 					}
-					else if (type == MSGType.MSG_SV_PLAYER_POSITIONS)
+					else if (type == MSGType.MSG_SV_RESPONSE_PLAYER_POSITIONS)
 					{
 						PacketReceivedClientEvent e = new PacketReceivedClientEvent(this);
 						int id = (Integer)r.get();
@@ -98,6 +98,15 @@ public class NetworkClient implements Runnable
 						for (PacketRecievedClientListener l : _packetReceivedClientListener)
 						{
 							l.serverResponsePlayerPositions(e);
+						}
+					}
+					else if (type == MSGType.MSG_SV_NEW_CLIENT_CONNECTED)
+					{
+						PacketReceivedClientEvent e = new PacketReceivedClientEvent(this);
+						e.setClientID((Integer)r.get());
+						for (PacketRecievedClientListener l : _packetReceivedClientListener)
+						{
+							l.serverNewClientConnected(e);
 						}
 					}
 				}

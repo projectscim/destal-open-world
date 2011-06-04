@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import destal.entities.characters.Player;
 import destal.general.Server;
 import destal.general.event.events.ClientConnectedEvent;
 import destal.general.event.events.PacketReceivedServerEvent;
@@ -21,7 +22,6 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener, Pl
 	private Server _server;
 	private ServerSocket _serverSocket;
 	private Vector<ClientConnection> _clientConnections;
-	private ArrayList<ClientConnectedListener> _clientConnectedListener;
 	// TODO: dynamic reset of current ID when client disconnected
 	private int _currentID = 0;
 	
@@ -29,7 +29,6 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener, Pl
 	{
 		_server = server;
 		_clientConnections = new Vector<ClientConnection>();
-		_clientConnectedListener = new ArrayList<ClientConnectedListener>();
 	}
 	
 	@Override
@@ -56,7 +55,6 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener, Pl
 				_clientConnections.add(clCon);
 	            new Thread(clCon).start();
 	            System.out.println("new client: " + (_clientConnections.size()-1));
-	            this.invokeClientConnected(new ClientConnectedEvent(this));
 			}
 			catch (Exception e)
 			{
@@ -95,12 +93,22 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener, Pl
 		p.set("Welcome :)");
 		// TODO not optimal, but it works
 		p.set(((ClientConnection)e.getSource()).getID());
-		
 		e.getClient().send(p);
 		
 		if(_server.getServerGUI() != null)
 		{
 			_server.getServerGUI().setClientList(_clientConnections);
+		}
+		
+		// Send packet to all other clients
+		Packet p2 = new Packet(MSGType.MSG_SV_NEW_CLIENT_CONNECTED);
+		p2.set(e.getClientID());
+		for (ClientConnection c : _clientConnections)
+		{
+			if (c != e.getClient())
+			{
+				c.send(p2);
+			}
 		}
 	}
 
@@ -115,19 +123,6 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener, Pl
 			_server.getServerGUI().setClientList(_clientConnections);
 		}
 	}
-	
-	public void addClientConnectedListener(ClientConnectedListener l)
-	{
-		_clientConnectedListener.add(l);
-	}
-	
-	public void invokeClientConnected(ClientConnectedEvent e)
-	{
-		for (ClientConnectedListener l : _clientConnectedListener)
-		{
-			l.clientConnected(e);
-		}
-	}
 
 	@Override
 	public void clientRequestEnter(PacketReceivedServerEvent e) { }
@@ -139,7 +134,7 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener, Pl
 		// Send changed player position to all clients
 		for (ClientConnection c : _clientConnections)
 		{
-			Packet p = new Packet(MSGType.MSG_SV_PLAYER_POSITIONS);
+			Packet p = new Packet(MSGType.MSG_SV_RESPONSE_PLAYER_POSITIONS);
 			p.set(e.getClientID());
 			p.set(e.getPoint().getX());
 			p.set(e.getPoint().getY());

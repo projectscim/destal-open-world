@@ -55,6 +55,7 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 		_characters.add(_localPlayer);
 		// Just to test features
 		// TODO: handling of new clients
+		
 		Player p1 = new Player();
 		p1.setID(1);
 		Player p2 = new Player();
@@ -180,5 +181,17 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 			
 		}
 		_gui.repaint();
+	}
+
+	@Override
+	public void serverNewClientConnected(PacketReceivedClientEvent e)
+	{/*
+		int id = e.getClientID();
+		Player p = new Player();
+		p.setID(id);
+		// TODO: send spawn point
+		p.setLocation(0, 0);
+		_characters.add(p);
+		System.out.println("Added new character with id " + id);*/
 	}
 }
