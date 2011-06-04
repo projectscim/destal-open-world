@@ -7,13 +7,12 @@ import java.util.Vector;
 
 import destal.general.Server;
 import destal.general.event.events.PacketReceivedServerEvent;
-import destal.general.event.events.PlayerMovementEvent;
 import destal.general.event.listener.PacketRecievedServerListener;
-import destal.general.event.listener.PlayerMovementListener;
 import destal.general.net.MSGType;
 import destal.general.net.Packet;
+import destal.general.world.WorldPoint;
 
-public class NetworkServer implements Runnable, PacketRecievedServerListener, PlayerMovementListener
+public class NetworkServer implements Runnable, PacketRecievedServerListener
 {
 	private Server _server;
 	private ServerSocket _serverSocket;
@@ -61,11 +60,6 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener, Pl
         }
 	}
 	
-	public Vector<ClientConnection> getClientList()
-	{
-		return _clientConnections;
-	}
-	
 	public void send(int ID, Packet data)
 	{
 		// TODO: use real ID or something else to identify the client
@@ -87,24 +81,12 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener, Pl
 		Packet p = new Packet(MSGType.MSG_SV_INIT);
 		p.set(true);
 		p.set("Welcome :)");
-		// TODO not optimal, but it works
-		p.set(((ClientConnection)e.getSource()).getID());
+		p.set(e.getClient().getID());
 		e.getClient().send(p);
 		
 		if(_server.getServerGUI() != null)
 		{
 			_server.getServerGUI().setClientList(_clientConnections);
-		}
-		
-		// Send packet to all other clients
-		Packet p2 = new Packet(MSGType.MSG_SV_NEW_CLIENT_CONNECTED);
-		p2.set(e.getClientID());
-		for (ClientConnection c : _clientConnections)
-		{
-			if (c != e.getClient())
-			{
-				c.send(p2);
-			}
 		}
 	}
 
@@ -119,36 +101,32 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener, Pl
 			_server.getServerGUI().setClientList(_clientConnections);
 		}
 	}
+	
+	@Override
+	public void clientPlayerInput(PacketReceivedServerEvent e)
+	{
+		Packet p = new Packet(MSGType.MSG_SV_RESPONSE_PLAYER_POSITIONS);
+		p.set(e.getClient().getID());
+		p.set(e.getPoint().getX());
+		p.set(e.getPoint().getY());
+		send(-1, p);
+		System.out.println("Player " + e.getClient() + " changed location to: " + e.getPoint());
+	}
 
 	@Override
-	public void clientRequestEnter(PacketReceivedServerEvent e) { }
+	public void clientRequestEnter(PacketReceivedServerEvent e)
+	{
+		// TODO: get position somewhere else
+		WorldPoint pos = new WorldPoint(40, 40);
+		
+		// Send packet to all other clients
+		Packet p = new Packet(MSGType.MSG_SV_NEW_CLIENT_CONNECTED);
+		p.set(e.getClient().getID());
+		p.set(pos.getX());
+		p.set(pos.getY());
+		send(-1, p);
+	}
+	
 	@Override
 	public void clientRequestChunk(PacketReceivedServerEvent e) { }
-	@Override
-	public void clientPlayerPosition(PacketReceivedServerEvent e)
-	{
-		// Send changed player position to all clients
-		for (ClientConnection c : _clientConnections)
-		{
-			Packet p = new Packet(MSGType.MSG_SV_RESPONSE_PLAYER_POSITIONS);
-			p.set(e.getClientID());
-			p.set(e.getPoint().getX());
-			p.set(e.getPoint().getY());
-			c.send(p);
-			System.out.println("Player " + e.getClientID() + " changed location to: " + e.getPoint().toString());
-		}
-	}
-
-	@Override
-	public void playerMoved(PlayerMovementEvent e)
-	{/*
-		for (ClientConnection c : _clientConnections)
-		{
-			Packet p = new Packet(MSGType.MSG_SV_PLAYER_POSITIONS);
-			p.set(e.getLocation().getX());
-			p.set(e.getLocation().getY());
-			p.set(e.getSource());
-			c.send(p);
-		}*/
-	}
 }

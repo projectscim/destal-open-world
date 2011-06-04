@@ -25,22 +25,6 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 	private GUI _gui;
 	private int _id;
 	
-	public ArrayList<Player> getCharacters()
-	{
-		return _characters;
-	}
-	
-	public int getID()
-	{
-		return _id;
-	}
-	
-	public void setID(int id)
-	{
-		_id = id;
-		_localPlayer.setID(_id);
-	}
-	
 	private NetworkClient _networkClient;
 	
 	public Client()
@@ -55,19 +39,6 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 		_characters.add(_localPlayer);
 		// Just to test features
 		// TODO: handling of new clients
-		
-		Player p1 = new Player();
-		p1.setID(1);
-		Player p2 = new Player();
-		p2.setID(2);
-		Player p3 = new Player();
-		p3.setID(3);
-		Player p4 = new Player();
-		p4.setID(4);
-		_characters.add(p1);
-		_characters.add(p2);
-		_characters.add(p3);
-		_characters.add(p4);
 	}
 
 	public Chunk[] getChunkBuffer()
@@ -78,6 +49,11 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 	public HumanPlayer getLocalCharacter()
 	{
 		return _localPlayer;
+	}
+	
+	public ArrayList<Player> getCharacters()
+	{
+		return _characters;
 	}
 	
 	public void connect(String address, String username)
@@ -102,7 +78,7 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 	@Override
 	public void playerMoved(PlayerMovementEvent e)
 	{
-		Packet p = new Packet(MSGType.MSG_CL_PLAYER_POSITION);
+		Packet p = new Packet(MSGType.MSG_CL_PLAYER_INPUT);
 		p.set(e.getLocation().getX());
 		p.set(e.getLocation().getY());
 		_networkClient.send(p);
@@ -113,7 +89,8 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 	{
 		System.out.println("sucessfully connected to server");
 		System.out.println("[Server] MOTD: " + e.getMOTD());
-		this.setID(e.getClientID());
+		_id = e.getClientID();
+		_localPlayer.setID(_id);
 	}
 
 	@Override
@@ -154,18 +131,13 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 		_gui.repaint();
 	}
 	
-	public static void main(String[] args)
-	{
-		(new Client()).run();
-	}
-
 	@Override
 	public void serverResponsePlayerPositions(PacketReceivedClientEvent e)
 	{
 		int id = e.getClientID();
 		WorldPoint loc = e.getPoint();
 		
-		if (id != this.getID())
+		if (id != _id)
 		{
 			for (Player p : _characters)
 			{
@@ -174,24 +146,25 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 					p.setLocation(loc);
 				}
 			}
-			System.out.println("Player " + e.getClientID() + " changed location to: " + e.getPoint().toString());
-		}
-		else
-		{
-			
+			System.out.println("Player " + e.getClientID() + " changed location to: " + e.getPoint());
 		}
 		_gui.repaint();
 	}
 
 	@Override
 	public void serverNewClientConnected(PacketReceivedClientEvent e)
-	{/*
-		int id = e.getClientID();
+	{
+		// TODO: remove them
 		Player p = new Player();
-		p.setID(id);
-		// TODO: send spawn point
-		p.setLocation(0, 0);
+		p.setID(e.getClientID());
+		p.setLocation(e.getPoint());
 		_characters.add(p);
-		System.out.println("Added new character with id " + id);*/
+		_gui.repaint();
+		System.out.println("Added new character with id " + e.getClientID());
+	}
+	
+	public static void main(String[] args)
+	{
+		(new Client()).run();
 	}
 }

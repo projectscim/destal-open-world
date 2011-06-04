@@ -52,7 +52,6 @@ public class Controller implements PacketRecievedServerListener
 		p.set(pos.getY());
 		p.set(buffer);
 		e.getClient().send(p);
-		// TODO: Send packet to clients so that they recognize the just entering player
 	}
 
 	@Override
@@ -66,12 +65,7 @@ public class Controller implements PacketRecievedServerListener
 	}
 	
 	@Override
-	public void clientPlayerPosition(PacketReceivedServerEvent e)
-	{/*
-		Player player = _characters.get(e.getClientID());
-		player.setLocation(e.getPoint());*/
-	}
-	
+	public void clientPlayerInput(PacketReceivedServerEvent e) { }
 	@Override
 	public void clientConnected(PacketReceivedServerEvent e) { }
 	@Override

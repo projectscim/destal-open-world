@@ -103,7 +103,11 @@ public class NetworkClient implements Runnable
 					else if (type == MSGType.MSG_SV_NEW_CLIENT_CONNECTED)
 					{
 						PacketReceivedClientEvent e = new PacketReceivedClientEvent(this);
-						e.setClientID((Integer)r.get());
+						int id = (Integer)r.get();
+						double x = (Double)r.get();
+						double y = (Double)r.get();
+						e.setClientID(id);
+						e.setPoint(x, y);
 						for (PacketRecievedClientListener l : _packetReceivedClientListener)
 						{
 							l.serverNewClientConnected(e);
@@ -162,7 +166,7 @@ public class NetworkClient implements Runnable
 		}
 	}
 	
-	public Packet recv() throws Exception
+	private Packet recv() throws Exception
 	{
 		return (Packet)_input.readObject();
 	}
