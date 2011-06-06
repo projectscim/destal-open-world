@@ -14,7 +14,7 @@ public class MSGType
 	 * Client -> Server (MSG_CL_INIT: PROTOCOL_VERSION, name)
 	 * Server -> Client (MSG_SV_INIT: accepted?, MOTD, ID)
 	 * Client -> Server (MSG_CL_REQUEST_ENTER)
-	 * Server -> Client (MSG_SV_RESPONSE_ENTER: xPos (Player), yPos (Player), Chunk/Array) // TODO: add client list
+	 * Server -> Client (MSG_SV_RESPONSE_ENTER: xPos (Player), yPos (Player), Chunk/Array, Client list)
 	 * TODO: replace by snapshot system?
 	 * Server -> Client (all) (MSG_SV_NEW_CLIENT_CONNECTED: ID, xPos, yPos)
 	 * 
@@ -38,4 +38,5 @@ public class MSGType
 	public final static byte MSG_SV_RESPONSE_CHUNK = 0x13;
 	public final static byte MSG_SV_RESPONSE_PLAYER_POSITIONS = 0x14;
 	public final static byte MSG_SV_NEW_CLIENT_CONNECTED = 0x15;
+	public final static byte MSG_SV_CLIENT_LIST = 0x16;
 }
