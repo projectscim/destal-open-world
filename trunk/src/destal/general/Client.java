@@ -132,6 +132,15 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 		System.out.println("[Server] MOTD: " + e.getMOTD());
 		_id = e.getClientID();
 		_localPlayer.setID(_id);
+		int[] ids = e.getClientList();
+		for (int id : ids)
+		{
+			Player pl = new Player();
+			pl.setID(id);
+			_characters.add(pl);
+		}
+		_characters.trimToSize();
+		
 	}
 
 	@Override

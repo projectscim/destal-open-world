@@ -3,6 +3,7 @@ package destal.general.net.server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import destal.general.Server;
@@ -99,6 +100,15 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener
 		p.set(true);
 		p.set("Welcome :)");
 		p.set(e.getClient().getID());
+		// Pack other clients ids in array
+		
+		ArrayList<Integer> a = new ArrayList<Integer>();
+		for (ClientConnection c : _clientConnections)
+		{
+			a.add(c.getID());
+		}
+		a.trimToSize();
+		p.set(a.toArray());
 		e.getClient().send(p);
 		
 		if(_server.getServerGUI() != null)

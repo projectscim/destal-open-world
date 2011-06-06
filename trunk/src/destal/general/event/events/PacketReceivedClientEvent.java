@@ -1,5 +1,6 @@
 package destal.general.event.events;
 
+import java.util.ArrayList;
 import java.util.EventObject;
 
 import destal.general.net.client.NetworkClient;
@@ -12,6 +13,7 @@ public class PacketReceivedClientEvent extends EventObject
 	private WorldPoint _point;
 	private String _MOTD;
 	private int _clientID;
+	private int[] _clientList;
 	
 	public PacketReceivedClientEvent(NetworkClient source)
 	{
@@ -20,6 +22,16 @@ public class PacketReceivedClientEvent extends EventObject
 		_point = new WorldPoint(0,0);
 		_MOTD = "";
 	}
+	
+	public int[] getClientList()
+	{
+		return _clientList;
+	}
+	
+	public void setClientList(int[] clientList)
+	{
+		_clientList = clientList;
+	}	
 	
 	public NetworkClient getNetworkClient()
 	{

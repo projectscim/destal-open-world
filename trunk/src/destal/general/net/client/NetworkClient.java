@@ -57,6 +57,7 @@ public class NetworkClient implements Runnable
 						PacketReceivedClientEvent e = new PacketReceivedClientEvent(this);
 						e.setMOTD((String)r.get());
 						e.setClientID((Integer)r.get());
+						e.setClientList((int[])r.get());
 						System.out.println("Received client id: " + e.getClientID());
 						for (PacketRecievedClientListener l : _packetReceivedClientListener)
 						{
@@ -120,7 +121,7 @@ public class NetworkClient implements Runnable
 		catch(Exception e)
 		{
 			System.out.println("lost connection");
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 		for (PacketRecievedClientListener l : _packetReceivedClientListener)
 		{
