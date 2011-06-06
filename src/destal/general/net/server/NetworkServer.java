@@ -102,13 +102,13 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener
 		p.set(e.getClient().getID());
 		// Pack other clients ids in array
 		
-		ArrayList<Integer> a = new ArrayList<Integer>();
+		int[] a = new int[_clientConnections.size()];
+		int i = 0;
 		for (ClientConnection c : _clientConnections)
 		{
-			a.add(c.getID());
+			a[i++] = c.getID();
 		}
-		a.trimToSize();
-		p.set(a.toArray());
+		p.set(a);
 		e.getClient().send(p);
 		
 		if(_server.getServerGUI() != null)
