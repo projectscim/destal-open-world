@@ -17,6 +17,10 @@ import destal.general.ui.GUI;
 import destal.general.world.Chunk;
 import destal.general.world.WorldPoint;
 
+/**
+ * The main class for the destal client application
+ * @author Alex Belke, Dennis Sternberg, Steffen Schneider
+ */
 public class Client implements PlayerMovementListener, PacketRecievedClientListener
 {
 	// TODO: divide into Client and GameClient?
@@ -28,6 +32,9 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 	
 	private NetworkClient _networkClient;
 	
+	/**
+	 * Creates a new Client
+	 */
 	public Client()
 	{
 		DataContainer.create();
@@ -41,32 +48,48 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 		// Just to test features
 		// TODO: handling of new clients
 	}
-
+	/**
+	 * Returns the chunk buffer used by this client as an array 
+	 * @return The chunk buffer used by this client
+	 */
 	public Chunk[] getChunkBuffer()
 	{
 		return _chunkBuffer;
 	}
-
+	
+	/**
+	 * Returns the local character associated with this client 
+	 * @return The local character associated with this client
+	 */
 	public HumanPlayer getLocalCharacter()
 	{
 		return _localPlayer;
 	}
 	
+	/**
+	 * Returns the characters in the game as an ArrayList 
+	 * @return The characters in the game as an ArrayList 
+	 */
 	public ArrayList<Player> getCharacters()
 	{
 		return _characters;
 	}
 	
+	/**
+	 * Tries to establish a connection to the specified server address
+	 * @param address The address of the server
+	 * @param username The client's user name
+	 */
 	public void connect(String address, String username)
 	{
 		_networkClient.connect(address, username);
 	}
 	
-	public void run()
-	{
-		
-	}
-	
+	/**
+	 * TODO Alex: documentation
+	 * @param pos
+	 * @param prevChunkPos
+	 */
 	public void leftChunk(Point pos, Point prevChunkPos)
 	{
 		Chunk newCurrent = null;
@@ -116,6 +139,8 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 		}
 	}
 
+	// Eventhandler section
+	
 	@Override
 	public void playerMoved(PlayerMovementEvent e)
 	{
@@ -218,6 +243,6 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 	
 	public static void main(String[] args)
 	{
-		(new Client()).run();
+		new Client();
 	}
 }
