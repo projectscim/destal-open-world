@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class World
 {
-	public final static int CHUNK_SIZE = 32;
+	public final static int CHUNK_SIZE = 8;
 	public final static int BLOCK_PAINTSIZE = 32;
 	public final static int LEVEL_SIZE = 16;
 	public final static int LEVEL_QUANTITY = 3;

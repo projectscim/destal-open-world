@@ -52,7 +52,7 @@ public class Server
 	{
 		(new Thread(_networkServer)).start();
 		
-		_controller.loadWorld("g");
+		_controller.loadWorld("x");
 	}
 	
 	public static void main(String[] args)
