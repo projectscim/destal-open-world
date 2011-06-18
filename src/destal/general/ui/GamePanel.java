@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import destal.entities.HumanPlayer;
+import destal.entities.buildings.House;
 import destal.entities.characters.Player;
 import destal.general.event.events.PlayerMovementEvent;
 import destal.general.event.listener.PlayerMovementListener;
@@ -60,6 +61,11 @@ public class GamePanel extends JPanel implements MouseMotionListener, PlayerMove
 						c.getBlocks()[x][y].paint(g, p);
 					}
 				}
+			}
+			for (House h : c.getHouses())
+			{
+				System.out.println("paint house");
+				h.paint(g);
 			}
 		}
 		if (_lastMouseEvent != null)

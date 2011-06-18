@@ -13,17 +13,20 @@ import java.util.Vector;
 import destal.entities.Item;
 import destal.entities.Values;
 import destal.entities.blocks.Block;
+import destal.entities.buildings.House;
 
 public class Chunk implements Serializable
 {
 	private Point _location;
 	private Block[][] _blocks;
 	private Vector<Item> _items;
+	private Vector<House> _houses;
 
 	private Chunk()
 	{
 		setBlocks(new Block[World.CHUNK_SIZE][World.CHUNK_SIZE]);
 		setItems(new Vector<Item>());
+		_houses = new Vector<House>();
 	}
 	
 	public Chunk(Point location)
@@ -36,6 +39,16 @@ public class Chunk implements Serializable
 	{
 		this(location);
 		this.loadFile(file);
+	}
+	
+	public void buildHouse(House house)
+	{
+		_houses.add(house);
+	}
+	
+	public Vector<House> getHouses()
+	{
+		return _houses;
 	}
 	
 	public Point getLocation()
@@ -149,6 +162,9 @@ public class Chunk implements Serializable
 	 */
 	public void create()
 	{
+		// Test houses
+		// TODO remove when finished
+		this.buildHouse(new House(new WorldPoint((int)_location.getX(), (int)_location.getY(), 10, 10)));
 		for (int x = 0; x < World.CHUNK_SIZE; x++)
 		{
 			for (int y = 0; y < World.CHUNK_SIZE; y++)
