@@ -9,6 +9,8 @@ public class Values
 	public final static int BLOCK_SAND = 0x03;
 	public final static int BLOCK_WATER = 0x04;
 	public final static int BLOCK_WOOD = 0x05;
+	public static final int HOUSE = 0x06;
 	
 	public final static int ENTITY_CHARACTER = 0x10;
+
 }
