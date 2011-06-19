@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.Point;
 import java.io.Serializable;
 
+import destal.entities.buildings.House;
 import destal.general.DataContainer;
 import destal.general.world.WorldPoint;
 // TODO: change package to destal.entities
@@ -65,7 +66,7 @@ public abstract class Entity implements Serializable
 	public void paint(Graphics g, WorldPoint p)
 	{
 		Point loc = _location.getLocationOnPanel(p.getX(), p.getY());
-		g.drawImage(_image, (int)loc.getX(), (int)loc.getY(), null);
+		g.drawImage(_image, (int)loc.getX()-16, (int)loc.getY()-16, null);
 	}
 	
 	public abstract int getDataValue();

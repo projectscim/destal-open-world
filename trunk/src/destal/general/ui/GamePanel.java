@@ -62,10 +62,20 @@ public class GamePanel extends JPanel implements MouseMotionListener, PlayerMove
 					}
 				}
 			}
+			(new House(new WorldPoint(20,20))).paint(g);
 			for (House h : c.getHouses())
 			{
-				System.out.println("paint house");
-				h.paint(g);
+				Point loc = h.getLocation().getLocationOnPanel((int)p.getX(), (int)p.getY());
+				if (loc.getX() >= 0 && loc.getX()-World.BLOCK_PAINTSIZE <= this.getWidth() &&
+					loc.getY() >= 0 && loc.getY()-World.BLOCK_PAINTSIZE <= this.getHeight())
+				{
+					// TODO optimize, paint(g, p) does not work for some reason
+					//System.out.println(""+h.getLocation().getLocationOnPanel(p.x, p.y).toString());
+					Point pt = h.getLocation().getLocationOnPanel(p.getX(), p.getY());
+					House house = new House(new WorldPoint(pt.x, pt.y));
+					house.paint(g);
+					//h.paint(g, p);
+				}
 			}
 		}
 		if (_lastMouseEvent != null)

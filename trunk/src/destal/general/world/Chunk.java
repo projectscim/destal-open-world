@@ -102,6 +102,14 @@ public class Chunk implements Serializable
 				getBlocks()[x][y].setLocation(new WorldPoint((int)_location.getX(), (int)_location.getY(), x, y));
 			}
 		}
+		// TODO optimize
+		int size = fs.read();
+		for (int i = 0; i < size; i++)
+		{
+			int x = fs.read();
+			int y = fs.read();
+			_houses.add(new House(new WorldPoint((int)_location.getX(), (int)_location.getY(), x, y)));
+		}
 		fs.close();
 	}
 	/*
@@ -154,6 +162,16 @@ public class Chunk implements Serializable
 				}
 			}
 		}
+		// TODO optimize
+		_houses.trimToSize();
+		fs.write(_houses.size());
+		for (House h : _houses)
+		{
+			int x = h.getLocation().getLocationInChunk().x;
+			int y = h.getLocation().getLocationInChunk().y;
+			fs.write(x);
+			fs.write(y);
+		}
 		fs.close();
 	}
 	/**
@@ -162,9 +180,6 @@ public class Chunk implements Serializable
 	 */
 	public void create()
 	{
-		// Test houses
-		// TODO remove when finished
-		this.buildHouse(new House(new WorldPoint((int)_location.getX(), (int)_location.getY(), 10, 10)));
 		for (int x = 0; x < World.CHUNK_SIZE; x++)
 		{
 			for (int y = 0; y < World.CHUNK_SIZE; y++)
@@ -174,6 +189,11 @@ public class Chunk implements Serializable
 				if (r <= 5)
 				{
 					this.getBlocks()[x][y] = Block.create(Values.BLOCK_TREE);
+					// Test houses
+					// TODO remove when finished
+					System.out.println("Haus wird hinzugefügt");
+					House h = new House(new WorldPoint((int)_location.getX(), (int)_location.getY(), x, y));
+					this.buildHouse(h);
 				}
 				else if (r <= 15)
 				{
@@ -185,6 +205,8 @@ public class Chunk implements Serializable
 				}
 				
 				this.getBlocks()[x][y].setLocation(new WorldPoint((int)_location.getX(), (int)_location.getY(), x, y));
+				
+				
 			}
 		}
 	}
