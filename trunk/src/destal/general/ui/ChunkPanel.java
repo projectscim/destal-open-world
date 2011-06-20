@@ -21,7 +21,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import destal.entities.HumanPlayer;
+import destal.entity.character.HumanPlayer;
 import destal.general.world.Chunk;
 
 

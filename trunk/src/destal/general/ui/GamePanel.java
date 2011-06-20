@@ -27,11 +27,11 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import destal.entities.HumanPlayer;
-import destal.entities.buildings.House;
-import destal.entities.characters.Player;
-import destal.general.event.events.PlayerMovementEvent;
-import destal.general.event.listener.PlayerMovementListener;
+import destal.entity.building.House;
+import destal.entity.character.HumanPlayer;
+import destal.entity.character.Player;
+import destal.event.events.player.PlayerMovementEvent;
+import destal.event.listener.PlayerMovementListener;
 import destal.general.world.Chunk;
 import destal.general.world.World;
 import destal.general.world.WorldPoint;
