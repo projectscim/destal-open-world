@@ -27,7 +27,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import destal.general.Client;
+import destal.general.client.Client;
 
 public class GUI extends JFrame
 {
