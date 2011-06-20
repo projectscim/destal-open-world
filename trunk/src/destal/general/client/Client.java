@@ -15,26 +15,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package destal.general;
+package destal.general.client;
 
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import destal.entities.HumanPlayer;
-import destal.entities.characters.Player;
-import destal.general.event.events.PacketReceivedClientEvent;
-import destal.general.event.events.PlayerActionEvent;
-import destal.general.event.events.PlayerMovementEvent;
-import destal.general.event.listener.PacketReceivedClientListener;
-import destal.general.event.listener.PlayerActionListener;
-import destal.general.event.listener.PlayerMovementListener;
+import destal.entity.character.HumanPlayer;
+import destal.entity.character.Player;
+import destal.event.events.net.client.PacketReceivedClientEvent;
+import destal.event.events.player.PlayerActionEvent;
+import destal.event.events.player.PlayerMovementEvent;
+import destal.event.listener.PacketReceivedClientListener;
+import destal.event.listener.PlayerActionListener;
+import destal.event.listener.PlayerMovementListener;
 import destal.general.net.MSGType;
 import destal.general.net.Packet;
 import destal.general.net.client.NetworkClient;
 import destal.general.ui.GUI;
 import destal.general.world.Chunk;
 import destal.general.world.WorldPoint;
+import destal.util.DataContainer;
 
 /**
  * The main class for the destal client application
