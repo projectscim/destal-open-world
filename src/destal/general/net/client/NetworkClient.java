@@ -23,8 +23,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import destal.general.event.events.PacketReceivedClientEvent;
-import destal.general.event.listener.PacketReceivedClientListener;
+import destal.event.events.net.client.PacketReceivedClientEvent;
+import destal.event.listener.PacketReceivedClientListener;
 import destal.general.net.MSGType;
 import destal.general.net.Packet;
 import destal.general.world.Chunk;
