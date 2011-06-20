@@ -1,6 +1,5 @@
 package destal.general.event.events;
 
-import java.util.ArrayList;
 import java.util.EventObject;
 
 import destal.general.net.client.NetworkClient;

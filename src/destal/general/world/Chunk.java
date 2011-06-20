@@ -191,7 +191,6 @@ public class Chunk implements Serializable
 					this.getBlocks()[x][y] = Block.create(Values.BLOCK_TREE);
 					// Test houses
 					// TODO remove when finished
-					System.out.println("Haus wird hinzugefügt");
 					House h = new House(new WorldPoint((int)_location.getX(), (int)_location.getY(), x, y));
 					this.buildHouse(h);
 				}
@@ -250,22 +249,6 @@ public class Chunk implements Serializable
 			{
 				getBlocks()[x][y].paint(g);
 			}
-		}
-	}
-	
-	public void initImages()
-	{
-		// TODO: rework this
-		for (int x = 0; x < World.CHUNK_SIZE; x++)
-		{
-			for (int y = 0; y < World.CHUNK_SIZE; y++)
-			{
-				getBlocks()[x][y].initImage();
-			}
-		}
-		for(House h : getHouses())
-		{
-			h.initImage();
 		}
 	}
 }

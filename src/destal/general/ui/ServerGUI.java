@@ -56,11 +56,13 @@ public class ServerGUI extends JFrame implements ActionListener
 	    
 		OutputStream output = new OutputStream()
 		{
+			@Override
 			public void write(int b) throws IOException
 			{
 				addMessage(String.valueOf((char) b));
 			}
 			
+			@Override
 			public void write(byte[] b, int off, int len)
 			{
 				addMessage(new String(b, off, len));

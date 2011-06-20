@@ -45,8 +45,6 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 		_networkClient.addPacketReceivedClientListener(this);
 		_characters = new ArrayList<Player>();
 		_characters.add(_localPlayer);
-		// Just to test features
-		// TODO: handling of new clients
 	}
 	/**
 	 * Returns the chunk buffer used by this client as an array 
@@ -183,7 +181,6 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 		_chunkBuffer = e.getChunkBuffer();
 		for(Chunk c : _chunkBuffer)
 		{
-			c.initImages();
 			if(_localPlayer.getLocation().getChunkLocation().equals(c.getLocation()))
 			{
 				_localPlayer.setCurrentChunk(c);
@@ -197,7 +194,6 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 	{
 		System.out.println("received chunk from server");
 		Chunk c = e.getChunk();
-		c.initImages();
 		for (int i = 0; i < _chunkBuffer.length; i++)
 		{
 			if(_chunkBuffer[i] == null)

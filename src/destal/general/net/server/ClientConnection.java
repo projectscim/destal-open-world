@@ -144,6 +144,7 @@ public class ClientConnection implements Runnable
 		return _name;
 	}
 	
+	@Override
 	public String toString()
 	{
 		return getName() + " (" + getID() + ")";
