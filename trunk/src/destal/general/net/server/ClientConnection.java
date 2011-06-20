@@ -24,8 +24,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import destal.general.event.events.PacketReceivedServerEvent;
-import destal.general.event.listener.PacketReceivedServerListener;
+import destal.event.events.net.server.PacketReceivedServerEvent;
+import destal.event.listener.PacketReceivedServerListener;
 import destal.general.net.MSGType;
 import destal.general.net.Packet;
 import destal.general.world.WorldPoint;
