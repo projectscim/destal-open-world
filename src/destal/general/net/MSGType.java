@@ -49,6 +49,7 @@ public class MSGType
 	public final static byte MSG_CL_REQUEST_ENTER = 0x02;
 	public final static byte MSG_CL_REQUEST_CHUNK = 0x03;
 	public final static byte MSG_CL_PLAYER_INPUT = 0x04;
+	public final static byte MSG_CL_BUILD_HOUSE = 0x05;
 	
 	public final static byte MSG_SV_INIT = 0x11;
 	public final static byte MSG_SV_RESPONSE_ENTER = 0x12;

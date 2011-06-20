@@ -24,12 +24,12 @@ import java.util.Vector;
 
 import destal.general.Server;
 import destal.general.event.events.PacketReceivedServerEvent;
-import destal.general.event.listener.PacketRecievedServerListener;
+import destal.general.event.listener.PacketReceivedServerListener;
 import destal.general.net.MSGType;
 import destal.general.net.Packet;
 import destal.general.world.WorldPoint;
 
-public class NetworkServer implements Runnable, PacketRecievedServerListener
+public class NetworkServer implements Runnable, PacketReceivedServerListener
 {
 	private Server _server;
 	private ServerSocket _serverSocket;
@@ -172,4 +172,10 @@ public class NetworkServer implements Runnable, PacketRecievedServerListener
 	
 	@Override
 	public void clientRequestChunk(PacketReceivedServerEvent e) { }
+
+	@Override
+	public void clientBuildHouse(PacketReceivedServerEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }

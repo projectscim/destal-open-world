@@ -25,16 +25,17 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import destal.general.event.events.PacketReceivedServerEvent;
-import destal.general.event.listener.PacketRecievedServerListener;
+import destal.general.event.listener.PacketReceivedServerListener;
 import destal.general.net.MSGType;
 import destal.general.net.Packet;
+import destal.general.world.WorldPoint;
 
 public class ClientConnection implements Runnable
 {
 	private Socket _socket;
 	private ObjectInputStream _input;
 	private ObjectOutputStream _output;
-	private ArrayList<PacketRecievedServerListener> _packetReceivedServerListener;
+	private ArrayList<PacketReceivedServerListener> _packetReceivedServerListener;
 	
 	private int _id;
 	private String _name;
@@ -45,7 +46,7 @@ public class ClientConnection implements Runnable
 		_id = id;
 		_input = new ObjectInputStream(_socket.getInputStream());
 		_output = new ObjectOutputStream(_socket.getOutputStream());
-		_packetReceivedServerListener = new ArrayList<PacketRecievedServerListener>();
+		_packetReceivedServerListener = new ArrayList<PacketReceivedServerListener>();
 		_name = "< connecting >";
 	}
 	
@@ -75,7 +76,7 @@ public class ClientConnection implements Runnable
 					else
 					{
 						_name = (String)p.get();
-						for (PacketRecievedServerListener l : _packetReceivedServerListener)
+						for (PacketReceivedServerListener l : _packetReceivedServerListener)
 						{
 							l.clientConnected(new PacketReceivedServerEvent(this));
 						}
@@ -83,7 +84,7 @@ public class ClientConnection implements Runnable
 				}
 				if(type == MSGType.MSG_CL_REQUEST_ENTER)
 				{
-					for (PacketRecievedServerListener l : _packetReceivedServerListener)
+					for (PacketReceivedServerListener l : _packetReceivedServerListener)
 					{
 						l.clientRequestEnter(new PacketReceivedServerEvent(this));
 					}
@@ -92,7 +93,7 @@ public class ClientConnection implements Runnable
 				{
 					PacketReceivedServerEvent e = new PacketReceivedServerEvent(this);
 					e.setPoints((Point[])p.get());
-					for (PacketRecievedServerListener l : _packetReceivedServerListener)
+					for (PacketReceivedServerListener l : _packetReceivedServerListener)
 					{
 						l.clientRequestChunk(e);
 					}
@@ -101,9 +102,18 @@ public class ClientConnection implements Runnable
 				{
 					PacketReceivedServerEvent e = new PacketReceivedServerEvent(this);
 					e.setPoint((Double)p.get(),(Double)p.get());
-					for (PacketRecievedServerListener l : _packetReceivedServerListener)
+					for (PacketReceivedServerListener l : _packetReceivedServerListener)
 					{
 						l.clientPlayerInput(e);
+					}
+				}
+				if (type == MSGType.MSG_CL_BUILD_HOUSE)
+				{
+					PacketReceivedServerEvent e = new PacketReceivedServerEvent(this);
+					e.setPoint(new WorldPoint((Double)p.get(), (Double)p.get()));
+					for (PacketReceivedServerListener l : _packetReceivedServerListener)
+					{
+						l.clientBuildHouse(e);
 					}
 				}
 			}
@@ -114,7 +124,7 @@ public class ClientConnection implements Runnable
 			System.out.println("lost client: '" + this + "'");
 			e.printStackTrace();
 		}
-		for (PacketRecievedServerListener l : _packetReceivedServerListener)
+		for (PacketReceivedServerListener l : _packetReceivedServerListener)
 		{
 			l.clientDisconnected(new PacketReceivedServerEvent(this));
 		}
@@ -167,7 +177,7 @@ public class ClientConnection implements Runnable
 		return getName() + " (" + getID() + ")";
 	}
 	
-	public void addPacketReceivedServerListener(PacketRecievedServerListener listener)
+	public void addPacketReceivedServerListener(PacketReceivedServerListener listener)
 	{
 		_packetReceivedServerListener.add(listener);
 	}

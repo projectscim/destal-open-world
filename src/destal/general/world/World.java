@@ -23,6 +23,8 @@ import java.awt.Rectangle;
 import java.io.File;
 import java.io.IOException;
 
+import destal.entities.buildings.House;
+
 public class World
 {
 	public final static int CHUNK_SIZE = 32;
@@ -95,6 +97,20 @@ public class World
 		for (int i = 0; i < LEVEL_QUANTITY; i++)
 		{
 			_levels[i] = new Level(getPath() + "lvl_" + i + "/");
+		}
+	}
+	
+	public void buildHouse(House house)
+	{
+		Point chunkloc = house.getLocation().getChunkLocation();
+		try
+		{
+			this.getChunk(chunkloc.x, chunkloc.y, 0).buildHouse(house);
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	

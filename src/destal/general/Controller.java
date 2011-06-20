@@ -20,16 +20,17 @@ package destal.general;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import destal.entities.buildings.House;
 import destal.entities.characters.Player;
 import destal.general.event.events.PacketReceivedServerEvent;
-import destal.general.event.listener.PacketRecievedServerListener;
+import destal.general.event.listener.PacketReceivedServerListener;
 import destal.general.net.MSGType;
 import destal.general.net.Packet;
 import destal.general.world.Chunk;
 import destal.general.world.World;
 import destal.general.world.WorldPoint;
 
-public class Controller implements PacketRecievedServerListener
+public class Controller implements PacketReceivedServerListener
 {
 	private World _world;
 	// TODO: remove?
@@ -92,4 +93,11 @@ public class Controller implements PacketRecievedServerListener
 	public void clientConnected(PacketReceivedServerEvent e) { }
 	@Override
 	public void clientDisconnected(PacketReceivedServerEvent e) { }
+
+	@Override
+	public void clientBuildHouse(PacketReceivedServerEvent e)
+	{
+		House h = new House(e.getPoint());
+		_world.buildHouse(h);
+	}
 }

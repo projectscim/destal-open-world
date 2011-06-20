@@ -208,8 +208,8 @@ public class Chunk implements Serializable
 					this.getBlocks()[x][y] = Block.create(Values.BLOCK_TREE);
 					// Test houses
 					// TODO remove when finished
-					House h = new House(new WorldPoint((int)_location.getX(), (int)_location.getY(), x, y));
-					this.buildHouse(h);
+					//House h = new House(new WorldPoint((int)_location.getX(), (int)_location.getY(), x, y));
+					//this.buildHouse(h);
 				}
 				else if (r <= 15)
 				{

@@ -22,29 +22,40 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 import destal.entities.characters.Player;
 import destal.general.Client;
+import destal.general.event.events.PlayerActionEvent;
 import destal.general.event.events.PlayerMovementEvent;
+import destal.general.event.listener.PlayerActionListener;
 import destal.general.event.listener.PlayerMovementListener;
 import destal.general.ui.GamePanel;
 import destal.general.world.Chunk;
+import destal.general.world.World;
+import destal.general.world.WorldPoint;
 
-public class HumanPlayer extends Player implements KeyListener, MouseMotionListener, PlayerMovementListener
+public class HumanPlayer extends Player implements KeyListener, MouseMotionListener, PlayerMovementListener, MouseListener
 {
 	private ArrayList<PlayerMovementListener> _playerMovementListener;
+	private ArrayList<PlayerActionListener> _playerActionListener;
 	private MouseEvent _lastMouseEvent;
 	private GamePanel _gamePanel;
 	private Chunk _currentChunk;
 	private Client _client;
-
+	private PlayerState _playerState;
+	
+	public enum PlayerState {MOVING, BUILDING}
 	
 	public HumanPlayer()
 	{
 		super();
 		_playerMovementListener = new ArrayList<PlayerMovementListener>();
+		_playerActionListener = new ArrayList<PlayerActionListener>();
+		_playerState = PlayerState.MOVING;
+		
 		this.addPlayerMovementListener(this);
 	}
 	
@@ -52,6 +63,16 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 	{
 		this();
 		_client = client;
+	}
+	
+	public void setPlayerState(PlayerState p)
+	{
+		_playerState = p;
+	}
+	
+	public PlayerState getPlayerState()
+	{
+		return _playerState;
 	}
 	
 	public void setCurrentChunk(Chunk c)
@@ -66,14 +87,14 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 
 	public void move(int direction)
 	{
+		if (_playerState != PlayerState.MOVING)
+		{
+			return;
+		}
 		Point p = new Point(_gamePanel.getWidth()/2, _gamePanel.getHeight()/2);
 		double dx = (p.distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY())) > 1 ? (_lastMouseEvent.getX()-p.getX()) * 0.3 / p.distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY())) : 0);
 		double dy = (p.distance(new Point(_lastMouseEvent.getY(), _lastMouseEvent.getY())) > 1 ? (_lastMouseEvent.getY()-p.getY()) * 0.3 / p.distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY())) : 0);
-			
-		//if (_currentChunk.getBlock((int)this.getLocation().getX(), (int)this.getLocation().getY()) instanceof IWalkable)
-		{
-			this.setLocation(this.getLocation().getX()+dx*direction, this.getLocation().getY()+dy*direction);
-		}		
+		this.setLocation(this.getLocation().getX()+dx*direction, this.getLocation().getY()+dy*direction);	
 		this.invokePlayerMoved();
 	}
 	
@@ -83,6 +104,13 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 	public void addPlayerMovementListener(PlayerMovementListener listener)
 	{
 		_playerMovementListener.add(listener);
+	}
+	/**
+	 * Adds the specified player action listener to receive movement events from this player
+	 */
+	public void addPlayerActionListener(PlayerActionListener listener)
+	{
+		_playerActionListener.add(listener);
 	}
 	/**
 	 * [intern]
@@ -113,7 +141,15 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 	@Override
 	public void keyTyped(KeyEvent e)
 	{
-		this.move((e.getKeyChar() == 'w') ? 1 : ((e.getKeyChar() == 's') ? -1 : 0));
+		if (e.getKeyChar() == 'b')
+		{
+			this._playerState = PlayerState.BUILDING;
+		}
+		else if (e.getKeyChar() == 'w' || e.getKeyChar() == 's')
+		{
+			this._playerState = PlayerState.MOVING;
+			this.move((e.getKeyChar() == 'w') ? 1 : ((e.getKeyChar() == 's') ? -1 : 0));
+		}
 	}
 	
 	@Override
@@ -133,6 +169,53 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 			System.out.println("left chunk");
 			_client.leftChunk(getLocation().getChunkLocation(), _currentChunk.getLocation());
 		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e)
+	{
+		// TODO Build house
+		if (_playerState == PlayerState.BUILDING)
+		{
+			System.out.println("Build house");
+			// upper left hand corner
+			WorldPoint p = new WorldPoint(this.getLocation().getX()-_gamePanel.getWidth()/2/World.BLOCK_PAINTSIZE,
+					this.getLocation().getY()-_gamePanel.getHeight()/2/World.BLOCK_PAINTSIZE);
+			// location of the house
+			WorldPoint h = new WorldPoint(p.getX()+e.getX()/World.BLOCK_PAINTSIZE,
+										  p.getY()+e.getY()/World.BLOCK_PAINTSIZE);
+			PlayerActionEvent pe = new PlayerActionEvent(this);
+			pe.setLocation(h);
+			for (PlayerActionListener l : _playerActionListener)
+			{
+				l.playerBuildHouse(pe);
+			}
+			
+		}
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
