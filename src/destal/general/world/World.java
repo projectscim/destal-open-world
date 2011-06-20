@@ -23,7 +23,7 @@ import java.awt.Rectangle;
 import java.io.File;
 import java.io.IOException;
 
-import destal.entities.buildings.House;
+import destal.entity.building.House;
 
 public class World
 {
