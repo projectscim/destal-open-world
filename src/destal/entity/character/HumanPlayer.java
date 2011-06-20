@@ -38,6 +38,10 @@ import destal.general.world.WorldPoint;
 
 public class HumanPlayer extends Player implements KeyListener, MouseMotionListener, PlayerMovementListener, MouseListener
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6618735625250923438L;
 	private ArrayList<PlayerMovementListener> _playerMovementListener;
 	private ArrayList<PlayerActionListener> _playerActionListener;
 	private MouseEvent _lastMouseEvent;

@@ -26,6 +26,10 @@ import javax.swing.JPanel;
 
 public class OptionPanel extends JPanel implements ActionListener
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3601584630728490538L;
 	private JButton[] _button;
 	private GUI _gui;
 	

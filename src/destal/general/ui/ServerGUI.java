@@ -36,6 +36,10 @@ import destal.general.net.server.ClientConnection;
 
 public class ServerGUI extends JFrame implements ActionListener
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 722313357688165207L;
 	private JTextArea _area;
 	private JList _clientList;
 	private JButton _kickButton;

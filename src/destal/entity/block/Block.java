@@ -24,6 +24,11 @@ import destal.entity.data.Values;
 public abstract class Block extends Entity
 {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3086831376838522472L;
+
+	/**
 	 * Generates a Block from the data value
 	 * @param value The data value of the Block
 	 * @return The Block

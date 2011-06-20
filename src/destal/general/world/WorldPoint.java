@@ -26,6 +26,10 @@ import java.awt.Point;
 public class WorldPoint extends Point.Double
 {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8050762219871420694L;
+	/**
 	 * Creates a new WorldPoint without specific coordinates
 	 */
 	public WorldPoint()

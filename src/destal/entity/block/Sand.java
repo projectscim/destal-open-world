@@ -22,6 +22,11 @@ import destal.entity.data.Values;
 public class Sand extends Block
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6874386300168786435L;
+
 	@Override
 	public int getDataValue()
 	{

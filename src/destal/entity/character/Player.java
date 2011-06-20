@@ -22,6 +22,10 @@ import destal.entity.data.Values;
 
 public class Player extends Entity
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1411457638971740437L;
 	private int _id;
 	
 	public void setID(int id)

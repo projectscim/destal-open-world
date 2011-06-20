@@ -22,6 +22,11 @@ import destal.entity.data.Values;
 
 public class Tree extends Block
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3105775316331966923L;
+
 	@Override
 	public int getDataValue()
 	{

@@ -38,6 +38,10 @@ import destal.general.world.WorldPoint;
 
 public class GamePanel extends JPanel implements MouseMotionListener, PlayerMovementListener, MouseListener
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2370270205864065025L;
 	private GUI _gui;
 	private MouseEvent _lastMouseEvent;
 	private HumanPlayer _player;

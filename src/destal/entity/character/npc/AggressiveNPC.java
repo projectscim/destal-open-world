@@ -21,4 +21,9 @@ package destal.entity.character.npc;
 
 public abstract class AggressiveNPC extends NPC {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3417953695236707591L;
+
 }

@@ -28,6 +28,10 @@ import destal.general.world.WorldPoint;
  */
 public class PlayerMovementEvent extends EventObject
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5490445822316987431L;
 	private WorldPoint _location;
 	
 	public PlayerMovementEvent(Object source)

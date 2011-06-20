@@ -26,6 +26,10 @@ import javax.swing.JTextField;
 
 public class MenuPanel extends JPanel implements ActionListener
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4586123693763691402L;
 	private JButton[] _button;
 	private JTextField[] _textField;
 	private GUI _gui;

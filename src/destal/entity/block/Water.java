@@ -22,6 +22,11 @@ import destal.entity.data.Values;
 public class Water extends Block
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7235116806365048279L;
+
 	@Override
 	public int getDataValue()
 	{

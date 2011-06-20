@@ -24,7 +24,11 @@ import java.util.ArrayList;
 
 public class Packet implements Serializable
 {
-    private byte _type;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4501785697817222078L;
+	private byte _type;
     private ArrayList _data;
     
     private int _current;
