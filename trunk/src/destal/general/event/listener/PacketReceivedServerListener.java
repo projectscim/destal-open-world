@@ -17,20 +17,19 @@
  ******************************************************************************/
 package destal.general.event.listener;
 
-import destal.general.event.events.PacketReceivedClientEvent;
+import destal.general.event.events.PacketReceivedServerEvent;
 
-public interface PacketRecievedClientListener
+public interface PacketReceivedServerListener
 {
-	public void serverConnected(PacketReceivedClientEvent e);
+	public void clientConnected(PacketReceivedServerEvent e);
 	
-	public void serverDisconnected(PacketReceivedClientEvent e);
+	public void clientDisconnected(PacketReceivedServerEvent e);
 	
-	public void serverResponseEnter(PacketReceivedClientEvent e);
+	public void clientRequestEnter(PacketReceivedServerEvent e);
 	
-	public void serverResponseChunk(PacketReceivedClientEvent e);
+	public void clientRequestChunk(PacketReceivedServerEvent e);
 	
-	// TODO: replace by snapshot system?
-	public void serverResponsePlayerPositions(PacketReceivedClientEvent e);
-	// TODO: replace by snapshot system?
-	public void serverNewClientConnected(PacketReceivedClientEvent e);
+	public void clientPlayerInput(PacketReceivedServerEvent e);
+	
+	public void clientBuildHouse(PacketReceivedServerEvent e);
 }

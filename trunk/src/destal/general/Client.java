@@ -24,8 +24,10 @@ import java.util.Vector;
 import destal.entities.HumanPlayer;
 import destal.entities.characters.Player;
 import destal.general.event.events.PacketReceivedClientEvent;
+import destal.general.event.events.PlayerActionEvent;
 import destal.general.event.events.PlayerMovementEvent;
-import destal.general.event.listener.PacketRecievedClientListener;
+import destal.general.event.listener.PacketReceivedClientListener;
+import destal.general.event.listener.PlayerActionListener;
 import destal.general.event.listener.PlayerMovementListener;
 import destal.general.net.MSGType;
 import destal.general.net.Packet;
@@ -38,7 +40,7 @@ import destal.general.world.WorldPoint;
  * The main class for the destal client application
  * @author Alex Belke, Dennis Sternberg, Steffen Schneider
  */
-public class Client implements PlayerMovementListener, PacketRecievedClientListener
+public class Client implements PlayerMovementListener, PacketReceivedClientListener, PlayerActionListener
 {
 	// TODO: divide into Client and GameClient?
 	private Chunk[] _chunkBuffer;
@@ -57,6 +59,7 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 		DataContainer.create();
 		_localPlayer = new HumanPlayer(this);
 		_localPlayer.addPlayerMovementListener(this);
+		_localPlayer.addPlayerActionListener(this);
 		_gui = new GUI(600, 200, this);
 		_networkClient = new NetworkClient();
 		_networkClient.addPacketReceivedClientListener(this);
@@ -257,5 +260,18 @@ public class Client implements PlayerMovementListener, PacketRecievedClientListe
 	public static void main(String[] args)
 	{
 		new Client();
+	}
+	@Override
+	public void playerAction(PlayerActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void playerBuildHouse(PlayerActionEvent e)
+	{
+		Packet p = new Packet(MSGType.MSG_CL_BUILD_HOUSE);
+		p.set(e.getLocation().getX());
+		p.set(e.getLocation().getY());
+		_networkClient.send(p);
 	}
 }

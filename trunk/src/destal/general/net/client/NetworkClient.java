@@ -24,7 +24,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import destal.general.event.events.PacketReceivedClientEvent;
-import destal.general.event.listener.PacketRecievedClientListener;
+import destal.general.event.listener.PacketReceivedClientListener;
 import destal.general.net.MSGType;
 import destal.general.net.Packet;
 import destal.general.world.Chunk;
@@ -34,7 +34,7 @@ public class NetworkClient implements Runnable
 	private Socket _socket;
 	private ObjectInputStream _input;
 	private ObjectOutputStream _output;
-	private ArrayList<PacketRecievedClientListener> _packetReceivedClientListener;
+	private ArrayList<PacketReceivedClientListener> _packetReceivedClientListener;
 	
 	private State _state;
 	
@@ -42,7 +42,7 @@ public class NetworkClient implements Runnable
 	
 	public NetworkClient()
 	{
-		_packetReceivedClientListener = new ArrayList<PacketRecievedClientListener>();
+		_packetReceivedClientListener = new ArrayList<PacketReceivedClientListener>();
 		_state = State.NONE;
 	}
 
@@ -76,7 +76,7 @@ public class NetworkClient implements Runnable
 						e.setClientID((Integer)r.get());
 						e.setClientList((int[])r.get());
 						System.out.println("Received client id: " + e.getClientID());
-						for (PacketRecievedClientListener l : _packetReceivedClientListener)
+						for (PacketReceivedClientListener l : _packetReceivedClientListener)
 						{
 							l.serverConnected(e);
 						}
@@ -89,7 +89,7 @@ public class NetworkClient implements Runnable
 					PacketReceivedClientEvent e = new PacketReceivedClientEvent(this);
 					e.setPoint((Double)r.get(), (Double)r.get());
 					e.setChunkBuffer((Chunk[])r.get());
-					for (PacketRecievedClientListener l : _packetReceivedClientListener)
+					for (PacketReceivedClientListener l : _packetReceivedClientListener)
 					{
 						l.serverResponseEnter(e);
 					}
@@ -100,7 +100,7 @@ public class NetworkClient implements Runnable
 					{
 						PacketReceivedClientEvent e = new PacketReceivedClientEvent(this);
 						e.setChunk((Chunk)r.get());
-						for (PacketRecievedClientListener l : _packetReceivedClientListener)
+						for (PacketReceivedClientListener l : _packetReceivedClientListener)
 						{
 							l.serverResponseChunk(e);
 						}
@@ -113,7 +113,7 @@ public class NetworkClient implements Runnable
 						double y = (Double)r.get();
 						e.setClientID(id);
 						e.setPoint(x, y);
-						for (PacketRecievedClientListener l : _packetReceivedClientListener)
+						for (PacketReceivedClientListener l : _packetReceivedClientListener)
 						{
 							l.serverResponsePlayerPositions(e);
 						}
@@ -126,7 +126,7 @@ public class NetworkClient implements Runnable
 						double y = (Double)r.get();
 						e.setClientID(id);
 						e.setPoint(x, y);
-						for (PacketRecievedClientListener l : _packetReceivedClientListener)
+						for (PacketReceivedClientListener l : _packetReceivedClientListener)
 						{
 							l.serverNewClientConnected(e);
 						}
@@ -140,7 +140,7 @@ public class NetworkClient implements Runnable
 			System.out.println("lost connection");
 			e.printStackTrace();
 		}
-		for (PacketRecievedClientListener l : _packetReceivedClientListener)
+		for (PacketReceivedClientListener l : _packetReceivedClientListener)
 		{
 			l.serverDisconnected(new PacketReceivedClientEvent(this));
 		}
@@ -202,7 +202,7 @@ public class NetworkClient implements Runnable
 		}
 	}
 	
-	public void addPacketReceivedClientListener(PacketRecievedClientListener listener)
+	public void addPacketReceivedClientListener(PacketReceivedClientListener listener)
 	{
 		_packetReceivedClientListener.add(listener);
 	}

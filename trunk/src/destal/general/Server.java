@@ -69,7 +69,7 @@ public class Server
 	{
 		(new Thread(_networkServer)).start();
 		
-		_controller.loadWorld("testhouses6");
+		_controller.loadWorld("testhouses7");
 	}
 	
 	public static void main(String[] args)
