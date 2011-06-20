@@ -1,4 +1,4 @@
-package destal.general.event.events;
+package destal.event.events;
 
 import java.awt.Point;
 import java.util.EventObject;
