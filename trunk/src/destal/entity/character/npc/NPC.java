@@ -21,4 +21,9 @@ import destal.entity.character.Player;
 
 public abstract class NPC extends Player {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3372211401465153083L;
+
 }

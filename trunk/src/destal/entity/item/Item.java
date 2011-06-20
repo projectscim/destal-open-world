@@ -22,4 +22,9 @@ import destal.entity.Entity;
 
 public abstract class Item extends Entity {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5474357130021157378L;
+
 }

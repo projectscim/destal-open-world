@@ -23,6 +23,11 @@ import destal.entity.data.Values;
 
 public class Dirt extends Block implements IWalkable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4964933620557301608L;
+
 	@Override
 	public int getDataValue()
 	{

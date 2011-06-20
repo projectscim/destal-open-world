@@ -34,6 +34,10 @@ import destal.entity.item.Item;
 
 public class Chunk implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6178629598857083217L;
 	private Point _location;
 	private Block[][] _blocks;
 	private Vector<Item> _items;

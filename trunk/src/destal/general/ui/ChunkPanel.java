@@ -27,6 +27,10 @@ import destal.general.world.Chunk;
 
 public class ChunkPanel extends JPanel
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5076622625109760874L;
 	private GUI _gui;
 	private Chunk _chunk;
 	private Chunk[] _chunkBuffer;

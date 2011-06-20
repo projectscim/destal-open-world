@@ -19,5 +19,10 @@ package destal.entity.character.npc;
 
 public abstract class NeutralNPC extends NPC {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7207968200687572252L;
+
 
 }

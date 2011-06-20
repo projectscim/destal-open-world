@@ -24,6 +24,11 @@ import destal.general.world.WorldPoint;
 
 public class House extends Entity
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4193686143716527925L;
+
 	public House(WorldPoint location)
 	{
 		super();

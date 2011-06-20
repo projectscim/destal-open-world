@@ -23,6 +23,11 @@ import destal.entity.data.Values;
 
 public class Stone extends Block implements IWalkable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8235118414411554644L;
+
 	@Override
 	public int getDataValue()
 	{

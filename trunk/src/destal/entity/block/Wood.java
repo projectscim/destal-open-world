@@ -22,6 +22,11 @@ import destal.entity.data.Values;
 
 public class Wood extends Block implements IWalkable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7338940385077923409L;
+
 	@Override
 	public int getDataValue()
 	{

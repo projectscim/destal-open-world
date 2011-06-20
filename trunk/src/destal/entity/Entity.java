@@ -28,6 +28,10 @@ import destal.util.DataContainer;
 // TODO: change package to destal.entities
 public abstract class Entity implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 457110500357850757L;
 	private WorldPoint _location;
 
 	public Entity()

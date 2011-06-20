@@ -31,6 +31,10 @@ import destal.general.client.Client;
 
 public class GUI extends JFrame
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5429551745650490493L;
 	private Client _client;
 	private JPanel[] _panels;
 	private JPanel _curPanel;

@@ -8,6 +8,10 @@ import destal.general.world.WorldPoint;
 
 public class PacketReceivedServerEvent extends EventObject
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7823769737397870673L;
 	private WorldPoint _point;
 	private Point[] _points;
 	

@@ -9,6 +9,10 @@ import destal.general.world.WorldPoint;
 
 public class PacketReceivedClientEvent extends EventObject
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2917637146310207559L;
 	private Chunk _chunk[];
 	private WorldPoint _point;
 	private String _MOTD;
