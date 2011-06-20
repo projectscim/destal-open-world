@@ -16,6 +16,6 @@ public class House extends Entity
 	@Override
 	public int getDataValue()
 	{
-		return Values.HOUSE;
+		return Values.HOUSE_HOUSE;
 	}
 }
