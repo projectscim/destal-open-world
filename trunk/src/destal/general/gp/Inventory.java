@@ -17,7 +17,7 @@
  ******************************************************************************/
 package destal.general.gp;
 
-import destal.entities.HumanPlayer;
+import destal.entity.character.HumanPlayer;
 
 public class Inventory
 {
