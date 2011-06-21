@@ -17,10 +17,46 @@
  ******************************************************************************/
 package destal.general.gp;
 
-import destal.entity.character.HumanPlayer;
+import java.awt.Dimension;
+import java.awt.Graphics;
 
-public class Inventory
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import destal.entity.character.HumanPlayer;
+import destal.general.net.server.ClientConnection;
+
+public class Inventory extends JPanel
 {
 	private HumanPlayer _player;
 	
+	public Inventory (int width, int height)
+	{
+		super();
+
+		this.setBounds(0,0,width,height);
+		this.setPreferredSize(new Dimension(width,height));
+		this.setLayout(null);
+    
+		this.setVisible(true);
+	}
+	public void paintComponent (Graphics g)
+	{
+		
+	}
 }
+	
+    
+    
+	
+	
+	
+	
+    
+
+    
+	
+
+
+
+
