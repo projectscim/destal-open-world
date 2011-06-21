@@ -105,7 +105,9 @@ public class World
 		Point chunkloc = house.getLocation().getChunkLocation();
 		try
 		{
-			this.getChunk(chunkloc.x, chunkloc.y, 0).buildHouse(house);
+			Chunk c = this.getChunk(chunkloc.x, chunkloc.y, 0);
+			c.buildHouse(house);
+			c.saveChunk(_levels[0].getChunkFile(chunkloc.x, chunkloc.y));
 		}
 		catch (IOException e)
 		{

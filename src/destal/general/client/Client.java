@@ -111,6 +111,7 @@ public class Client implements PlayerMovementListener, PacketReceivedClientListe
 	 */
 	public void leftChunk(Point pos, Point prevChunkPos)
 	{
+		// TODO comment this!
 		Chunk newCurrent = null;
 		for (int i = 0; i < _chunkBuffer.length; i++)
 		{
@@ -222,6 +223,11 @@ public class Client implements PlayerMovementListener, PacketReceivedClientListe
 				_chunkBuffer[i] = c;
 				break;
 			}
+			else if(_chunkBuffer[i].getLocation().equals(c.getLocation()))
+			{
+				// Update chunk
+				_chunkBuffer[i] = c;
+			}
 		}
 		_gui.repaint();
 	}
@@ -274,5 +280,15 @@ public class Client implements PlayerMovementListener, PacketReceivedClientListe
 		p.set(e.getLocation().getX());
 		p.set(e.getLocation().getY());
 		_networkClient.send(p);
+		
+		// Updating chunk
+		// TODO snapshot system?
+		
+		Packet p2 = new Packet(MSGType.MSG_CL_REQUEST_CHUNK);
+		Vector<Point> needed = new Vector<Point>();
+		needed.add(e.getLocation().getChunkLocation());
+		p2.set(needed.toArray(new Point[0]));
+		_networkClient.send(p2);
+		_gui.repaint();
 	}
 }

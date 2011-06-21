@@ -66,13 +66,6 @@ public class WorldPoint extends Point.Double
 	{
 		this(xLevel*World.CHUNK_SIZE+xChunk, yLevel*World.CHUNK_SIZE+yChunk);
 	}
-	/* no longer needed
-	 * TODO remove
-	 */
-	public WorldPoint getRelativePoint(WorldPoint p, int x, int y)
-	{
-		return new WorldPoint((int)p.getX()-x, (int)p.getY()-y);
-	}
 	/**
 	 * Returns the current chunk's location in the world
 	 * @return The current chunk's location as a Point
