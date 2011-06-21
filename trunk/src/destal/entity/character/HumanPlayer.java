@@ -177,7 +177,6 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-		// TODO Build house
 		if (_playerState == PlayerState.BUILDING)
 		{
 			System.out.println("Build house");
@@ -193,7 +192,6 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 			{
 				l.playerBuildHouse(pe);
 			}
-			
 		}
 	}
 

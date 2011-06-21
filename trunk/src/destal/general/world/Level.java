@@ -45,6 +45,7 @@ public class Level
 			System.out.println("created new level");
 		}
 	}
+	// TODO remove if no longer used
 /*
 	public void setChunks(Chunk[][] chunks)
 	{
@@ -88,6 +89,7 @@ public class Level
 		createLevel(World.LEVEL_SIZE, World.LEVEL_SIZE);
 	}
 	
+	// TODO remove if no longer used
 	/*
 	public void saveLevel() throws IOException, NullPointerException
 	{
@@ -129,7 +131,7 @@ public class Level
 		}
 	}
 	
-	private File getChunkFile(int x, int y) throws IOException
+	protected File getChunkFile(int x, int y) throws IOException
 	{
 		return new File(_dir + "chunk" + "_" + x + "_" + y);
 	}

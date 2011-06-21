@@ -27,11 +27,18 @@ public class Player extends Entity
 	 */
 	private static final long serialVersionUID = 1411457638971740437L;
 	private int _id;
-	
+	/**
+	 * Sets the ID of the player
+	 * @param id The ID
+	 */
 	public void setID(int id)
 	{
 		_id = id;
 	}
+	/**
+	 * Returns the ID of the player
+	 * @return The player ID
+	 */
 	public int getID()
 	{
 		return _id;

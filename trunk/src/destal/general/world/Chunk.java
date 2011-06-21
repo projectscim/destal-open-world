@@ -230,7 +230,8 @@ public class Chunk implements Serializable
 			}
 		}
 	}
-	
+	// TODO remove if no longer needed
+	/*
 	public byte[] toByteArray()
 	{
 		byte[] b = new byte[World.CHUNK_SIZE * World.CHUNK_SIZE];
@@ -243,7 +244,7 @@ public class Chunk implements Serializable
 			}
 		}
 		return b;
-	}
+	}*/
 	
 	@Override
 	public String toString()
