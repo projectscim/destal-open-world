@@ -174,8 +174,8 @@ public class NetworkServer implements Runnable, PacketReceivedServerListener
 	public void clientRequestChunk(PacketReceivedServerEvent e) { }
 
 	@Override
-	public void clientBuildHouse(PacketReceivedServerEvent e) {
-		// TODO Auto-generated method stub
+	public void clientBuildHouse(PacketReceivedServerEvent e)
+	{
 		
 	}
 }

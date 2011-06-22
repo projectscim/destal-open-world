@@ -20,10 +20,13 @@ package destal.general.ui;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.JPanel;
 
@@ -32,11 +35,12 @@ import destal.entity.character.HumanPlayer;
 import destal.entity.character.Player;
 import destal.event.events.player.PlayerMovementEvent;
 import destal.event.listener.PlayerMovementListener;
+import destal.general.gp.Inventory;
 import destal.general.world.Chunk;
 import destal.general.world.World;
 import destal.general.world.WorldPoint;
 
-public class GamePanel extends JPanel implements MouseMotionListener, PlayerMovementListener, MouseListener
+public class GamePanel extends JPanel implements MouseMotionListener, PlayerMovementListener, MouseListener, ComponentListener
 {
 	/**
 	 * 
@@ -45,16 +49,24 @@ public class GamePanel extends JPanel implements MouseMotionListener, PlayerMove
 	private GUI _gui;
 	private MouseEvent _lastMouseEvent;
 	private HumanPlayer _player;
+	private Inventory _inventory;
 	
-	public GamePanel (GUI gui)
+	public static final int INVENTORY_HEIGHT = World.BLOCK_PAINTSIZE*2;
+	
+	public GamePanel (int width, int height, GUI gui)
 	{
 		super();
+		this.setBounds(0, 0, width, height);
 		_gui = gui;
 		_player = _gui.getClient().getLocalCharacter();
+		_inventory = new Inventory(this.getWidth(), INVENTORY_HEIGHT, _player);
+		this.add(_inventory);
 		this.addMouseMotionListener(this);
 		this.addMouseMotionListener(_player);
 		this.addMouseListener(_player);
 		this.addKeyListener(_player);
+		this.addComponentListener(this);
+		System.out.println(this.getBounds().toString());
 		_player.setContainer(this);
 		_player.addPlayerMovementListener(this);
 		setDoubleBuffered(true);
@@ -67,7 +79,8 @@ public class GamePanel extends JPanel implements MouseMotionListener, PlayerMove
 		g.fillRect((int)g.getClipBounds().getX(), (int)g.getClipBounds().getY(), (int)g.getClipBounds().getWidth(), (int)g.getClipBounds().getHeight());
 		// Add what's to draw:
 		WorldPoint p = new WorldPoint(_player.getLocation().getX()-this.getWidth()/2/World.BLOCK_PAINTSIZE,
-				_player.getLocation().getY()-this.getHeight()/2/World.BLOCK_PAINTSIZE);
+								      _player.getLocation().getY()-(this.getHeight()+INVENTORY_HEIGHT)/2/World.BLOCK_PAINTSIZE);
+		Vector<House> houses = new Vector<House>();
 		for (Chunk c : _gui.getClient().getChunkBuffer())
 		{
 			if(c == null)
@@ -86,14 +99,19 @@ public class GamePanel extends JPanel implements MouseMotionListener, PlayerMove
 				}
 			}
 			(new House(new WorldPoint(20,20))).paint(g);
+			// TODO optimize?
 			for (House h : c.getHouses())
 			{
-				Point loc = h.getLocation().getLocationOnPanel((int)p.getX(), (int)p.getY());
-				if (loc.getX() >= 0 && loc.getX()-World.BLOCK_PAINTSIZE <= this.getWidth() &&
-					loc.getY() >= 0 && loc.getY()-World.BLOCK_PAINTSIZE <= this.getHeight())
-				{
-					h.paint(g, p);
-				}
+				houses.add(h);
+			}
+		}
+		for (House h : houses)
+		{
+			Point loc = h.getLocation().getLocationOnPanel((int)p.getX(), (int)p.getY());
+			if (loc.getX() >= 0 && loc.getX()-World.BLOCK_PAINTSIZE <= this.getWidth() &&
+				loc.getY() >= 0 && loc.getY()-World.BLOCK_PAINTSIZE <= this.getHeight())
+			{
+				h.paint(g, p);
 			}
 		}
 		if (_lastMouseEvent != null)
@@ -120,6 +138,14 @@ public class GamePanel extends JPanel implements MouseMotionListener, PlayerMove
 	{
 		_lastMouseEvent = e;
 		this.invokeRepaint();
+		if (e.getY() < INVENTORY_HEIGHT)
+		{
+			_gui.enableCursor();
+		}
+		else
+		{
+			_gui.disableCursor();
+		}
 	}
 
 	public void invokeRepaint()
@@ -163,6 +189,34 @@ public class GamePanel extends JPanel implements MouseMotionListener, PlayerMove
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void componentHidden(ComponentEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void componentMoved(ComponentEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void componentResized(ComponentEvent arg0)
+	{
+		this._inventory.setBounds(getBounds().x,
+								  getBounds().y,
+								  getBounds().width,
+								  INVENTORY_HEIGHT);
+		
+	}
+
+	@Override
+	public void componentShown(ComponentEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}

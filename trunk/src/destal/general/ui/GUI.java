@@ -52,14 +52,13 @@ public class GUI extends JFrame
 	    this.setBounds(0,0,width,height);
 	    
 	    _panels[GUIMode.MENU.ordinal()] = new MenuPanel(this);
-	    _panels[GUIMode.GAME.ordinal()] = new GamePanel(this);
+	    _panels[GUIMode.GAME.ordinal()] = new GamePanel(width, height, this);
 	    _panels[GUIMode.OPTIONS.ordinal()] = new OptionPanel(this);
 	    
 	    for(int i = 0; i < _panels.length; i++)
 	    {
 	    	if(_panels[i] != null)
 	    	{
-		    	_panels[i].setSize(new Dimension(width,height));
 		    	_panels[i].setLayout(null);
 	    	}
 	    }

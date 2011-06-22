@@ -47,12 +47,21 @@ public class Controller implements PacketReceivedServerListener
 		_world = new World(name);
 	}
 	
+	private void buildHouse(WorldPoint p)
+	{
+		House h = new House(p);
+		_world.buildHouse(h);
+	}
+	
 	@Override
 	public void clientRequestEnter(PacketReceivedServerEvent e)
 	{
 		System.out.println("sending start info to client: '" + e.getClient() + "'");
 		// TODO: change default position
-		WorldPoint pos = new WorldPoint(40, 40);
+		WorldPoint pos = new WorldPoint(World.LEVEL_SIZE/2,
+										World.LEVEL_SIZE/2,
+										World.CHUNK_SIZE/2,
+										World.CHUNK_SIZE/2);
 		Point chunkPos = pos.getChunkLocation();
 		
 		Chunk[] buffer = new Chunk[9];
@@ -97,7 +106,6 @@ public class Controller implements PacketReceivedServerListener
 	@Override
 	public void clientBuildHouse(PacketReceivedServerEvent e)
 	{
-		House h = new House(e.getPoint());
-		_world.buildHouse(h);
+		buildHouse(e.getPoint());
 	}
 }

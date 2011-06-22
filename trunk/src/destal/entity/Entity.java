@@ -23,6 +23,7 @@ import java.awt.Image;
 import java.awt.Point;
 import java.io.Serializable;
 
+import destal.general.world.World;
 import destal.general.world.WorldPoint;
 import destal.util.DataContainer;
 // TODO: change package to destal.entities
@@ -71,7 +72,7 @@ public abstract class Entity implements Serializable
 	public void paint(Graphics g, WorldPoint p)
 	{
 		Point loc = _location.getLocationOnPanel(p.getX(), p.getY());
-		g.drawImage(getImage(), (int)loc.getX()-16, (int)loc.getY()-16, null);
+		g.drawImage(getImage(), (int)loc.getX()-World.BLOCK_PAINTSIZE/2, (int)loc.getY()-World.BLOCK_PAINTSIZE/2, null);
 	}
 	
 	public abstract int getDataValue();
