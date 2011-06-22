@@ -17,32 +17,44 @@
  ******************************************************************************/
 package destal.general.gp;
 
-import java.awt.Dimension;
+import java.awt.Color;
 import java.awt.Graphics;
-
-import javax.swing.JFrame;
+import java.awt.Rectangle;
 import javax.swing.JPanel;
 
 import destal.entity.character.HumanPlayer;
-import destal.general.net.server.ClientConnection;
 
 public class Inventory extends JPanel
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8289679756504049316L;
 	private HumanPlayer _player;
 	
-	public Inventory (int width, int height)
+	public Inventory (int width, int height, HumanPlayer player)
 	{
 		super();
 
+		_player = player;
 		this.setBounds(0,0,width,height);
-		this.setPreferredSize(new Dimension(width,height));
-		this.setLayout(null);
     
 		this.setVisible(true);
 	}
+	
+	@Override
+	public void resize(int width, int height)
+	{
+		this.setBounds(0,0,width, height);
+	}
+	
+	@Override
 	public void paintComponent (Graphics g)
 	{
-		
+		Rectangle r = this.getBounds();
+		//System.out.println(r.toString());
+		g.setColor(Color.YELLOW);
+		g.fillRect(r.x, r.y, r.width, r.height);
 	}
 }
 	
