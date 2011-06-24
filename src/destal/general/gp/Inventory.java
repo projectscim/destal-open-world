@@ -53,7 +53,7 @@ public class Inventory extends JPanel
 	{
 		Rectangle r = this.getBounds();
 		//System.out.println(r.toString());
-		g.setColor(Color.YELLOW);
+		g.setColor(new Color(139,90,43));
 		g.fillRect(r.x, r.y, r.width, r.height);
 	}
 }
