@@ -70,7 +70,7 @@ public class Server
 	{
 		(new Thread(_networkServer)).start();
 		
-		_controller.loadWorld("lappenn");
+		_controller.loadWorld("newTextures1");
 	}
 	
 	public static void main(String[] args)
