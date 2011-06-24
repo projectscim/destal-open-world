@@ -219,6 +219,14 @@ public class Chunk implements Serializable
 				{
 					this.getBlocks()[x][y] = Block.create(Values.BLOCK_STONE);
 				}
+				else if (r <= 30)
+				{
+					this.getBlocks()[x][y] = Block.create(Values.BLOCK_SAND);
+				}
+				else if (r <= 40)
+				{
+					this.getBlocks()[x][y] = Block.create(Values.BLOCK_WATER);
+				}
 				else
 				{
 					this.getBlocks()[x][y] = Block.create(Values.BLOCK_DIRT);
