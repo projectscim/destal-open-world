@@ -35,6 +35,7 @@ import destal.entity.character.HumanPlayer;
 import destal.entity.character.Player;
 import destal.event.events.player.PlayerMovementEvent;
 import destal.event.listener.PlayerMovementListener;
+import destal.general.gp.BuildingMenu;
 import destal.general.gp.Inventory;
 import destal.general.world.Chunk;
 import destal.general.world.World;
@@ -50,6 +51,7 @@ public class GamePanel extends JPanel implements MouseMotionListener, PlayerMove
 	private MouseEvent _lastMouseEvent;
 	private HumanPlayer _player;
 	private Inventory _inventory;
+	private BuildingMenu _buildingMenu;
 	
 	public static final int INVENTORY_HEIGHT = World.BLOCK_PAINTSIZE*2;
 	
@@ -60,7 +62,9 @@ public class GamePanel extends JPanel implements MouseMotionListener, PlayerMove
 		_gui = gui;
 		_player = _gui.getClient().getLocalCharacter();
 		_inventory = new Inventory(this.getWidth(), INVENTORY_HEIGHT, _player);
+		_buildingMenu = new BuildingMenu(0, this.getHeight()-50, this.getWidth(), 50);
 		this.add(_inventory);
+		this.add(_buildingMenu);
 		this.addMouseMotionListener(this);
 		this.addMouseMotionListener(_player);
 		this.addMouseListener(_player);
@@ -128,6 +132,8 @@ public class GamePanel extends JPanel implements MouseMotionListener, PlayerMove
 				pl.paint(g, p);
 			}
 		}
+		// TODO optimize
+		_buildingMenu.paintComponent(g);
 	}
 	
 	@Override

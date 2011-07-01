@@ -18,13 +18,61 @@
 package destal.entity.item;
 
 import destal.entity.Entity;
+import destal.entity.block.Block;
+import destal.entity.block.Dirt;
+import destal.entity.block.Sand;
+import destal.entity.block.Stone;
+import destal.entity.block.Tree;
+import destal.entity.block.Water;
+import destal.entity.block.Wood;
+import destal.entity.data.Values;
 
 
-public abstract class Item extends Entity {
-
+public abstract class Item extends Entity
+{
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 5474357130021157378L;
+	
+	private int _quantity;
 
+	public void setQuantity(int quantity)
+	{
+		_quantity = quantity;
+	}
+
+	public int getQuantity()
+	{
+		return _quantity;
+	}
+	
+	public void increaseQuantity(int quantity)
+	{
+		_quantity += quantity;
+	}
+	
+	public void decreaseQuantity(int quantity)
+	{
+		_quantity -= quantity;
+	}
+	
+	public static Item create(int value) throws IllegalArgumentException
+	{
+		switch (value)
+		{
+			case Values.ITEM_DIRT:
+				return new DirtItem();
+			case Values.ITEM_STONE:
+				return new StoneItem();
+			case Values.ITEM_SAND:
+				return new SandItem();
+			case Values.ITEM_WOOD:
+				return new WoodItem();
+			default:
+				throw new IllegalArgumentException();
+		}
+	}
+	
 }

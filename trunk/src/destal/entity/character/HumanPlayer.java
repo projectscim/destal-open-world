@@ -26,6 +26,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
+import destal.entity.data.Values;
+import destal.entity.item.Item;
 import destal.event.events.player.PlayerActionEvent;
 import destal.event.events.player.PlayerMovementEvent;
 import destal.event.listener.PlayerActionListener;
@@ -49,6 +51,7 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 	private Chunk _currentChunk;
 	private Client _client;
 	private PlayerState _playerState;
+	private ArrayList<Item> _items;
 	
 	public enum PlayerState {MOVING, BUILDING}
 	
@@ -58,6 +61,8 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 		_playerMovementListener = new ArrayList<PlayerMovementListener>();
 		_playerActionListener = new ArrayList<PlayerActionListener>();
 		_playerState = PlayerState.MOVING;
+		_items = new ArrayList<Item>();
+		this.addItems(Values.ITEM_WOOD, 5);
 		
 		this.addPlayerMovementListener(this);
 	}
@@ -88,6 +93,18 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 		_gamePanel = container;
 	}
 
+	public int getItemQuantity(int dataValue)
+	{
+		for (Item i : _items)
+		{
+			if (i.getDataValue() == dataValue)
+			{
+				return i.getQuantity();
+			}
+		}
+		return 0;
+	}
+	
 	public void move(int direction)
 	{
 		if (_playerState != PlayerState.MOVING)
@@ -100,7 +117,46 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 		this.setLocation(this.getLocation().getX()+dx*direction, this.getLocation().getY()+dy*direction);	
 		this.invokePlayerMoved();
 	}
-	
+	/**
+	 * Adds the specified quantity of the item specified by the dataValue
+	 * to the player's inventory
+	 * @param dataValue The data value which specifies the item type
+	 * @param quantity The quantity to be added
+	 */
+	public void addItems(int dataValue, int quantity)
+	{
+		for (Item i : _items)
+		{
+			if (i.getDataValue() == dataValue)
+			{
+				i.increaseQuantity(quantity);
+				return;
+			}
+		}
+		_items.add(Item.create(dataValue));
+		addItems(dataValue, quantity);
+	}
+	/**
+	 * Removes the specified quantity of the item specified by the dataValue
+	 * from the player's inventory
+	 * @param dataValue The data value which specifies the item type
+	 * @param quantity The quantity to be added
+	 */
+	public void removeItems(int dataValue, int quantity) throws IllegalArgumentException
+	{
+		for (Item i : _items)
+		{
+			if (i.getDataValue() == dataValue)
+			{
+				if (i.getQuantity() < quantity)
+				{
+					throw new IllegalArgumentException("Specified quantity too high");
+				}
+				i.decreaseQuantity(quantity);
+				return;
+			}
+		}
+	}
 	/**
 	 * Adds the specified player movement listener to receive movement events from this player
 	 */
