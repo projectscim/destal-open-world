@@ -107,10 +107,6 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 	
 	public void move(int direction)
 	{
-		if (_playerState != PlayerState.MOVING)
-		{
-			return;
-		}
 		Point p = new Point(_gamePanel.getWidth()/2, _gamePanel.getHeight()/2);
 		double dx = (p.distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY())) > 1 ? (_lastMouseEvent.getX()-p.getX()) * 0.3 / p.distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY())) : 0);
 		double dy = (p.distance(new Point(_lastMouseEvent.getY(), _lastMouseEvent.getY())) > 1 ? (_lastMouseEvent.getY()-p.getY()) * 0.3 / p.distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY())) : 0);
@@ -200,13 +196,8 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 	@Override
 	public void keyTyped(KeyEvent e)
 	{
-		if (e.getKeyChar() == 'b')
+		if (e.getKeyChar() == 'w' || e.getKeyChar() == 's')
 		{
-			this._playerState = PlayerState.BUILDING;
-		}
-		else if (e.getKeyChar() == 'w' || e.getKeyChar() == 's')
-		{
-			this._playerState = PlayerState.MOVING;
 			this.move((e.getKeyChar() == 'w') ? 1 : ((e.getKeyChar() == 's') ? -1 : 0));
 		}
 	}
