@@ -82,6 +82,7 @@ public class GUI extends JFrame
 		if (mode == GUIMode.GAME)
 		{
 			disableCursor();
+			this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		}
 		else
 		{

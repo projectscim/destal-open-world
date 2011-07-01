@@ -47,13 +47,7 @@ public class Inventory extends JPanel
 	}
 	
 	@Override
-	public void resize(int width, int height)
-	{
-		this.setBounds(0,0,width, height);
-	}
-	
-	@Override
-	public void paintComponent (Graphics g)
+	public void paint (Graphics g)
 	{
 		Rectangle r = this.getBounds();
 		//System.out.println(r.toString());

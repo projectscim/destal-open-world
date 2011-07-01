@@ -30,35 +30,23 @@ import destal.util.DataContainer;
 
 public class BuildingMenu extends JPanel
 {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7655907947328548564L;
-	private HumanPlayer _player;
-	
+
 	public BuildingMenu (int x, int y, int width, int height)
 	{
 		super();
 		this.setBounds(x,y,width,height);
-    
+		this.setOpaque(true);
 		this.setVisible(true);
 	}
 	
 	@Override
-	public void resize(int width, int height)
-	{
-		//this.setBounds(0,0,width, height);
-	}
-	
-	@Override
-	public void paintComponent (Graphics g)
+	public void paint (Graphics g)
 	{
 		Rectangle r = this.getBounds();
 		//System.out.println(r.toString());
-		g.setColor(Color.LIGHT_GRAY);
+		g.setColor(Color.RED);
 		g.fillRect(r.x, r.y, r.width, r.height);
 		g.setColor(Color.BLACK);
-
 	}
 	
 	
