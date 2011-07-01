@@ -22,6 +22,8 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
@@ -29,7 +31,7 @@ import javax.swing.JPanel;
 
 import destal.general.client.Client;
 
-public class GUI extends JFrame
+public class GUI extends JFrame implements ComponentListener
 {
 	/**
 	 * 
@@ -39,6 +41,8 @@ public class GUI extends JFrame
 	private JPanel[] _panels;
 	private JPanel _curPanel;
 
+	private GUIMode _guiMode;
+	
 	public enum GUIMode {TITLE, MENU, OPTIONS, GAME}
 	
 	public GUI(int width, int height, Client client)
@@ -50,6 +54,8 @@ public class GUI extends JFrame
 		
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.setBounds(0,0,width,height);
+	    this.setResizable(false);
+	    setLocationRelativeTo(null);
 	    
 	    _panels[GUIMode.MENU.ordinal()] = new MenuPanel(this);
 	    _panels[GUIMode.GAME.ordinal()] = new GamePanel(width, height, this);
@@ -79,7 +85,8 @@ public class GUI extends JFrame
 	
 	public void setGUIMode(GUIMode mode)
 	{
-		if (mode == GUIMode.GAME)
+		_guiMode = mode;
+		if (_guiMode == GUIMode.GAME)
 		{
 			disableCursor();
 			this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -88,7 +95,7 @@ public class GUI extends JFrame
 		{
 			enableCursor();
 		}
-		JPanel panel = _panels[mode.ordinal()];
+		JPanel panel = _panels[_guiMode.ordinal()];
 		if(panel != null)
 		{
 			if (_curPanel != null)
@@ -118,6 +125,29 @@ public class GUI extends JFrame
 	{
 		Cursor c = Cursor.getDefaultCursor();
 		this.setCursor(c);
+	}
+
+	@Override
+	public void componentHidden(ComponentEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void componentMoved(ComponentEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void componentResized(ComponentEvent arg0)
+	{
+	}
+
+	@Override
+	public void componentShown(ComponentEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

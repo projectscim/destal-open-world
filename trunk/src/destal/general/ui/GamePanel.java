@@ -54,7 +54,7 @@ public class GamePanel extends JPanel implements MouseMotionListener, PlayerMove
 	private BuildingMenu _buildingMenu;
 	
 	public static final int INVENTORY_HEIGHT = World.BLOCK_PAINTSIZE*2;
-	public static final int BUILDING_MENU_HEIGHT = World.BLOCK_PAINTSIZE*2;
+	public static final int BUILDING_MENU_HEIGHT = World.BLOCK_PAINTSIZE*4;
 	
 	public GamePanel (int width, int height, GUI gui)
 	{
@@ -63,13 +63,17 @@ public class GamePanel extends JPanel implements MouseMotionListener, PlayerMove
 		_gui = gui;
 		_player = _gui.getClient().getLocalCharacter();
 		_inventory = new Inventory(this.getWidth(), INVENTORY_HEIGHT, _player);
-		_buildingMenu = new BuildingMenu(0, this.getHeight()-BUILDING_MENU_HEIGHT, this.getWidth(), BUILDING_MENU_HEIGHT);
+		_buildingMenu = new BuildingMenu(0,
+										 this.getHeight()-BUILDING_MENU_HEIGHT,
+										 this.getWidth(), BUILDING_MENU_HEIGHT,
+										 _player);
 		this.add(_buildingMenu);
 		this.add(_inventory);
 		this.addMouseMotionListener(this);
 		this.addMouseMotionListener(_player);
 		this.addMouseListener(_player);
 		this.addKeyListener(_player);
+		this.addKeyListener(_buildingMenu);
 		this.addComponentListener(this);
 		System.out.println(this.getBounds().toString());
 		_player.setContainer(this);

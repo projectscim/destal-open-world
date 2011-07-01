@@ -20,20 +20,28 @@ package destal.general.gp;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.ImageObserver;
 
 import javax.swing.JPanel;
 
 import destal.entity.character.HumanPlayer;
+import destal.entity.character.HumanPlayer.PlayerState;
 import destal.entity.data.Values;
 import destal.util.DataContainer;
 
-public class BuildingMenu extends JPanel
+public class BuildingMenu extends JPanel implements KeyListener
 {
-
-	public BuildingMenu (int x, int y, int width, int height)
+	private enum MenuMode {MINIMIZED, MAXIMIZED};
+	private MenuMode mode;
+	private HumanPlayer _player;
+	
+	public BuildingMenu (int x, int y, int width, int height, HumanPlayer player)
 	{
 		super();
+		_player = player;
+		mode = MenuMode.MINIMIZED;
 		this.setBounds(x,y,width,height);
 		this.setOpaque(true);
 		this.setVisible(true);
@@ -43,10 +51,39 @@ public class BuildingMenu extends JPanel
 	public void paint (Graphics g)
 	{
 		Rectangle r = this.getBounds();
-		//System.out.println(r.toString());
 		g.setColor(Color.RED);
-		g.fillRect(r.x, r.y, r.width, r.height);
-		g.setColor(Color.BLACK);
+		if (mode == MenuMode.MAXIMIZED)
+		{
+			g.fillRect(r.x, r.y, r.width, r.height);
+		}
+		else if (mode == MenuMode.MINIMIZED)
+		{
+			g.fillRect(r.x, r.y+r.height/2, r.height/2, r.height/2);
+		}
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {}
+
+	@Override
+	public void keyReleased(KeyEvent e) {}
+
+	@Override
+	public void keyTyped(KeyEvent e)
+	{
+		if (e.getKeyChar() == 'b')
+		{
+			if (mode == MenuMode.MINIMIZED)
+			{
+				mode = MenuMode.MAXIMIZED;
+				_player.setPlayerState(PlayerState.BUILDING);
+			}
+			else if (mode == MenuMode.MAXIMIZED)
+			{
+				mode = MenuMode.MINIMIZED;
+				_player.setPlayerState(PlayerState.MOVING);
+			}
+		}
 	}
 	
 	
