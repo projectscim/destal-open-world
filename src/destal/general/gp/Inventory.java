@@ -20,9 +20,13 @@ package destal.general.gp;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.ImageObserver;
+
 import javax.swing.JPanel;
 
 import destal.entity.character.HumanPlayer;
+import destal.entity.data.Values;
+import destal.util.DataContainer;
 
 public class Inventory extends JPanel
 {
@@ -53,9 +57,18 @@ public class Inventory extends JPanel
 	{
 		Rectangle r = this.getBounds();
 		//System.out.println(r.toString());
-		g.setColor(new Color(139,90,43));
+		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(r.x, r.y, r.width, r.height);
+		g.setColor(Color.BLACK);
+		g.drawImage(DataContainer.getTexture(Values.BLOCK_WOOD), 10, 15, null);
+		g.drawString(""+_player.getItemQuantity(Values.ITEM_WOOD), 20, 15);
+		g.drawImage(DataContainer.getTexture(Values.BLOCK_STONE), 60, 15, null);
+		g.drawString(""+_player.getItemQuantity(Values.ITEM_STONE), 70, 15);
+		g.drawImage(DataContainer.getTexture(Values.BLOCK_SAND), 110, 15, null);
+		g.drawString(""+_player.getItemQuantity(Values.ITEM_SAND), 120, 15);
 	}
+	
+	
 }
 	
     

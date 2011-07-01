@@ -81,6 +81,7 @@ public class DataContainer
 		_textures.add(new Texture(Values.BLOCK_TREE, "/gfx/tree.png"));
 		_textures.add(new Texture(Values.BLOCK_SAND, "/gfx/sand.png"));
 		_textures.add(new Texture(Values.BLOCK_WATER, "/gfx/water.png"));
+		_textures.add(new Texture(Values.BLOCK_WOOD, "/gfx/wood.png"));
 		_textures.add(new Texture(Values.HOUSE_HOUSE, "/gfx/house.gif"));
 		_textures.add(new Texture(Values.CHAR_PLAYER, "/gfx/Player.gif"));
 		/*
@@ -113,13 +114,13 @@ public class DataContainer
 		return _self != null;
 	}
 	
-	public static Image getTexture(int tex)
+	public static Image getTexture(int tex) throws IllegalArgumentException
 	{
 		for(int i = 0; i < _self._textures.size(); i++)
 		{
 			if(_self._textures.get(i).getID() == tex)
 				return _self._textures.get(i).getImage();
 		}
-		return null;
+		throw new IllegalArgumentException("Couldn't load file (false texture id?)");
 	}
 }

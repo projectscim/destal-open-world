@@ -17,6 +17,8 @@
  ******************************************************************************/
 package destal.entity.item;
 
+import destal.entity.data.Values;
+
 
 public class WoodItem extends Item
 {
@@ -30,8 +32,9 @@ public class WoodItem extends Item
 		
 	}
 	@Override
-	public int getDataValue() {
+	public int getDataValue()
+	{
 		// TODO Auto-generated method stub
-		return 0;
+		return Values.ITEM_WOOD;
 	}
 }

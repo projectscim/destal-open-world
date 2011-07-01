@@ -15,37 +15,55 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package destal.entity.data;
+package destal.general.gp;
 
-public class Values
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.awt.image.ImageObserver;
+
+import javax.swing.JPanel;
+
+import destal.entity.character.HumanPlayer;
+import destal.entity.data.Values;
+import destal.util.DataContainer;
+
+public class BuildingMenu extends JPanel
 {
-	// TODO: rework this...
-	// Description:
-	// Blocks:   	0x0?
-	// Houses:   	0x1?
-	// Characters:  0x2?
-	//
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7655907947328548564L;
+	private HumanPlayer _player;
 	
-	// Block section
-	public final static int BLOCK_DIRT 	= 0x01;
-	public final static int BLOCK_STONE = 0x02;
-	public final static int BLOCK_TREE 	= 0x03;
-	public final static int BLOCK_SAND 	= 0x04;
-	public final static int BLOCK_WATER	= 0x05;
-	public final static int BLOCK_WOOD 	= 0x06;
+	public BuildingMenu (int x, int y, int width, int height)
+	{
+		super();
+		this.setBounds(x,y,width,height);
+    
+		this.setVisible(true);
+	}
 	
-	// Item section
-	public final static int ITEM_DIRT 	= 0x10;
-	public final static int ITEM_STONE  = 0x11;
-	public final static int ITEM_TREE 	= 0x12;
-	public final static int ITEM_SAND 	= 0x13;
-	public final static int ITEM_WATER	= 0x14;
-	public final static int ITEM_WOOD 	= 0x15;
+	@Override
+	public void resize(int width, int height)
+	{
+		//this.setBounds(0,0,width, height);
+	}
 	
-	// House section
-	public static final int HOUSE_HOUSE = 0x20;
-	
-	// Player section
-	public final static int CHAR_PLAYER = 0x30;
+	@Override
+	public void paintComponent (Graphics g)
+	{
+		Rectangle r = this.getBounds();
+		//System.out.println(r.toString());
+		g.setColor(Color.LIGHT_GRAY);
+		g.fillRect(r.x, r.y, r.width, r.height);
+		g.setColor(Color.BLACK);
 
+	}
+	
+	
 }
+	
+    
+    
+    
