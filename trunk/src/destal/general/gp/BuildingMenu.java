@@ -63,13 +63,14 @@ public class BuildingMenu extends JPanel implements KeyListener, ActionListener,
 
 		setDoubleBuffered(true);
 		this.addComponentListener(this);
-		//_button = new JButton[]{new JButton (setIcon(new ImageIcon(DataContainer.getTexture(Values.HOUSE_HOUSE)))),
-        //        				new JButton (setIcon(new ImageIcon(DataContainer.getTexture(Values.HOUSE_SECONDHOUSE))))};
-		_button = new JButton[]{new JButton("hans"), new JButton("lappen")};
+		_button = new JButton[]{new JButton(),
+                				new JButton()};
+		//_button = new JButton[]{new JButton("hans"), new JButton("lappen")};
+		_button[0].setIcon(new ImageIcon(DataContainer.getTexture(Values.HOUSE_HOUSE)));
+		_button[1].setIcon(new ImageIcon(DataContainer.getTexture(Values.HOUSE_HOUSE)));
 		for (int i = 0; i < _button.length; i++)
 		{
 			Rectangle r = getBounds();
-			_button[i].setLocation(r.x, r.y);
 			_button[i].setSize(100, 100);
 			_button[i].setDoubleBuffered(true);
 			//_button[i].addActionListener(this);
@@ -137,6 +138,7 @@ public class BuildingMenu extends JPanel implements KeyListener, ActionListener,
 	{
 		if (e.getKeyChar() == 'b')
 		{
+			System.out.println("change mode");
 			if (_mode == MenuMode.MINIMIZED)
 			{
 				setMode(MenuMode.MAXIMIZED);
