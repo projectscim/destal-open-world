@@ -44,6 +44,7 @@ public class Values
 	
 	// House section
 	public static final int HOUSE_HOUSE = 0x20;
+	public static final int HOUSE_SECONDHOUSE = 0x21;
 	
 	// Player section
 	public final static int CHAR_PLAYER = 0x30;

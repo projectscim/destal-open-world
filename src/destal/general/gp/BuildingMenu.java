@@ -21,10 +21,15 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.ImageObserver;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
@@ -33,7 +38,7 @@ import destal.entity.character.HumanPlayer.PlayerState;
 import destal.entity.data.Values;
 import destal.util.DataContainer;
 
-public class BuildingMenu extends JPanel implements KeyListener
+public class BuildingMenu extends JPanel implements KeyListener, ActionListener
 {
 	/**
 	 * 
@@ -43,6 +48,7 @@ public class BuildingMenu extends JPanel implements KeyListener
 	private enum MenuMode {MINIMIZED, MAXIMIZED};
 	private MenuMode mode;
 	private HumanPlayer _player;
+	private JButton[] _button;
 	
 	public BuildingMenu (int x, int y, int width, int height, HumanPlayer player)
 	{
@@ -53,8 +59,24 @@ public class BuildingMenu extends JPanel implements KeyListener
 		this.setOpaque(true);
 		this.setVisible(true);
 		setDoubleBuffered(true);
+		_button = new JButton[]{new JButton (setIcon(new ImageIcon(DataContainer.getTexture(Values.HOUSE_HOUSE)))),
+                new JButton (setIcon(new ImageIcon(DataContainer.getTexture(Values.HOUSE_SECONDHOUSE))))};
+		for (int i = 0; i < _button.length; i++)
+		{
+			Rectangle r = this.getBounds();
+			_button[i].setLocation(r.x, r.y);
+			_button[i].setSize(r.width,r.height);
+			this.add(_button[i]);
+			_button[i].addActionListener(this);
+		}
+
 	}
 	
+	private Icon setIcon(ImageIcon imageIcon) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	private JComponent _container;
 	
 	public void setContainer(JComponent container)
@@ -69,7 +91,7 @@ public class BuildingMenu extends JPanel implements KeyListener
 		g.setColor(Color.RED);
 		if (mode == MenuMode.MAXIMIZED)
 		{
-			g.fillRect(r.x, r.y, r.width, r.height);
+			g.fillRect(r.x, r.y, r.width, r.height);			
 		}
 		else if (mode == MenuMode.MINIMIZED)
 		{
@@ -78,7 +100,7 @@ public class BuildingMenu extends JPanel implements KeyListener
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {}
+	public void keyPressed(KeyEvent e) 	{}
 
 	@Override
 	public void keyReleased(KeyEvent e) {}
@@ -104,6 +126,12 @@ public class BuildingMenu extends JPanel implements KeyListener
 			}
 			this.repaint();
 		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
