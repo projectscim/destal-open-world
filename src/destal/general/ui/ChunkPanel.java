@@ -82,7 +82,6 @@ public class ChunkPanel extends JPanel implements KeyListener
 					}
 				}
 			}
-			(new House(new WorldPoint(20,20))).paint(g);
 			// TODO optimize?
 			for (House h : c.getHouses())
 			{
@@ -107,10 +106,6 @@ public class ChunkPanel extends JPanel implements KeyListener
 				pl.paint(g, p);
 			}
 		}
-		Rectangle r = getBounds();
-		//g.setColor(Color.CYAN);
-		//g.fillRect(r.x, r.y, r.width, r.height);
-		this.paintChildren(g);
 	}
 
 	@Override
