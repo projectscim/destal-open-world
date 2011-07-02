@@ -3,16 +3,14 @@ package destal.entity.building;
 import destal.entity.data.Values;
 import destal.general.world.WorldPoint;
 
-public class Castle extends Building
+public class House extends Building
 {
-	
-
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -5473760717437095699L;
+	private static final long serialVersionUID = 4193686143716527925L;
 
-	public Castle(WorldPoint location)
+	public House(WorldPoint location)
 	{
 		super(location);
 	}
@@ -20,8 +18,7 @@ public class Castle extends Building
 	@Override
 	public int getDataValue()
 	{
-		// TODO Add data value
-		return 0;
+		return Values.HOUSE_HOUSE;
 	}
 
 }
