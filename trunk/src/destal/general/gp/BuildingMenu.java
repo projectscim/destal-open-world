@@ -18,12 +18,14 @@
 package destal.general.gp;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.ImageObserver;
 
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import destal.entity.character.HumanPlayer;
@@ -33,6 +35,11 @@ import destal.util.DataContainer;
 
 public class BuildingMenu extends JPanel implements KeyListener
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5471169876111787240L;
+
 	private enum MenuMode {MINIMIZED, MAXIMIZED};
 	private MenuMode mode;
 	private HumanPlayer _player;
@@ -45,6 +52,14 @@ public class BuildingMenu extends JPanel implements KeyListener
 		this.setBounds(x,y,width,height);
 		this.setOpaque(true);
 		this.setVisible(true);
+		setDoubleBuffered(true);
+	}
+	
+	private JComponent _container;
+	
+	public void setContainer(JComponent container)
+	{
+		_container = container;
 	}
 	
 	@Override
@@ -83,6 +98,11 @@ public class BuildingMenu extends JPanel implements KeyListener
 				mode = MenuMode.MINIMIZED;
 				_player.setPlayerState(PlayerState.MOVING);
 			}
+			if (_container != null)
+			{
+				_container.repaint();
+			}
+			this.repaint();
 		}
 	}
 	

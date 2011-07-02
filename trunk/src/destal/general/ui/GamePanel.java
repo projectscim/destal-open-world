@@ -68,6 +68,7 @@ public class GamePanel extends JPanel implements MouseMotionListener, PlayerMove
 										 this.getWidth(), BUILDING_MENU_HEIGHT,
 										 _player);
 		this.add(_buildingMenu);
+		_buildingMenu.setContainer(this);
 		this.add(_inventory);
 		this.addMouseMotionListener(this);
 		this.addMouseMotionListener(_player);
@@ -82,7 +83,7 @@ public class GamePanel extends JPanel implements MouseMotionListener, PlayerMove
 	}
 	
 	@Override
-	public void paintComponent(Graphics g)
+	public void paint(Graphics g)
 	{
 		g.setColor(Color.BLACK);
 		g.fillRect((int)g.getClipBounds().getX(), (int)g.getClipBounds().getY(), (int)g.getClipBounds().getWidth(), (int)g.getClipBounds().getHeight());
@@ -137,7 +138,7 @@ public class GamePanel extends JPanel implements MouseMotionListener, PlayerMove
 				pl.paint(g, p);
 			}
 		}
-		//this.paintComponents(g);
+		this.paintComponents(g);
 		_buildingMenu.paint(g);
 	}
 	
