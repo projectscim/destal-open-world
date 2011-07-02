@@ -54,7 +54,9 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 	private ArrayList<Item> _items;
 	
 	public enum PlayerState {MOVING, BUILDING}
-	
+	/**
+	 * Creates a new player
+	 */
 	public HumanPlayer()
 	{
 		super();
