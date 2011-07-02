@@ -20,6 +20,7 @@ package destal.general.ui;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
@@ -52,6 +53,7 @@ public class GamePanel extends JPanel implements MouseMotionListener, PlayerMove
 	private HumanPlayer _player;
 	private Inventory _inventory;
 	private BuildingMenu _buildingMenu;
+	private ChunkPanel _chunkPanel;
 	
 	public static final int INVENTORY_HEIGHT = World.BLOCK_PAINTSIZE*2;
 	public static final int BUILDING_MENU_HEIGHT = World.BLOCK_PAINTSIZE*4;
@@ -63,83 +65,43 @@ public class GamePanel extends JPanel implements MouseMotionListener, PlayerMove
 		_gui = gui;
 		_player = _gui.getClient().getLocalCharacter();
 		_inventory = new Inventory(this.getWidth(), INVENTORY_HEIGHT, _player);
+
+		_chunkPanel = new ChunkPanel(0,
+									 INVENTORY_HEIGHT,
+									 (int)getBounds().getWidth(),
+									 (int)getBounds().getHeight()-INVENTORY_HEIGHT-BUILDING_MENU_HEIGHT,
+									 _gui);
 		_buildingMenu = new BuildingMenu(0,
-										 this.getHeight()-BUILDING_MENU_HEIGHT,
-										 this.getWidth(), BUILDING_MENU_HEIGHT,
+										 getHeight()-BUILDING_MENU_HEIGHT,
+										 getWidth(), BUILDING_MENU_HEIGHT,
 										 _player);
+		
 		this.add(_buildingMenu);
-		_buildingMenu.setContainer(this);
 		this.add(_inventory);
+		this.add(_chunkPanel);
+		this.validate();
+		
 		this.addMouseMotionListener(this);
-		this.addMouseMotionListener(_player);
-		this.addMouseListener(_player);
+		_chunkPanel.addMouseMotionListener(_player);
+		_chunkPanel.addMouseListener(_player);
 		this.addKeyListener(_player);
 		this.addKeyListener(_buildingMenu);
 		this.addComponentListener(this);
-		System.out.println(this.getBounds().toString());
-		_player.setContainer(this);
+
+		_player.setContainer(_chunkPanel);
 		_player.addPlayerMovementListener(this);
 		setDoubleBuffered(true);
 	}
 	
 	@Override
-	public void paint(Graphics g)
+	public void paintComponent(Graphics g)
 	{
-		g.setColor(Color.BLACK);
-		g.fillRect((int)g.getClipBounds().getX(), (int)g.getClipBounds().getY(), (int)g.getClipBounds().getWidth(), (int)g.getClipBounds().getHeight());
-		// Add what's to draw:
-		WorldPoint p = new WorldPoint(_player.getLocation().getX()-this.getWidth()/2/World.BLOCK_PAINTSIZE,
-								      _player.getLocation().getY()-(this.getHeight()+INVENTORY_HEIGHT)/2/World.BLOCK_PAINTSIZE);
-		Vector<House> houses = new Vector<House>();
-		for (Chunk c : _gui.getClient().getChunkBuffer())
-		{
-			if(c == null)
-				continue;
-			
-			for (int x = 0; x < World.CHUNK_SIZE; x++)
-			{
-				for (int y = 0; y < World.CHUNK_SIZE; y++)
-				{
-					Point loc = c.getBlocks()[x][y].getLocation().getLocationOnPanel((int)p.getX(), (int)p.getY());
-					if (loc.getX() >= 0 && loc.getX()-World.BLOCK_PAINTSIZE <= this.getWidth() &&
-						loc.getY() >= 0 && loc.getY()-World.BLOCK_PAINTSIZE <= this.getHeight())
-					{
-						c.getBlocks()[x][y].paint(g, p);
-					}
-				}
-			}
-			(new House(new WorldPoint(20,20))).paint(g);
-			// TODO optimize?
-			for (House h : c.getHouses())
-			{
-				houses.add(h);
-			}
-		}
-		for (House h : houses)
-		{
-			Point loc = h.getLocation().getLocationOnPanel((int)p.getX(), (int)p.getY());
-			if (loc.getX() >= 0 && loc.getX()-World.BLOCK_PAINTSIZE <= this.getWidth() &&
-				loc.getY() >= 0 && loc.getY()-World.BLOCK_PAINTSIZE <= this.getHeight())
-			{
-				h.paint(g, p);
-			}
-		}
+		super.paintComponent(g);
 		if (_lastMouseEvent != null)
 		{
 			g.setColor(Color.GREEN);
 			g.fillOval(_lastMouseEvent.getX(), _lastMouseEvent.getY(), 5, 5);
 		}
-		_player.paint(g, p);
-		
-		ArrayList<Player> players = _gui.getClient().getCharacters();
-		{
-			for (Player pl : players)
-			{
-				pl.paint(g, p);
-			}
-		}
-		this.paintComponents(g);
-		_buildingMenu.paint(g);
 	}
 	
 	@Override
@@ -152,11 +114,11 @@ public class GamePanel extends JPanel implements MouseMotionListener, PlayerMove
 		this.invokeRepaint();
 		if (e.getY() < INVENTORY_HEIGHT)
 		{
-			_gui.enableCursor();
+			//_gui.enableCursor();
 		}
 		else
 		{
-			_gui.disableCursor();
+			//_gui.disableCursor();
 		}
 	}
 
@@ -228,6 +190,10 @@ public class GamePanel extends JPanel implements MouseMotionListener, PlayerMove
 									 getBounds().y+getBounds().height-BUILDING_MENU_HEIGHT,
 									 getBounds().width,
 									 BUILDING_MENU_HEIGHT);
+		this._chunkPanel.setBounds(0,
+				 				   INVENTORY_HEIGHT,
+				 				   getBounds().width,
+				 				   getBounds().height-INVENTORY_HEIGHT-BUILDING_MENU_HEIGHT);
 		
 	}
 

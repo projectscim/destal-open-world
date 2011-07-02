@@ -23,6 +23,8 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.ImageObserver;
@@ -38,7 +40,7 @@ import destal.entity.character.HumanPlayer.PlayerState;
 import destal.entity.data.Values;
 import destal.util.DataContainer;
 
-public class BuildingMenu extends JPanel implements KeyListener, ActionListener
+public class BuildingMenu extends JPanel implements KeyListener, ActionListener, ComponentListener
 {
 	/**
 	 * 
@@ -46,7 +48,7 @@ public class BuildingMenu extends JPanel implements KeyListener, ActionListener
 	private static final long serialVersionUID = 5471169876111787240L;
 
 	private enum MenuMode {MINIMIZED, MAXIMIZED};
-	private MenuMode mode;
+	private MenuMode _mode;
 	private HumanPlayer _player;
 	private JButton[] _button;
 	
@@ -54,27 +56,46 @@ public class BuildingMenu extends JPanel implements KeyListener, ActionListener
 	{
 		super();
 		_player = player;
-		mode = MenuMode.MINIMIZED;
+		setMode(MenuMode.MAXIMIZED);
 		this.setBounds(x,y,width,height);
 		this.setOpaque(true);
-		this.setVisible(true);
+		this.setBackground(Color.GREEN);
+
 		setDoubleBuffered(true);
-		_button = new JButton[]{new JButton (setIcon(new ImageIcon(DataContainer.getTexture(Values.HOUSE_HOUSE)))),
-                new JButton (setIcon(new ImageIcon(DataContainer.getTexture(Values.HOUSE_SECONDHOUSE))))};
+		this.addComponentListener(this);
+		//_button = new JButton[]{new JButton (setIcon(new ImageIcon(DataContainer.getTexture(Values.HOUSE_HOUSE)))),
+        //        				new JButton (setIcon(new ImageIcon(DataContainer.getTexture(Values.HOUSE_SECONDHOUSE))))};
+		_button = new JButton[]{new JButton("hans"), new JButton("lappen")};
 		for (int i = 0; i < _button.length; i++)
 		{
-			Rectangle r = this.getBounds();
+			Rectangle r = getBounds();
 			_button[i].setLocation(r.x, r.y);
-			_button[i].setSize(r.width,r.height);
+			_button[i].setSize(100, 100);
+			_button[i].setDoubleBuffered(true);
+			//_button[i].addActionListener(this);
+			_button[i].setVisible(true);
 			this.add(_button[i]);
-			_button[i].addActionListener(this);
 		}
-
+		this.validate();
+		this.setVisible(true);
 	}
 	
-	private Icon setIcon(ImageIcon imageIcon) {
-		// TODO Auto-generated method stub
-		return null;
+	public MenuMode getMode()
+	{
+		return _mode;
+	}
+
+	public void setMode(MenuMode mode)
+	{
+		_mode = mode;
+		if (_mode == MenuMode.MINIMIZED)
+		{
+			_player.setPlayerState(PlayerState.MOVING);
+		}
+		else if (_mode == MenuMode.MAXIMIZED)
+		{
+			_player.setPlayerState(PlayerState.BUILDING);
+		}
 	}
 
 	private JComponent _container;
@@ -85,18 +106,24 @@ public class BuildingMenu extends JPanel implements KeyListener, ActionListener
 	}
 	
 	@Override
-	public void paint (Graphics g)
+	public void paintComponent (Graphics g)
 	{
+		super.paintComponent(g);
 		Rectangle r = this.getBounds();
-		g.setColor(Color.RED);
-		if (mode == MenuMode.MAXIMIZED)
+		g.setColor(Color.GREEN);
+		g.drawRect(r.x, r.y, r.width, r.height);
+		//for (JButton b : _button)
+			//System.out.println(b.getBounds().toString());
+		if (_mode == MenuMode.MAXIMIZED)
 		{
-			g.fillRect(r.x, r.y, r.width, r.height);			
+			g.fillRect(r.x, r.y, r.width, r.height);	
 		}
-		else if (mode == MenuMode.MINIMIZED)
+		else if (_mode == MenuMode.MINIMIZED)
 		{
 			g.fillRect(r.x, r.y+r.height/2, r.height/2, r.height/2);
 		}
+		//paintComponents(g);
+
 	}
 
 	@Override
@@ -110,19 +137,13 @@ public class BuildingMenu extends JPanel implements KeyListener, ActionListener
 	{
 		if (e.getKeyChar() == 'b')
 		{
-			if (mode == MenuMode.MINIMIZED)
+			if (_mode == MenuMode.MINIMIZED)
 			{
-				mode = MenuMode.MAXIMIZED;
-				_player.setPlayerState(PlayerState.BUILDING);
+				setMode(MenuMode.MAXIMIZED);
 			}
-			else if (mode == MenuMode.MAXIMIZED)
+			else if (_mode == MenuMode.MAXIMIZED)
 			{
-				mode = MenuMode.MINIMIZED;
-				_player.setPlayerState(PlayerState.MOVING);
-			}
-			if (_container != null)
-			{
-				_container.repaint();
+				setMode(MenuMode.MINIMIZED);
 			}
 			this.repaint();
 		}
@@ -130,6 +151,39 @@ public class BuildingMenu extends JPanel implements KeyListener, ActionListener
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void componentHidden(ComponentEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void componentMoved(ComponentEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void componentResized(ComponentEvent e)
+	{
+		for (int i = 0; i < _button.length; i++)
+		{
+			Rectangle r = getBounds();
+			_button[i].setLocation(r.x, r.y);
+			_button[i].setSize(100, 100);
+			//_button[i].addActionListener(this);
+		}
+		this.invalidate();
+		this.validate();
+		this.repaint();
+	}
+
+	@Override
+	public void componentShown(ComponentEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
