@@ -48,8 +48,9 @@ public class Inventory extends JPanel
 	}
 	
 	@Override
-	public void paint (Graphics g)
+	public void paintComponent (Graphics g)
 	{
+		super.paintComponent(g);
 		Rectangle r = this.getBounds();
 		//System.out.println(r.toString());
 		g.setColor(Color.LIGHT_GRAY);
@@ -61,6 +62,8 @@ public class Inventory extends JPanel
 		g.drawString(""+_player.getItemQuantity(Values.ITEM_STONE), 70, 15);
 		g.drawImage(DataContainer.getTexture(Values.BLOCK_SAND), 110, 15, null);
 		g.drawString(""+_player.getItemQuantity(Values.ITEM_SAND), 120, 15);
+		
+		//g.fillRect(r.x, r.y, r.width, r.height);
 	}
 	
 	

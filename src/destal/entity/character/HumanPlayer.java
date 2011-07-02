@@ -26,6 +26,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
+import javax.swing.JPanel;
+
 import destal.entity.data.Values;
 import destal.entity.item.Item;
 import destal.event.events.player.PlayerActionEvent;
@@ -33,6 +35,7 @@ import destal.event.events.player.PlayerMovementEvent;
 import destal.event.listener.PlayerActionListener;
 import destal.event.listener.PlayerMovementListener;
 import destal.general.client.Client;
+import destal.general.ui.ChunkPanel;
 import destal.general.ui.GamePanel;
 import destal.general.world.Chunk;
 import destal.general.world.World;
@@ -47,7 +50,7 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 	private ArrayList<PlayerMovementListener> _playerMovementListener;
 	private ArrayList<PlayerActionListener> _playerActionListener;
 	private MouseEvent _lastMouseEvent;
-	private GamePanel _gamePanel;
+	private JPanel _gamePanel;
 	private Chunk _currentChunk;
 	private Client _client;
 	private PlayerState _playerState;
@@ -90,9 +93,9 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 		_currentChunk = c;
 	}
 	
-	public void setContainer(GamePanel container)
+	public void setContainer(JPanel gamePanel)
 	{
-		_gamePanel = container;
+		_gamePanel = gamePanel;
 	}
 
 	public int getItemQuantity(int dataValue)
@@ -198,6 +201,7 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 	@Override
 	public void keyTyped(KeyEvent e)
 	{
+		System.out.println("key pressed");
 		if (e.getKeyChar() == 'w' || e.getKeyChar() == 's')
 		{
 			this.move((e.getKeyChar() == 'w') ? 1 : ((e.getKeyChar() == 's') ? -1 : 0));

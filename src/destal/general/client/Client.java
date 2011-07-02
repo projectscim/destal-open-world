@@ -17,12 +17,17 @@
  ******************************************************************************/
 package destal.general.client;
 
+import java.awt.Image;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 import destal.entity.character.HumanPlayer;
 import destal.entity.character.Player;
+import destal.entity.data.Values;
 import destal.event.events.net.client.PacketReceivedClientEvent;
 import destal.event.events.player.PlayerActionEvent;
 import destal.event.events.player.PlayerMovementEvent;
@@ -61,7 +66,7 @@ public class Client implements PlayerMovementListener, PacketReceivedClientListe
 		_localPlayer = new HumanPlayer(this);
 		_localPlayer.addPlayerMovementListener(this);
 		_localPlayer.addPlayerActionListener(this);
-		_gui = new GUI(600, 200, this);
+		_gui = new GUI(600, 600, this);
 		_networkClient = new NetworkClient();
 		_networkClient.addPacketReceivedClientListener(this);
 		_characters = new ArrayList<Player>();

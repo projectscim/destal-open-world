@@ -54,7 +54,7 @@ public class GUI extends JFrame implements ComponentListener
 		
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.setBounds(0,0,width,height);
-	    this.setResizable(false);
+	    //this.setResizable(false);
 	    setLocationRelativeTo(null);
 	    
 	    _panels[GUIMode.MENU.ordinal()] = new MenuPanel(this);
@@ -86,10 +86,11 @@ public class GUI extends JFrame implements ComponentListener
 	public void setGUIMode(GUIMode mode)
 	{
 		_guiMode = mode;
+		// TODO remove?
 		if (_guiMode == GUIMode.GAME)
 		{
-			disableCursor();
-			this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+			//disableCursor();
+			//this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		}
 		else
 		{
