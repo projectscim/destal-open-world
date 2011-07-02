@@ -44,6 +44,7 @@ public class Inventory extends JPanel
 		this.setBounds(0,0,width,height);
     
 		this.setVisible(true);
+		setDoubleBuffered(true);
 	}
 	
 	@Override
