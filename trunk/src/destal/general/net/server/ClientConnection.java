@@ -111,6 +111,7 @@ public class ClientConnection implements Runnable
 				{
 					PacketReceivedServerEvent e = new PacketReceivedServerEvent(this);
 					e.setPoint(new WorldPoint((Double)p.get(), (Double)p.get()));
+					e.setBuildingType((Integer)p.get());
 					for (PacketReceivedServerListener l : _packetReceivedServerListener)
 					{
 						l.clientBuildHouse(e);

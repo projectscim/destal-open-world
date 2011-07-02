@@ -31,6 +31,7 @@ public class PacketReceivedServerEvent extends EventObject
 	private static final long serialVersionUID = -4789469757873817434L;
 	private WorldPoint _point;
 	private Point[] _points;
+	private int _buildingType;
 	
 	public PacketReceivedServerEvent(ClientConnection client)
 	{
@@ -71,5 +72,15 @@ public class PacketReceivedServerEvent extends EventObject
 	public Point[] getPoints()
 	{
 		return _points;
+	}
+	
+	public void setBuildingType(int buildingType)
+	{
+		_buildingType = buildingType;
+	}
+	
+	public int getBuildingType()
+	{
+		return _buildingType;
 	}
 }

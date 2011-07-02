@@ -28,7 +28,7 @@ import java.util.Random;
 import java.util.Vector;
 
 import destal.entity.block.Block;
-import destal.entity.building.House;
+import destal.entity.building.Building;
 import destal.entity.data.Values;
 import destal.entity.item.Item;
 
@@ -41,13 +41,13 @@ public class Chunk implements Serializable
 	private Point _location;
 	private Block[][] _blocks;
 	private Vector<Item> _items;
-	private Vector<House> _houses;
+	private Vector<Building> _houses;
 
 	private Chunk()
 	{
 		setBlocks(new Block[World.CHUNK_SIZE][World.CHUNK_SIZE]);
 		setItems(new Vector<Item>());
-		_houses = new Vector<House>();
+		_houses = new Vector<Building>();
 	}
 	
 	public Chunk(Point location)
@@ -62,12 +62,12 @@ public class Chunk implements Serializable
 		this.loadFile(file);
 	}
 	
-	public void buildHouse(House house)
+	public void buildHouse(Building building)
 	{
-		_houses.add(house);
+		_houses.add(building);
 	}
 	
-	public Vector<House> getHouses()
+	public Vector<Building> getHouses()
 	{
 		return _houses;
 	}
@@ -129,7 +129,7 @@ public class Chunk implements Serializable
 		{
 			int x = fs.read();
 			int y = fs.read();
-			_houses.add(new House(new WorldPoint((int)_location.getX(), (int)_location.getY(), x, y)));
+			_houses.add(new Building(new WorldPoint((int)_location.getX(), (int)_location.getY(), x, y)));
 		}
 		fs.close();
 	}
@@ -186,7 +186,7 @@ public class Chunk implements Serializable
 		// TODO optimize
 		_houses.trimToSize();
 		fs.write(_houses.size());
-		for (House h : _houses)
+		for (Building h : _houses)
 		{
 			int x = h.getLocation().getLocationInChunk().x;
 			int y = h.getLocation().getLocationInChunk().y;
