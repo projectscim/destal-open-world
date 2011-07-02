@@ -28,7 +28,7 @@ import java.util.Vector;
 
 import javax.swing.JPanel;
 
-import destal.entity.building.House;
+import destal.entity.building.Building;
 import destal.entity.character.HumanPlayer;
 import destal.entity.character.Player;
 import destal.general.world.Chunk;
@@ -64,7 +64,7 @@ public class ChunkPanel extends JPanel implements KeyListener
 		// Add what's to draw:
 		WorldPoint p = new WorldPoint(_player.getLocation().getX()-this.getWidth()/2/World.BLOCK_PAINTSIZE,
 								      _player.getLocation().getY()-this.getHeight()/2/World.BLOCK_PAINTSIZE);
-		Vector<House> houses = new Vector<House>();
+		Vector<Building> buildings = new Vector<Building>();
 		for (Chunk c : _gui.getClient().getChunkBuffer())
 		{
 			if(c == null)
@@ -83,12 +83,12 @@ public class ChunkPanel extends JPanel implements KeyListener
 				}
 			}
 			// TODO optimize?
-			for (House h : c.getHouses())
+			for (Building h : c.getHouses())
 			{
-				houses.add(h);
+				buildings.add(h);
 			}
 		}
-		for (House h : houses)
+		for (Building h : buildings)
 		{
 			Point loc = h.getLocation().getLocationOnPanel((int)p.getX(), (int)p.getY());
 			if (loc.getX() >= 0 && loc.getX()-World.BLOCK_PAINTSIZE <= this.getWidth() &&

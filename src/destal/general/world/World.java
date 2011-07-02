@@ -23,7 +23,7 @@ import java.awt.Rectangle;
 import java.io.File;
 import java.io.IOException;
 
-import destal.entity.building.House;
+import destal.entity.building.Building;
 
 public class World
 {
@@ -100,13 +100,13 @@ public class World
 		}
 	}
 	
-	public void buildHouse(House house)
+	public void buildHouse(Building building)
 	{
-		Point chunkloc = house.getLocation().getChunkLocation();
+		Point chunkloc = building.getLocation().getChunkLocation();
 		try
 		{
 			Chunk c = this.getChunk(chunkloc.x, chunkloc.y, 0);
-			c.buildHouse(house);
+			c.buildHouse(building);
 			c.saveChunk(_levels[0].getChunkFile(chunkloc.x, chunkloc.y));
 		}
 		catch (IOException e)

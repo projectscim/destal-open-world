@@ -274,16 +274,14 @@ public class Client implements PlayerMovementListener, PacketReceivedClientListe
 		new Client();
 	}
 	@Override
-	public void playerAction(PlayerActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void playerAction(PlayerActionEvent e) {}
 	@Override
 	public void playerBuildHouse(PlayerActionEvent e)
 	{
 		Packet p = new Packet(MSGType.MSG_CL_BUILD_HOUSE);
 		p.set(e.getLocation().getX());
 		p.set(e.getLocation().getY());
+		p.set(e.getBuildingType());
 		_networkClient.send(p);
 		
 		// Updating chunk

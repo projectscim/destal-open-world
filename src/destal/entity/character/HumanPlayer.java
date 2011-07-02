@@ -242,6 +242,7 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 										  p.getY()+e.getY()/World.BLOCK_PAINTSIZE);
 			PlayerActionEvent pe = new PlayerActionEvent(this);
 			pe.setLocation(h);
+			pe.setBuildingType(_currentBuilding);
 			for (PlayerActionListener l : _playerActionListener)
 			{
 				l.playerBuildHouse(pe);

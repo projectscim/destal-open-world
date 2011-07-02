@@ -20,7 +20,7 @@ package destal.util;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import destal.entity.building.House;
+import destal.entity.building.Building;
 import destal.entity.character.Player;
 import destal.event.events.net.server.PacketReceivedServerEvent;
 import destal.event.listener.PacketReceivedServerListener;
@@ -47,9 +47,9 @@ public class Controller implements PacketReceivedServerListener
 		_world = new World(name);
 	}
 	
-	private void buildHouse(WorldPoint p)
+	private void buildHouse(WorldPoint p, int buildingType)
 	{
-		House h = new House(p);
+		Building h = new Building(p);
 		_world.buildHouse(h);
 	}
 	
@@ -106,6 +106,6 @@ public class Controller implements PacketReceivedServerListener
 	@Override
 	public void clientBuildHouse(PacketReceivedServerEvent e)
 	{
-		buildHouse(e.getPoint());
+		buildHouse(e.getPoint(), e.getBuildingType());
 	}
 }

@@ -13,6 +13,8 @@ public class PlayerActionEvent extends EventObject
 	
 	public enum EventType {BUILD_HOUSE}
 	private WorldPoint _location;
+	private int _buildingType;
+	
 	/**
 	 * Creates a new PlayerActionEvent
 	 * @param source The object in which the event is invoked
@@ -28,5 +30,13 @@ public class PlayerActionEvent extends EventObject
 	public WorldPoint getLocation()
 	{
 		return _location;
+	}
+	public void setBuildingType(int buildingType)
+	{
+		_buildingType = buildingType;
+	}
+	public int getBuildingType()
+	{
+		return _buildingType;
 	}
 }
