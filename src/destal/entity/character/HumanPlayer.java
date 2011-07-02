@@ -55,6 +55,7 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 	private Client _client;
 	private PlayerState _playerState;
 	private ArrayList<Item> _items;
+	private int _currentBuilding;
 	
 	public enum PlayerState {MOVING, BUILDING}
 	/**
@@ -272,4 +273,15 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 		
 	}
 
+	public void setCurrentBuilding(int currentBuilding)
+	{
+		if ((currentBuilding & 0x20) !=  0x20)
+			throw new IllegalArgumentException("Invalid building data value");
+		this._currentBuilding = currentBuilding;
+	}
+
+	public int getCurrentBuilding()
+	{
+		return _currentBuilding;
+	}
 }
