@@ -17,17 +17,12 @@
  ******************************************************************************/
 package destal.general.client;
 
-import java.awt.Image;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-
 import destal.entity.character.HumanPlayer;
 import destal.entity.character.Player;
-import destal.entity.data.Values;
 import destal.event.events.net.client.PacketReceivedClientEvent;
 import destal.event.events.player.PlayerActionEvent;
 import destal.event.events.player.PlayerMovementEvent;
@@ -182,15 +177,11 @@ public class Client implements PlayerMovementListener, PacketReceivedClientListe
 		System.out.println("[Server] MOTD: " + e.getMOTD());
 		_id = e.getClientID();
 		_localPlayer.setID(_id);
-		int[] ids = e.getClientList();
-		for (int id : ids)
+		Player[] players = e.getClientList();
+		for (Player pl : players)
 		{
-			Player pl = new Player();
-			pl.setID(id);
 			_characters.add(pl);
 		}
-		_characters.trimToSize();
-		
 	}
 
 	@Override
@@ -223,15 +214,10 @@ public class Client implements PlayerMovementListener, PacketReceivedClientListe
 		Chunk c = e.getChunk();
 		for (int i = 0; i < _chunkBuffer.length; i++)
 		{
-			if(_chunkBuffer[i] == null)
+			if(_chunkBuffer[i] == null || _chunkBuffer[i].getLocation().equals(c.getLocation()))
 			{
 				_chunkBuffer[i] = c;
 				break;
-			}
-			else if(_chunkBuffer[i].getLocation().equals(c.getLocation()))
-			{
-				// Update chunk
-				_chunkBuffer[i] = c;
 			}
 		}
 		_gui.repaint();
@@ -283,15 +269,5 @@ public class Client implements PlayerMovementListener, PacketReceivedClientListe
 		p.set(e.getLocation().getY());
 		p.set(e.getBuildingType());
 		_networkClient.send(p);
-		
-		// Updating chunk
-		// TODO snapshot system?
-		
-		Packet p2 = new Packet(MSGType.MSG_CL_REQUEST_CHUNK);
-		Vector<Point> needed = new Vector<Point>();
-		needed.add(e.getLocation().getChunkLocation());
-		p2.set(needed.toArray(new Point[0]));
-		_networkClient.send(p2);
-		_gui.repaint();
 	}
 }

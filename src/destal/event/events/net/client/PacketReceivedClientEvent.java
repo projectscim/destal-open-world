@@ -19,6 +19,7 @@ package destal.event.events.net.client;
 
 import java.util.EventObject;
 
+import destal.entity.character.Player;
 import destal.general.net.client.NetworkClient;
 import destal.general.world.Chunk;
 import destal.general.world.WorldPoint;
@@ -33,7 +34,7 @@ public class PacketReceivedClientEvent extends EventObject
 	private WorldPoint _point;
 	private String _MOTD;
 	private int _clientID;
-	private int[] _clientList;
+	private Player[] _clientList;
 	
 	public PacketReceivedClientEvent(NetworkClient source)
 	{
@@ -43,14 +44,14 @@ public class PacketReceivedClientEvent extends EventObject
 		_MOTD = "";
 	}
 	
-	public int[] getClientList()
+	public Player[] getClientList()
 	{
 		return _clientList;
 	}
 	
-	public void setClientList(int[] clientList)
+	public void setClientList(Player[] players)
 	{
-		_clientList = clientList;
+		_clientList = players;
 	}	
 	
 	public NetworkClient getNetworkClient()

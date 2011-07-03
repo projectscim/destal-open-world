@@ -123,7 +123,7 @@ public class ClientConnection implements Runnable
 		catch(Exception e)
 		{
 			System.out.println("lost client: '" + this + "'");
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		for (PacketReceivedServerListener l : _packetReceivedServerListener)
 		{

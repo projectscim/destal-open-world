@@ -239,7 +239,7 @@ public class Chunk implements Serializable
 		}
 	}
 	
-	@Override
+	/*@Override
 	public String toString()
 	{
 		String s = "";
@@ -254,7 +254,7 @@ public class Chunk implements Serializable
 			s += "\n";
 		}
 		return s;
-	}
+	}*/
 	
 	public void paint(Graphics g)
 	{
