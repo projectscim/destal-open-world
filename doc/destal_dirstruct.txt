@@ -1,0 +1,248 @@
+Auflistung der Ordnerpfade fÅr Volume ACER
+Volumeseriennummer : F477-2E53
+C:\USERS\STEFFEN\PROJEKTE\PROJEKTE\DESTAL-OPEN-WORLD
+|   .classpath
+|   .project
+|   hs_err_pid8164.log
+|   hs_err_pid8440.log
+|   license.txt
+|   
++---bin
+|   +---destal
+|   |   +---entity
+|   |   |   |   Entity.class
+|   |   |   |   IWalkable.class
+|   |   |   |   
+|   |   |   +---block
+|   |   |   |       Block.class
+|   |   |   |       Dirt.class
+|   |   |   |       Sand.class
+|   |   |   |       Stone.class
+|   |   |   |       Tree.class
+|   |   |   |       Water.class
+|   |   |   |       Wood.class
+|   |   |   |       
+|   |   |   +---building
+|   |   |   |       Building.class
+|   |   |   |       Castle.class
+|   |   |   |       House.class
+|   |   |   |       
+|   |   |   +---character
+|   |   |   |   |   HumanPlayer$PlayerState.class
+|   |   |   |   |   HumanPlayer.class
+|   |   |   |   |   Player.class
+|   |   |   |   |   
+|   |   |   |   \---npc
+|   |   |   |           AggressiveNPC.class
+|   |   |   |           FriendlyNPC.class
+|   |   |   |           NeutralNPC.class
+|   |   |   |           NPC.class
+|   |   |   |           
+|   |   |   +---data
+|   |   |   |       Values.class
+|   |   |   |       
+|   |   |   \---item
+|   |   |           DirtItem.class
+|   |   |           Item.class
+|   |   |           SandItem.class
+|   |   |           StoneItem.class
+|   |   |           WoodItem.class
+|   |   |           
+|   |   +---event
+|   |   |   +---events
+|   |   |   |   |   PacketReceivedClientEvent.class
+|   |   |   |   |   PacketReceivedServerEvent.class
+|   |   |   |   |   PlayerMovementEvent.class
+|   |   |   |   |   
+|   |   |   |   +---net
+|   |   |   |   |   +---client
+|   |   |   |   |   |       PacketReceivedClientEvent.class
+|   |   |   |   |   |       
+|   |   |   |   |   \---server
+|   |   |   |   |           PacketReceivedServerEvent.class
+|   |   |   |   |           
+|   |   |   |   \---player
+|   |   |   |           PlayerActionEvent$EventType.class
+|   |   |   |           PlayerActionEvent.class
+|   |   |   |           PlayerMovementEvent.class
+|   |   |   |           
+|   |   |   \---listener
+|   |   |           PacketReceivedClientListener.class
+|   |   |           PacketReceivedServerListener.class
+|   |   |           PlayerActionListener.class
+|   |   |           PlayerMovementListener.class
+|   |   |           
+|   |   +---general
+|   |   |   +---client
+|   |   |   |       Client.class
+|   |   |   |       
+|   |   |   +---gp
+|   |   |   |       BuildingMenu$MenuMode.class
+|   |   |   |       BuildingMenu.class
+|   |   |   |       Inventory.class
+|   |   |   |       
+|   |   |   +---net
+|   |   |   |   |   MSGType.class
+|   |   |   |   |   Packet.class
+|   |   |   |   |   
+|   |   |   |   +---client
+|   |   |   |   |       NetworkClient$State.class
+|   |   |   |   |       NetworkClient.class
+|   |   |   |   |       
+|   |   |   |   \---server
+|   |   |   |           ClientConnection.class
+|   |   |   |           NetworkServer.class
+|   |   |   |           
+|   |   |   +---server
+|   |   |   |       Server.class
+|   |   |   |       
+|   |   |   +---ui
+|   |   |   |       ChunkPanel.class
+|   |   |   |       GamePanel.class
+|   |   |   |       GUI$GUIMode.class
+|   |   |   |       GUI.class
+|   |   |   |       MenuPanel.class
+|   |   |   |       OptionPanel.class
+|   |   |   |       ServerGUI$1.class
+|   |   |   |       ServerGUI.class
+|   |   |   |       
+|   |   |   \---world
+|   |   |           Chunk.class
+|   |   |           Level.class
+|   |   |           World.class
+|   |   |           WorldGenerator.class
+|   |   |           WorldPoint.class
+|   |   |           
+|   |   \---util
+|   |           Controller.class
+|   |           DataContainer$Texture.class
+|   |           DataContainer.class
+|   |           
+|   +---shared
+|   \---test
++---data
+|   \---world
++---doc
++---documentation
++---planning
+|       destal open world.ncp
+|       
++---res
+|   \---gfx
+|           castle.gif
+|           dirt.png
+|           house.gif
+|           house1.gif
+|           Player.gif
+|           sand.png
+|           stone.png
+|           tree.png
+|           water.png
+|           wood.png
+|           
+\---src
+    +---destal
+    |   +---entity
+    |   |   |   Entity.java
+    |   |   |   IWalkable.java
+    |   |   |   
+    |   |   +---block
+    |   |   |       Block.java
+    |   |   |       Dirt.java
+    |   |   |       Sand.java
+    |   |   |       Stone.java
+    |   |   |       Tree.java
+    |   |   |       Water.java
+    |   |   |       Wood.java
+    |   |   |       
+    |   |   +---building
+    |   |   |       Building.java
+    |   |   |       Castle.java
+    |   |   |       House.java
+    |   |   |       
+    |   |   +---character
+    |   |   |   |   HumanPlayer.java
+    |   |   |   |   Player.java
+    |   |   |   |   
+    |   |   |   \---npc
+    |   |   |           AggressiveNPC.java
+    |   |   |           FriendlyNPC.java
+    |   |   |           NeutralNPC.java
+    |   |   |           NPC.java
+    |   |   |           
+    |   |   +---data
+    |   |   |       Values.java
+    |   |   |       
+    |   |   \---item
+    |   |           DirtItem.java
+    |   |           Item.java
+    |   |           SandItem.java
+    |   |           StoneItem.java
+    |   |           WoodItem.java
+    |   |           
+    |   +---event
+    |   |   +---events
+    |   |   |   |   PacketReceivedClientEvent.java
+    |   |   |   |   PacketReceivedServerEvent.java
+    |   |   |   |   PlayerMovementEvent.java
+    |   |   |   |   
+    |   |   |   +---net
+    |   |   |   |   +---client
+    |   |   |   |   |       PacketReceivedClientEvent.java
+    |   |   |   |   |       
+    |   |   |   |   \---server
+    |   |   |   |           PacketReceivedServerEvent.java
+    |   |   |   |           
+    |   |   |   \---player
+    |   |   |           PlayerActionEvent.java
+    |   |   |           PlayerMovementEvent.java
+    |   |   |           
+    |   |   \---listener
+    |   |           PacketReceivedClientListener.java
+    |   |           PacketReceivedServerListener.java
+    |   |           PlayerActionListener.java
+    |   |           PlayerMovementListener.java
+    |   |           
+    |   +---general
+    |   |   +---client
+    |   |   |       Client.java
+    |   |   |       
+    |   |   +---gp
+    |   |   |       BuildingMenu.java
+    |   |   |       Inventory.java
+    |   |   |       
+    |   |   +---net
+    |   |   |   |   MSGType.java
+    |   |   |   |   Packet.java
+    |   |   |   |   
+    |   |   |   +---client
+    |   |   |   |       NetworkClient.java
+    |   |   |   |       
+    |   |   |   \---server
+    |   |   |           ClientConnection.java
+    |   |   |           NetworkServer.java
+    |   |   |           
+    |   |   +---server
+    |   |   |       Server.java
+    |   |   |       
+    |   |   +---ui
+    |   |   |       ChunkPanel.java
+    |   |   |       GamePanel.java
+    |   |   |       GUI.java
+    |   |   |       MenuPanel.java
+    |   |   |       OptionPanel.java
+    |   |   |       ServerGUI.java
+    |   |   |       
+    |   |   \---world
+    |   |           Chunk.java
+    |   |           Level.java
+    |   |           World.java
+    |   |           WorldGenerator.java
+    |   |           WorldPoint.java
+    |   |           
+    |   \---util
+    |           Controller.java
+    |           DataContainer.java
+    |           
+    +---shared
+    \---test
