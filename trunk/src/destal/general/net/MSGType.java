@@ -24,6 +24,7 @@ public class MSGType
 	
 	public final static int PROTOCOL_VERSION = 3;
 	
+	// TODO: update
 	/*
 	 * == Protocol ==
 	 * 

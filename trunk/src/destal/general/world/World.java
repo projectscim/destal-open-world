@@ -108,6 +108,7 @@ public class World
 			Chunk c = this.getChunk(chunkloc.x, chunkloc.y, 0);
 			c.buildHouse(building);
 			c.saveChunk(_levels[0].getChunkFile(chunkloc.x, chunkloc.y));
+			System.out.println("built house in " + c);
 		}
 		catch (IOException e)
 		{

@@ -23,6 +23,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import destal.entity.character.Player;
 import destal.event.events.net.client.PacketReceivedClientEvent;
 import destal.event.listener.PacketReceivedClientListener;
 import destal.general.net.MSGType;
@@ -74,7 +75,7 @@ public class NetworkClient implements Runnable
 						PacketReceivedClientEvent e = new PacketReceivedClientEvent(this);
 						e.setMOTD((String)r.get());
 						e.setClientID((Integer)r.get());
-						e.setClientList((int[])r.get());
+						e.setClientList((Player[])r.get());
 						System.out.println("Received client id: " + e.getClientID());
 						for (PacketReceivedClientListener l : _packetReceivedClientListener)
 						{

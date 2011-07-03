@@ -37,8 +37,8 @@ public class Server
 	 */
 	public Server(boolean gui)
 	{
-		_controller = new Controller();
 		_networkServer = new NetworkServer(this);
+		_controller = new Controller(_networkServer);
 		if(gui)
 		{
 			_serverGui = new ServerGUI(800, 400);

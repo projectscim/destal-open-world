@@ -96,15 +96,12 @@ public class NetworkServer implements Runnable, PacketReceivedServerListener
 	
 	public void send(int ID, Packet data)
 	{
-		// TODO: use real ID or something else to identify the client
-		if(ID >= 0 && ID < _clientConnections.size())
+		for(ClientConnection clientCon : _clientConnections)
 		{
-			_clientConnections.get(ID).send(data);
-		}
-		else if(ID == -1) // broadcast
-		{
-			for(ClientConnection clientCon : _clientConnections)
+			if(clientCon.getID() == ID || ID == -1)
+			{
 				clientCon.send(data);
+			}
 		}
 	}
 
@@ -112,20 +109,6 @@ public class NetworkServer implements Runnable, PacketReceivedServerListener
 	public void clientConnected(PacketReceivedServerEvent e)
 	{
 		System.out.println("client connected: '" + e.getClient() + "'");
-		Packet p = new Packet(MSGType.MSG_SV_INIT);
-		p.set(true);
-		p.set("Welcome :)");
-		p.set(e.getClient().getID());
-		// Pack other clients ids in array
-		
-		int[] a = new int[_clientConnections.size()];
-		int i = 0;
-		for (ClientConnection c : _clientConnections)
-		{
-			a[i++] = c.getID();
-		}
-		p.set(a);
-		e.getClient().send(p);
 		
 		if(_server.getServerGUI() != null)
 		{
@@ -146,36 +129,11 @@ public class NetworkServer implements Runnable, PacketReceivedServerListener
 	}
 	
 	@Override
-	public void clientPlayerInput(PacketReceivedServerEvent e)
-	{
-		Packet p = new Packet(MSGType.MSG_SV_RESPONSE_PLAYER_POSITIONS);
-		p.set(e.getClient().getID());
-		p.set(e.getPoint().getX());
-		p.set(e.getPoint().getY());
-		send(-1, p);
-		//System.out.println("Player " + e.getClient() + " changed location to: " + e.getPoint());
-	}
-
+	public void clientPlayerInput(PacketReceivedServerEvent e) { }
 	@Override
-	public void clientRequestEnter(PacketReceivedServerEvent e)
-	{
-		// TODO: get position somewhere else
-		WorldPoint pos = new WorldPoint(40, 40);
-		
-		// Send packet to all other clients
-		Packet p = new Packet(MSGType.MSG_SV_NEW_CLIENT_CONNECTED);
-		p.set(e.getClient().getID());
-		p.set(pos.getX());
-		p.set(pos.getY());
-		send(-1, p);
-	}
-	
+	public void clientRequestEnter(PacketReceivedServerEvent e) { }
 	@Override
 	public void clientRequestChunk(PacketReceivedServerEvent e) { }
-
 	@Override
-	public void clientBuildHouse(PacketReceivedServerEvent e)
-	{
-		
-	}
+	public void clientBuildHouse(PacketReceivedServerEvent e) { }
 }
