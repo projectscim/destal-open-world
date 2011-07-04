@@ -15,12 +15,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package destal.server;
+package destal.server.util;
 
 import java.awt.Point;
 import java.util.ArrayList;
 
-import destal.server.event.listener.PacketReceivedServerListener;
+import destal.server.event.PacketReceivedServerEvent;
+import destal.server.event.PacketReceivedServerListener;
 import destal.server.net.NetworkServer;
 import destal.shared.entity.building.Building;
 import destal.shared.entity.character.Player;

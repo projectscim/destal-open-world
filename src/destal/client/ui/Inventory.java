@@ -22,9 +22,9 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import javax.swing.JPanel;
 
-import destal.shared.DataContainer;
 import destal.shared.entity.character.HumanPlayer;
 import destal.shared.entity.data.Values;
+import destal.shared.util.DataContainer;
 
 public class Inventory extends JPanel
 {

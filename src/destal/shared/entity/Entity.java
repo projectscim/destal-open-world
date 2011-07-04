@@ -23,7 +23,7 @@ import java.awt.Image;
 import java.awt.Point;
 import java.io.Serializable;
 
-import destal.shared.DataContainer;
+import destal.shared.util.DataContainer;
 import destal.shared.world.World;
 import destal.shared.world.WorldPoint;
 // TODO: change package to destal.entities
