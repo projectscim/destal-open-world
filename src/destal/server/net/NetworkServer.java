@@ -22,9 +22,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Vector;
 
-import destal.event.events.net.server.PacketReceivedServerEvent;
-import destal.event.listener.PacketReceivedServerListener;
+import destal.server.PacketReceivedServerEvent;
 import destal.server.Server;
+import destal.shared.event.listener.PacketReceivedServerListener;
 import destal.shared.net.Packet;
 
 public class NetworkServer implements Runnable, PacketReceivedServerListener
