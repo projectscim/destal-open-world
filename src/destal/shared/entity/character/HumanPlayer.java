@@ -31,13 +31,13 @@ import javax.swing.JPanel;
 import destal.client.Client;
 import destal.event.listener.PlayerActionListener;
 import destal.event.listener.PlayerMovementListener;
-import destal.general.world.Chunk;
-import destal.general.world.World;
-import destal.general.world.WorldPoint;
 import destal.shared.entity.data.Values;
 import destal.shared.entity.item.Item;
 import destal.shared.event.player.PlayerActionEvent;
 import destal.shared.event.player.PlayerMovementEvent;
+import destal.shared.world.Chunk;
+import destal.shared.world.World;
+import destal.shared.world.WorldPoint;
 
 public class HumanPlayer extends Player implements KeyListener, MouseMotionListener, PlayerMovementListener, MouseListener
 {

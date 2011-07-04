@@ -15,44 +15,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package destal.shared.event.player;
+package destal.shared.world;
 
-
-import java.util.EventObject;
-
-import destal.shared.world.WorldPoint;
-
-/**
- * An event which indicates that the player has moved
- *
- */
-public class PlayerMovementEvent extends EventObject
+public class WorldGenerator
 {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5490445822316987431L;
-	private WorldPoint _location;
 	
-	public PlayerMovementEvent(Object source)
+	public static World createWorld(String name)
 	{
-		super(source);
-	}
-	public PlayerMovementEvent(Object source, WorldPoint newLocation)
-	{
-		this(source);
-		setLocation(newLocation);
-	}
-	/**
-	 * Returns the new location of the player
-	 * @return The new location of the player as a WorldPoint
-	 */
-	public WorldPoint getLocation()
-	{
-		return _location;
-	}
-	public void setLocation(WorldPoint location)
-	{
-		_location = location;
+		World w = new World(name);
+
+		
+		return w;
 	}
 }

@@ -2,7 +2,7 @@ package destal.shared.event.player;
 
 import java.util.EventObject;
 
-import destal.general.world.WorldPoint;
+import destal.shared.world.WorldPoint;
 
 public class PlayerActionEvent extends EventObject
 {
