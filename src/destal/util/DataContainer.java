@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import destal.entity.data.Values;
+import destal.shared.entity.data.Values;
 
 
 public class DataContainer
