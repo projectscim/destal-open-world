@@ -2,8 +2,8 @@
 
 = Introduction =
 
-The destal-open-world game contains two applications, client and server. We plan to separate these two applications, so we created two packages, destal.client and destal.server.
-Of course, there are classes both application have in common. For theses files, there is the package destal.shared
+The destal-open-world game contains two applications, client and server. Since we are planning to separate these two applications, we created two packages, destal.client and destal.server.
+Of course, there are classes both application have in common. For theses files, there is a third package named destal.shared
 
 = Details =
 
@@ -12,7 +12,6 @@ Each of the three mentioned packages contains further sub packages. These are:
   * event
   * net
   * util
-[/list]
 
 In addition, there are further package-specific sub packages
 
@@ -21,14 +20,12 @@ Besides the sub packages mentioned above, the client package contains the follow
 [list]
   * gp (= gameplay)
   * ui (= user interface)
-[/list]
 
 
 == The package "destal.server" ==
 Besides the sub packages mentioned above, the client package contains the following additional packages:
 [list]
   * ui (= user interface)
-[/list]
 
 
 == The package "destal.shared" ==
@@ -36,4 +33,3 @@ Besides the sub packages mentioned above, the client package contains the follow
 [list]
   * entity
   * world
-[/list]
