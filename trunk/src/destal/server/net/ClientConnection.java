@@ -26,8 +26,8 @@ import java.util.ArrayList;
 
 import destal.event.events.net.server.PacketReceivedServerEvent;
 import destal.event.listener.PacketReceivedServerListener;
-import destal.general.net.MSGType;
-import destal.general.net.Packet;
+import destal.shared.net.MSGType;
+import destal.shared.net.Packet;
 import destal.shared.world.WorldPoint;
 
 public class ClientConnection implements Runnable

@@ -22,11 +22,11 @@ import java.util.ArrayList;
 
 import destal.event.events.net.server.PacketReceivedServerEvent;
 import destal.event.listener.PacketReceivedServerListener;
-import destal.general.net.MSGType;
-import destal.general.net.Packet;
 import destal.server.net.NetworkServer;
 import destal.shared.entity.building.Building;
 import destal.shared.entity.character.Player;
+import destal.shared.net.MSGType;
+import destal.shared.net.Packet;
 import destal.shared.world.Chunk;
 import destal.shared.world.World;
 import destal.shared.world.WorldPoint;
