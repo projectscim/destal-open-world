@@ -33,3 +33,111 @@ Besides the sub packages mentioned above, the client package contains the follow
 [list]
   * entity
   * world
+
+= Full structure of all classes in destal open world =
+
++---destal
+|   +---client
+|   |   |   Client.java
+|   |   |   
+|   |   +---event
+|   |   |   |   PacketReceivedClientEvent.java
+|   |   |   |   
+|   |   |   \---listener
+|   |   |           PacketReceivedClientListener.java
+|   |   |           
+|   |   +---gp
+|   |   +---net
+|   |   |       NetworkClient.java
+|   |   |       
+|   |   +---ui
+|   |   |       BuildingMenu.java
+|   |   |       ChunkPanel.java
+|   |   |       GamePanel.java
+|   |   |       GUI.java
+|   |   |       Inventory.java
+|   |   |       MenuPanel.java
+|   |   |       OptionPanel.java
+|   |   |       
+|   |   \---util
+|   +---server
+|   |   |   Server.java
+|   |   |   
+|   |   +---event
+|   |   |       PacketReceivedServerEvent.java
+|   |   |       PacketReceivedServerListener.java
+|   |   |       
+|   |   +---net
+|   |   |       ClientConnection.java
+|   |   |       NetworkServer.java
+|   |   |       
+|   |   +---ui
+|   |   |       ServerGUI.java
+|   |   |       
+|   |   \---util
+|   |           Controller.java
+|   |           
+|   \---shared
+|       +---entity
+|       |   |   Entity.java
+|       |   |   IWalkable.java
+|       |   |   
+|       |   +---block
+|       |   |       Block.java
+|       |   |       Dirt.java
+|       |   |       Sand.java
+|       |   |       Stone.java
+|       |   |       Tree.java
+|       |   |       Water.java
+|       |   |       Wood.java
+|       |   |       
+|       |   +---building
+|       |   |       Blacksmith.java
+|       |   |       Building.java
+|       |   |       Castle.java
+|       |   |       House.java
+|       |   |       
+|       |   +---character
+|       |   |   |   HumanPlayer.java
+|       |   |   |   Player.java
+|       |   |   |   
+|       |   |   \---npc
+|       |   |           AggressiveNPC.java
+|       |   |           FriendlyNPC.java
+|       |   |           NeutralNPC.java
+|       |   |           NPC.java
+|       |   |           
+|       |   +---data
+|       |   |       Values.java
+|       |   |       
+|       |   \---item
+|       |           DirtItem.java
+|       |           Item.java
+|       |           SandItem.java
+|       |           StoneItem.java
+|       |           WoodItem.java
+|       |           
+|       +---event
+|       |   |   PlayerActionEvent.java
+|       |   |   PlayerMovementEvent.java
+|       |   |   
+|       |   +---listener
+|       |   |       PlayerActionListener.java
+|       |   |       PlayerMovementListener.java
+|       |   |       
+|       |   \---player
+|       +---net
+|       |       MSGType.java
+|       |       Packet.java
+|       |       
+|       +---util
+|       |       DataContainer.java
+|       |       
+|       \---world
+|               Chunk.java
+|               Level.java
+|               World.java
+|               WorldGenerator.java
+|               WorldPoint.java
+|               
+\---test
