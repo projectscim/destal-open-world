@@ -28,7 +28,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import destal.general.client.Client;
+import destal.client.Client;
 
 public class GUI extends JFrame implements ComponentListener
 {

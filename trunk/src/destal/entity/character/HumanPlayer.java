@@ -28,11 +28,11 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import destal.client.Client;
 import destal.entity.data.Values;
 import destal.entity.item.Item;
 import destal.event.listener.PlayerActionListener;
 import destal.event.listener.PlayerMovementListener;
-import destal.general.client.Client;
 import destal.general.world.Chunk;
 import destal.general.world.World;
 import destal.general.world.WorldPoint;

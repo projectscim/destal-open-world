@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package destal.general.server;
+package destal.server;
 
 import destal.general.net.server.NetworkServer;
 import destal.general.ui.ServerGUI;
