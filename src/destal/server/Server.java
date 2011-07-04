@@ -18,6 +18,7 @@
 package destal.server;
 
 import destal.server.net.NetworkServer;
+import destal.server.ui.ServerGUI;
 import destal.server.util.Controller;
 
 /**
