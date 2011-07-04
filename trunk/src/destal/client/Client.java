@@ -28,13 +28,13 @@ import destal.event.listener.PlayerActionListener;
 import destal.event.listener.PlayerMovementListener;
 import destal.general.net.MSGType;
 import destal.general.net.Packet;
-import destal.general.world.Chunk;
-import destal.general.world.WorldPoint;
+import destal.shared.DataContainer;
 import destal.shared.entity.character.HumanPlayer;
 import destal.shared.entity.character.Player;
 import destal.shared.event.player.PlayerActionEvent;
 import destal.shared.event.player.PlayerMovementEvent;
-import destal.util.DataContainer;
+import destal.shared.world.Chunk;
+import destal.shared.world.WorldPoint;
 
 /**
  * The main class for the destal client application

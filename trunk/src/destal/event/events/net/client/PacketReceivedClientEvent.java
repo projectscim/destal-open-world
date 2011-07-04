@@ -20,9 +20,9 @@ package destal.event.events.net.client;
 import java.util.EventObject;
 
 import destal.client.net.NetworkClient;
-import destal.general.world.Chunk;
-import destal.general.world.WorldPoint;
 import destal.shared.entity.character.Player;
+import destal.shared.world.Chunk;
+import destal.shared.world.WorldPoint;
 
 public class PacketReceivedClientEvent extends EventObject
 {
