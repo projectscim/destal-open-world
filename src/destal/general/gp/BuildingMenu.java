@@ -61,7 +61,6 @@ public class BuildingMenu extends JPanel implements KeyListener, ActionListener,
 		_button = new JButton[]{new JButton(),
 								new JButton(),
                 				new JButton()};
-		//_button = new JButton[]{new JButton("hans"), new JButton("lappen")};
 		_button[0].setIcon(new ImageIcon(DataContainer.getTexture(Values.HOUSE_HOUSE)));
 		_button[0].setActionCommand(Values.HOUSE_HOUSE+"");
 		_button[1].setIcon(new ImageIcon(DataContainer.getTexture(Values.HOUSE_BLACKSMITH)));
@@ -70,7 +69,6 @@ public class BuildingMenu extends JPanel implements KeyListener, ActionListener,
 		_button[2].setActionCommand(Values.HOUSE_CASTLE+"");
 		for (int i = 0; i < _button.length; i++)
 		{
-			Rectangle r = getBounds();
 			_button[i].setSize(100, 100);
 			_button[i].setDoubleBuffered(true);
 			_button[i].addActionListener(this);
@@ -106,8 +104,6 @@ public class BuildingMenu extends JPanel implements KeyListener, ActionListener,
 		Rectangle r = this.getBounds();
 		g.setColor(Color.GREEN);
 		g.drawRect(r.x, r.y, r.width, r.height);
-		//for (JButton b : _button)
-			//System.out.println(b.getBounds().toString());
 		if (_mode == MenuMode.MAXIMIZED)
 		{
 			g.fillRect(r.x, r.y, r.width, r.height);	
@@ -116,8 +112,6 @@ public class BuildingMenu extends JPanel implements KeyListener, ActionListener,
 		{
 			g.fillRect(r.x, r.y+r.height/2, r.height/2, r.height/2);
 		}
-		//paintComponents(g);
-
 	}
 
 	@Override
@@ -164,7 +158,6 @@ public class BuildingMenu extends JPanel implements KeyListener, ActionListener,
 			Rectangle r = getBounds();
 			_button[i].setLocation(r.x, r.y);
 			_button[i].setSize(100, 100);
-			//_button[i].addActionListener(this);
 		}
 		this.invalidate();
 		this.validate();
@@ -173,8 +166,6 @@ public class BuildingMenu extends JPanel implements KeyListener, ActionListener,
 
 	@Override
 	public void componentShown(ComponentEvent e) {}
-	
-	
 }
 	
     
