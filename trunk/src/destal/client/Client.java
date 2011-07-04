@@ -22,13 +22,12 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import destal.client.net.NetworkClient;
-import destal.event.events.net.client.PacketReceivedClientEvent;
-import destal.event.listener.PacketReceivedClientListener;
-import destal.event.listener.PlayerActionListener;
-import destal.event.listener.PlayerMovementListener;
 import destal.shared.DataContainer;
 import destal.shared.entity.character.HumanPlayer;
 import destal.shared.entity.character.Player;
+import destal.shared.event.listener.PacketReceivedClientListener;
+import destal.shared.event.listener.PlayerActionListener;
+import destal.shared.event.listener.PlayerMovementListener;
 import destal.shared.event.player.PlayerActionEvent;
 import destal.shared.event.player.PlayerMovementEvent;
 import destal.shared.net.MSGType;
