@@ -23,9 +23,9 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import destal.client.PacketReceivedClientEvent;
+import destal.client.event.PacketReceivedClientEvent;
+import destal.client.event.listener.PacketReceivedClientListener;
 import destal.shared.entity.character.Player;
-import destal.shared.event.listener.PacketReceivedClientListener;
 import destal.shared.net.MSGType;
 import destal.shared.net.Packet;
 import destal.shared.world.Chunk;
