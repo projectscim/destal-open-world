@@ -25,7 +25,6 @@ import destal.client.event.PacketReceivedClientEvent;
 import destal.client.event.listener.PacketReceivedClientListener;
 import destal.client.net.NetworkClient;
 import destal.client.ui.GUI;
-import destal.shared.DataContainer;
 import destal.shared.entity.character.HumanPlayer;
 import destal.shared.entity.character.Player;
 import destal.shared.event.PlayerActionEvent;
@@ -34,6 +33,7 @@ import destal.shared.event.listener.PlayerActionListener;
 import destal.shared.event.listener.PlayerMovementListener;
 import destal.shared.net.MSGType;
 import destal.shared.net.Packet;
+import destal.shared.util.DataContainer;
 import destal.shared.world.Chunk;
 import destal.shared.world.WorldPoint;
 

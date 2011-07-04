@@ -18,6 +18,7 @@
 package destal.server;
 
 import destal.server.net.NetworkServer;
+import destal.server.util.Controller;
 
 /**
  * The main class for the destal server application
