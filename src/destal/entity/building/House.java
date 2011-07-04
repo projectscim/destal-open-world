@@ -9,11 +9,6 @@ public class House extends Building
 	 * 
 	 */
 	private static final long serialVersionUID = 4193686143716527925L;
-
-	public House(WorldPoint location)
-	{
-		super(location);
-	}
 	
 	@Override
 	public int getDataValue()

@@ -41,13 +41,13 @@ public class Chunk implements Serializable
 	private Point _location;
 	private Block[][] _blocks;
 	private Vector<Item> _items;
-	private Vector<Building> _houses;
+	private Vector<Building> _buildings;
 
 	private Chunk()
 	{
 		setBlocks(new Block[World.CHUNK_SIZE][World.CHUNK_SIZE]);
 		setItems(new Vector<Item>());
-		_houses = new Vector<Building>();
+		_buildings = new Vector<Building>();
 	}
 	
 	public Chunk(Point location)
@@ -64,12 +64,12 @@ public class Chunk implements Serializable
 	
 	public void buildHouse(Building building)
 	{
-		_houses.add(building);
+		_buildings.add(building);
 	}
 	
 	public Vector<Building> getHouses()
 	{
-		return _houses;
+		return _buildings;
 	}
 	
 	public Point getLocation()
@@ -127,9 +127,12 @@ public class Chunk implements Serializable
 		int size = fs.read();
 		for (int i = 0; i < size; i++)
 		{
+			int v = fs.read();
 			int x = fs.read();
 			int y = fs.read();
-			_houses.add(new Building(new WorldPoint((int)_location.getX(), (int)_location.getY(), x, y)));
+			Building b = Building.create(v);
+			b.setLocation(new WorldPoint(_location.x, _location.y, x, y));
+			_buildings.add(b);
 		}
 		fs.close();
 	}
@@ -184,12 +187,14 @@ public class Chunk implements Serializable
 			}
 		}
 		// TODO optimize
-		_houses.trimToSize();
-		fs.write(_houses.size());
-		for (Building h : _houses)
+		_buildings.trimToSize();
+		fs.write(_buildings.size());
+		for (Building h : _buildings)
 		{
+			int v = h.getDataValue();
 			int x = h.getLocation().getLocationInChunk().x;
 			int y = h.getLocation().getLocationInChunk().y;
+			fs.write(v);
 			fs.write(x);
 			fs.write(y);
 		}

@@ -52,7 +52,9 @@ public class Controller implements PacketReceivedServerListener
 	
 	private void buildHouse(WorldPoint p, int buildingType)
 	{
-		Building h = new Building(p);
+		Building h = Building.create(buildingType);
+		h.setLocation(p);
+		System.out.println(buildingType);
 		_world.buildHouse(h);
 	}
 	

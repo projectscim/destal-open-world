@@ -35,6 +35,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
+import destal.entity.building.House;
 import destal.entity.character.HumanPlayer;
 import destal.entity.character.HumanPlayer.PlayerState;
 import destal.entity.data.Values;
@@ -68,14 +69,17 @@ public class BuildingMenu extends JPanel implements KeyListener, ActionListener,
                 				new JButton()};
 		//_button = new JButton[]{new JButton("hans"), new JButton("lappen")};
 		_button[0].setIcon(new ImageIcon(DataContainer.getTexture(Values.HOUSE_HOUSE)));
-		_button[1].setIcon(new ImageIcon(DataContainer.getTexture(Values.HOUSE_SECONDHOUSE)));
+		_button[0].setActionCommand(Values.HOUSE_HOUSE+"");
+		_button[1].setIcon(new ImageIcon(DataContainer.getTexture(Values.HOUSE_BLACKSMITH)));
+		_button[1].setActionCommand(Values.HOUSE_BLACKSMITH+"");
 		_button[2].setIcon(new ImageIcon(DataContainer.getTexture(Values.HOUSE_CASTLE)));
+		_button[2].setActionCommand(Values.HOUSE_CASTLE+"");
 		for (int i = 0; i < _button.length; i++)
 		{
 			Rectangle r = getBounds();
 			_button[i].setSize(100, 100);
 			_button[i].setDoubleBuffered(true);
-			//_button[i].addActionListener(this);
+			_button[i].addActionListener(this);
 			_button[i].setVisible(true);
 			this.add(_button[i]);
 		}
@@ -162,7 +166,7 @@ public class BuildingMenu extends JPanel implements KeyListener, ActionListener,
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-				
+		_player.setCurrentBuilding(Integer.parseInt(e.getActionCommand()));
 	}
 
 	@Override
