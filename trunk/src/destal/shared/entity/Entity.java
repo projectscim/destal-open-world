@@ -23,9 +23,9 @@ import java.awt.Image;
 import java.awt.Point;
 import java.io.Serializable;
 
+import destal.shared.DataContainer;
 import destal.shared.world.World;
 import destal.shared.world.WorldPoint;
-import destal.util.DataContainer;
 // TODO: change package to destal.entities
 public abstract class Entity implements Serializable
 {
