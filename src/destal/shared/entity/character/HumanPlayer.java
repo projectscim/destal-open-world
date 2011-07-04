@@ -29,10 +29,10 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import destal.client.Client;
-import destal.event.listener.PlayerActionListener;
-import destal.event.listener.PlayerMovementListener;
 import destal.shared.entity.data.Values;
 import destal.shared.entity.item.Item;
+import destal.shared.event.listener.PlayerActionListener;
+import destal.shared.event.listener.PlayerMovementListener;
 import destal.shared.event.player.PlayerActionEvent;
 import destal.shared.event.player.PlayerMovementEvent;
 import destal.shared.world.Chunk;
