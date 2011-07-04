@@ -1,0 +1,39 @@
+#summary package structure used in the destal
+
+= Introduction =
+
+The destal-open-world game contains two applications, client and server. We plan to separate these two applications, so we created two packages, destal.client and destal.server.
+Of course, there are classes both application have in common. For theses files, there is the package destal.shared
+
+= Details =
+
+Each of the three mentioned packages contains further sub packages. These are:
+[list]
+  * event
+  * net
+  * util
+[/list]
+
+In addition, there are further package-specific sub packages
+
+== The package "destal.client" ==
+Besides the sub packages mentioned above, the client package contains the following additional packages:
+[list]
+  * gp (= gameplay)
+  * ui (= user interface)
+[/list]
+
+
+== The package "destal.server" ==
+Besides the sub packages mentioned above, the client package contains the following additional packages:
+[list]
+  * ui (= user interface)
+[/list]
+
+
+== The package "destal.shared" ==
+Besides the sub packages mentioned above, the client package contains the following additional packages:
+[list]
+  * entity
+  * world
+[/list]
