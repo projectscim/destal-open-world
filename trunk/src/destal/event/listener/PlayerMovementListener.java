@@ -17,7 +17,7 @@
  ******************************************************************************/
 package destal.event.listener;
 
-import destal.event.events.player.PlayerMovementEvent;
+import destal.shared.event.player.PlayerMovementEvent;
 
 /**
  * 

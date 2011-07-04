@@ -1,4 +1,4 @@
-package destal.event.events.player;
+package destal.shared.event.player;
 
 import java.util.EventObject;
 
