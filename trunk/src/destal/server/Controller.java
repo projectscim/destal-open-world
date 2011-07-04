@@ -20,11 +20,10 @@ package destal.server;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import destal.event.events.net.server.PacketReceivedServerEvent;
-import destal.event.listener.PacketReceivedServerListener;
 import destal.server.net.NetworkServer;
 import destal.shared.entity.building.Building;
 import destal.shared.entity.character.Player;
+import destal.shared.event.listener.PacketReceivedServerListener;
 import destal.shared.net.MSGType;
 import destal.shared.net.Packet;
 import destal.shared.world.Chunk;
