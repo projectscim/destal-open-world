@@ -21,8 +21,6 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import destal.entity.character.HumanPlayer;
-import destal.entity.character.Player;
 import destal.event.events.net.client.PacketReceivedClientEvent;
 import destal.event.events.player.PlayerActionEvent;
 import destal.event.events.player.PlayerMovementEvent;
@@ -35,6 +33,8 @@ import destal.general.net.client.NetworkClient;
 import destal.general.ui.GUI;
 import destal.general.world.Chunk;
 import destal.general.world.WorldPoint;
+import destal.shared.entity.character.HumanPlayer;
+import destal.shared.entity.character.Player;
 import destal.util.DataContainer;
 
 /**

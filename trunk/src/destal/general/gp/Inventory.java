@@ -22,8 +22,8 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import javax.swing.JPanel;
 
-import destal.entity.character.HumanPlayer;
-import destal.entity.data.Values;
+import destal.shared.entity.character.HumanPlayer;
+import destal.shared.entity.data.Values;
 import destal.util.DataContainer;
 
 public class Inventory extends JPanel
