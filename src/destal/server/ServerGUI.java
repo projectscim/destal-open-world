@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package destal.general.ui;
+package destal.server;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -32,7 +32,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import destal.general.net.server.ClientConnection;
+import destal.server.net.ClientConnection;
 
 public class ServerGUI extends JFrame implements ActionListener
 {

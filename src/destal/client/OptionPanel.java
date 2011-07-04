@@ -15,65 +15,47 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package destal.general.ui;
+package destal.client;
+
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
-public class MenuPanel extends JPanel implements ActionListener
+public class OptionPanel extends JPanel implements ActionListener
 {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4586123693763691402L;
+	private static final long serialVersionUID = 3601584630728490538L;
 	private JButton[] _button;
-	private JTextField[] _textField;
 	private GUI _gui;
 	
-	public MenuPanel (GUI gui)
+	public OptionPanel (GUI gui)
 	{
 		super();
 		_gui = gui;
-		
-		_textField = new JTextField[] { new JTextField("localhost"),
-										new JTextField("username") };
-		for (int i = 0; i < _textField.length; i++)
-		{
-			_textField[i].setLocation(i * 300 + 50, 50);
-			_textField[i].setSize(150, 20);
-			this.add(_textField[i]);
-		}
-
-		_button = new JButton[]{	new JButton ("Start Game"),
-								new JButton ("Options"),
-								new JButton ("Exit") };
+		_button = new JButton[]{	new JButton ("Pointless Button"),
+								new JButton ("Back") };
 		for (int i = 0; i < _button.length; i++)
 		{
-			_button[i].setLocation((i+1) * 100, 100);
+			_button[i].setLocation(100, (i+1) * 20);
 			_button[i].setSize(100, 20);
 			this.add(_button[i]);
 			_button[i].addActionListener(this);
 		}
-		
 	}
     @Override
     public void actionPerformed(ActionEvent e)
     {
-    	if (e.getActionCommand().equals("Start Game"))
+    	if (e.getActionCommand().equals("Pointless Button"))
     	{
-    		_gui.getClient().connect(_textField[0].getText(), _textField[1].getText());
     	}
-    	if (e.getActionCommand().equals("Options"))
+    	if (e.getActionCommand().equals("Back"))
     	{
-    		_gui.setGUIMode (GUI.GUIMode.OPTIONS);
-    	}
-    	if (e.getActionCommand().equals("Exit"))
-    	{
-    		System.exit(0);
+    		_gui.setGUIMode (GUI.GUIMode.MENU);
     	}
     }
 }

@@ -21,14 +21,13 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import destal.client.net.NetworkClient;
 import destal.event.events.net.client.PacketReceivedClientEvent;
 import destal.event.listener.PacketReceivedClientListener;
 import destal.event.listener.PlayerActionListener;
 import destal.event.listener.PlayerMovementListener;
 import destal.general.net.MSGType;
 import destal.general.net.Packet;
-import destal.general.net.client.NetworkClient;
-import destal.general.ui.GUI;
 import destal.general.world.Chunk;
 import destal.general.world.WorldPoint;
 import destal.shared.entity.character.HumanPlayer;

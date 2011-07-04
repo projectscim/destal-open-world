@@ -19,7 +19,7 @@ package destal.event.events.net.client;
 
 import java.util.EventObject;
 
-import destal.general.net.client.NetworkClient;
+import destal.client.net.NetworkClient;
 import destal.general.world.Chunk;
 import destal.general.world.WorldPoint;
 import destal.shared.entity.character.Player;
