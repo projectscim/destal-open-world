@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package destal.general.ui;
+package destal.client;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -28,7 +28,6 @@ import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import destal.client.Client;
 
 public class GUI extends JFrame implements ComponentListener
 {

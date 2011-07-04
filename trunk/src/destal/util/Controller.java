@@ -24,10 +24,10 @@ import destal.event.events.net.server.PacketReceivedServerEvent;
 import destal.event.listener.PacketReceivedServerListener;
 import destal.general.net.MSGType;
 import destal.general.net.Packet;
-import destal.general.net.server.NetworkServer;
 import destal.general.world.Chunk;
 import destal.general.world.World;
 import destal.general.world.WorldPoint;
+import destal.server.net.NetworkServer;
 import destal.shared.entity.building.Building;
 import destal.shared.entity.character.Player;
 

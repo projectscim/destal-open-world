@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package destal.general.ui;
+package destal.client;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -26,9 +26,9 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import javax.swing.JPanel;
 
+import destal.client.gp.BuildingMenu;
+import destal.client.gp.Inventory;
 import destal.event.listener.PlayerMovementListener;
-import destal.general.gp.BuildingMenu;
-import destal.general.gp.Inventory;
 import destal.general.world.World;
 import destal.shared.entity.character.HumanPlayer;
 import destal.shared.event.player.PlayerMovementEvent;

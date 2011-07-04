@@ -20,8 +20,8 @@ package destal.event.events.net.server;
 import java.awt.Point;
 import java.util.EventObject;
 
-import destal.general.net.server.ClientConnection;
 import destal.general.world.WorldPoint;
+import destal.server.net.ClientConnection;
 
 public class PacketReceivedServerEvent extends EventObject
 {
