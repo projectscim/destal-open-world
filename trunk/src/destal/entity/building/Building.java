@@ -22,22 +22,25 @@ import destal.entity.data.Values;
 import destal.general.world.WorldPoint;
 
 
-public class Building extends Entity
+public abstract class Building extends Entity
 {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4193686143716527925L;
-
-	public Building(WorldPoint location)
-	{
-		super();
-		this.setLocation(location);
-	}
 	
-	@Override
-	public int getDataValue()
+	public static Building create(int dataValue)
 	{
-		return Values.HOUSE_HOUSE;
+		switch (dataValue)
+		{
+			case Values.HOUSE_HOUSE:
+				return new House();
+			case Values.HOUSE_BLACKSMITH:
+				return new Blacksmith();
+			case Values.HOUSE_CASTLE:
+				return new Castle();
+			default:
+				throw new IllegalArgumentException();
+		}
 	}
 }

@@ -44,7 +44,7 @@ public class Values
 	
 	// House section
 	public static final int HOUSE_HOUSE = 0x20;
-	public static final int HOUSE_SECONDHOUSE = 0x21;
+	public static final int HOUSE_BLACKSMITH = 0x21;
 	public static final int HOUSE_CASTLE = 0x22;
 	
 	// Player section
