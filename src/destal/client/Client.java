@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import destal.client.net.NetworkClient;
+import destal.client.ui.GUI;
 import destal.shared.DataContainer;
 import destal.shared.entity.character.HumanPlayer;
 import destal.shared.entity.character.Player;
