@@ -27,10 +27,10 @@ import java.io.Serializable;
 import java.util.Random;
 import java.util.Vector;
 
-import destal.entity.block.Block;
-import destal.entity.building.Building;
-import destal.entity.data.Values;
-import destal.entity.item.Item;
+import destal.shared.entity.block.Block;
+import destal.shared.entity.building.Building;
+import destal.shared.entity.data.Values;
+import destal.shared.entity.item.Item;
 
 public class Chunk implements Serializable
 {

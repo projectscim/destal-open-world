@@ -23,12 +23,12 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import destal.entity.character.Player;
 import destal.event.events.net.client.PacketReceivedClientEvent;
 import destal.event.listener.PacketReceivedClientListener;
 import destal.general.net.MSGType;
 import destal.general.net.Packet;
 import destal.general.world.Chunk;
+import destal.shared.entity.character.Player;
 
 public class NetworkClient implements Runnable
 {
