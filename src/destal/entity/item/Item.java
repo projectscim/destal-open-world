@@ -18,13 +18,6 @@
 package destal.entity.item;
 
 import destal.entity.Entity;
-import destal.entity.block.Block;
-import destal.entity.block.Dirt;
-import destal.entity.block.Sand;
-import destal.entity.block.Stone;
-import destal.entity.block.Tree;
-import destal.entity.block.Water;
-import destal.entity.block.Wood;
 import destal.entity.data.Values;
 
 

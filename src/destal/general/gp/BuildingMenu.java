@@ -18,7 +18,6 @@
 package destal.general.gp;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -27,15 +26,10 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.image.ImageObserver;
-
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-import destal.entity.building.House;
 import destal.entity.character.HumanPlayer;
 import destal.entity.character.HumanPlayer.PlayerState;
 import destal.entity.data.Values;
@@ -104,13 +98,6 @@ public class BuildingMenu extends JPanel implements KeyListener, ActionListener,
 			_player.setPlayerState(PlayerState.BUILDING);
 		}
 	}
-
-	private JComponent _container;
-	
-	public void setContainer(JComponent container)
-	{
-		_container = container;
-	}
 	
 	@Override
 	public void paintComponent (Graphics g)
@@ -134,16 +121,10 @@ public class BuildingMenu extends JPanel implements KeyListener, ActionListener,
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) 	
-	{
-		
-	}
+	public void keyPressed(KeyEvent e) {}
 
 	@Override
-	public void keyReleased(KeyEvent e) 
-	{
-		
-	}
+	public void keyReleased(KeyEvent e) {}
 
 	@Override
 	public void keyTyped(KeyEvent e)
@@ -170,18 +151,10 @@ public class BuildingMenu extends JPanel implements KeyListener, ActionListener,
 	}
 
 	@Override
-	public void componentHidden(ComponentEvent e) 
-	{
-		// TODO Auto-generated method stub
-		
-	}
+	public void componentHidden(ComponentEvent e) {}
 
 	@Override
-	public void componentMoved(ComponentEvent e) 
-	{
-		// TODO Auto-generated method stub
-		
-	}
+	public void componentMoved(ComponentEvent e) {}
 
 	@Override
 	public void componentResized(ComponentEvent e)
@@ -199,11 +172,7 @@ public class BuildingMenu extends JPanel implements KeyListener, ActionListener,
 	}
 
 	@Override
-	public void componentShown(ComponentEvent e) 
-	{
-		// TODO Auto-generated method stub
-		
-	}
+	public void componentShown(ComponentEvent e) {}
 	
 	
 }

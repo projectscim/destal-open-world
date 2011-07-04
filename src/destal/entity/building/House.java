@@ -1,7 +1,6 @@
 package destal.entity.building;
 
 import destal.entity.data.Values;
-import destal.general.world.WorldPoint;
 
 public class House extends Building
 {

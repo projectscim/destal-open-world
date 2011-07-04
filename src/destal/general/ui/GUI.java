@@ -19,7 +19,6 @@ package destal.general.ui;
 
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ComponentEvent;

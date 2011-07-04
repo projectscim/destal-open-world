@@ -20,8 +20,6 @@ package destal.general.gp;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.awt.image.ImageObserver;
-
 import javax.swing.JPanel;
 
 import destal.entity.character.HumanPlayer;

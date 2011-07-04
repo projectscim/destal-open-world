@@ -26,7 +26,6 @@ import destal.event.events.net.server.PacketReceivedServerEvent;
 import destal.event.listener.PacketReceivedServerListener;
 import destal.general.net.MSGType;
 import destal.general.net.Packet;
-import destal.general.net.server.ClientConnection;
 import destal.general.net.server.NetworkServer;
 import destal.general.world.Chunk;
 import destal.general.world.World;

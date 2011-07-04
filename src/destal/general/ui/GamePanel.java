@@ -19,28 +19,19 @@ package destal.general.ui;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
-import java.util.Vector;
-
 import javax.swing.JPanel;
 
-import destal.entity.building.Building;
 import destal.entity.character.HumanPlayer;
-import destal.entity.character.Player;
 import destal.event.events.player.PlayerMovementEvent;
 import destal.event.listener.PlayerMovementListener;
 import destal.general.gp.BuildingMenu;
 import destal.general.gp.Inventory;
-import destal.general.world.Chunk;
 import destal.general.world.World;
-import destal.general.world.WorldPoint;
 
 public class GamePanel extends JPanel implements MouseMotionListener, PlayerMovementListener, MouseListener, ComponentListener
 {
