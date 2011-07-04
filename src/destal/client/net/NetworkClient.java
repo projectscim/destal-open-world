@@ -25,9 +25,9 @@ import java.util.ArrayList;
 
 import destal.event.events.net.client.PacketReceivedClientEvent;
 import destal.event.listener.PacketReceivedClientListener;
-import destal.general.net.MSGType;
-import destal.general.net.Packet;
 import destal.shared.entity.character.Player;
+import destal.shared.net.MSGType;
+import destal.shared.net.Packet;
 import destal.shared.world.Chunk;
 
 public class NetworkClient implements Runnable
