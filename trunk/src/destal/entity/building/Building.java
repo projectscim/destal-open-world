@@ -19,7 +19,6 @@ package destal.entity.building;
 
 import destal.entity.Entity;
 import destal.entity.data.Values;
-import destal.general.world.WorldPoint;
 
 
 public abstract class Building extends Entity

@@ -35,8 +35,6 @@ import destal.event.events.player.PlayerMovementEvent;
 import destal.event.listener.PlayerActionListener;
 import destal.event.listener.PlayerMovementListener;
 import destal.general.client.Client;
-import destal.general.ui.ChunkPanel;
-import destal.general.ui.GamePanel;
 import destal.general.world.Chunk;
 import destal.general.world.World;
 import destal.general.world.WorldPoint;
