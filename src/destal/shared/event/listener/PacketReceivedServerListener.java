@@ -17,7 +17,7 @@
  ******************************************************************************/
 package destal.shared.event.listener;
 
-import destal.event.events.net.server.PacketReceivedServerEvent;
+import destal.server.PacketReceivedServerEvent;
 
 public interface PacketReceivedServerListener
 {
