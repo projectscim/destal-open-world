@@ -27,12 +27,12 @@ import java.util.Vector;
 
 import javax.swing.JPanel;
 
-import destal.general.world.Chunk;
-import destal.general.world.World;
-import destal.general.world.WorldPoint;
 import destal.shared.entity.building.Building;
 import destal.shared.entity.character.HumanPlayer;
 import destal.shared.entity.character.Player;
+import destal.shared.world.Chunk;
+import destal.shared.world.World;
+import destal.shared.world.WorldPoint;
 
 
 public class ChunkPanel extends JPanel implements KeyListener

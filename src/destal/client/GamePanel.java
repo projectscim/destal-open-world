@@ -29,9 +29,9 @@ import javax.swing.JPanel;
 import destal.client.gp.BuildingMenu;
 import destal.client.gp.Inventory;
 import destal.event.listener.PlayerMovementListener;
-import destal.general.world.World;
 import destal.shared.entity.character.HumanPlayer;
 import destal.shared.event.player.PlayerMovementEvent;
+import destal.shared.world.World;
 
 public class GamePanel extends JPanel implements MouseMotionListener, PlayerMovementListener, MouseListener, ComponentListener
 {

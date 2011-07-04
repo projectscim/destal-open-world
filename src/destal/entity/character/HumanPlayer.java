@@ -33,11 +33,11 @@ import destal.entity.data.Values;
 import destal.entity.item.Item;
 import destal.event.listener.PlayerActionListener;
 import destal.event.listener.PlayerMovementListener;
-import destal.general.world.Chunk;
-import destal.general.world.World;
-import destal.general.world.WorldPoint;
 import destal.shared.event.player.PlayerActionEvent;
 import destal.shared.event.player.PlayerMovementEvent;
+import destal.shared.world.Chunk;
+import destal.shared.world.World;
+import destal.shared.world.WorldPoint;
 
 public class HumanPlayer extends Player implements KeyListener, MouseMotionListener, PlayerMovementListener, MouseListener
 {

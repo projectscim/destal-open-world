@@ -30,10 +30,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import destal.shared.DataContainer;
 import destal.shared.entity.character.HumanPlayer;
 import destal.shared.entity.character.HumanPlayer.PlayerState;
 import destal.shared.entity.data.Values;
-import destal.util.DataContainer;
 
 public class BuildingMenu extends JPanel implements KeyListener, ActionListener, ComponentListener
 {
