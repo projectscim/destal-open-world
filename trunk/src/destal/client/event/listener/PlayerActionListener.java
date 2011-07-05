@@ -1,6 +1,6 @@
-package destal.shared.event.listener;
+package destal.client.event.listener;
 
-import destal.shared.event.PlayerActionEvent;
+import destal.client.event.PlayerActionEvent;
 
 public interface PlayerActionListener
 {
