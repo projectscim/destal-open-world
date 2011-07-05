@@ -46,6 +46,7 @@ public class Values
 	public static final int HOUSE_HOUSE = 0x20;
 	public static final int HOUSE_BLACKSMITH = 0x21;
 	public static final int HOUSE_CASTLE = 0x22;
+	public static final int HOUSE_HARBOUR = 0x23;
 	
 	// Player section
 	public final static int CHAR_PLAYER = 0x30;

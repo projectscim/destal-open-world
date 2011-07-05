@@ -38,6 +38,8 @@ public abstract class Building extends Entity
 				return new Blacksmith();
 			case Values.HOUSE_CASTLE:
 				return new Castle();
+			case Values.HOUSE_HARBOUR:
+			    return new Harbour();
 			default:
 				throw new IllegalArgumentException();
 		}
