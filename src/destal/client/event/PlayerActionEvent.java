@@ -1,4 +1,4 @@
-package destal.shared.event;
+package destal.client.event;
 
 import java.util.EventObject;
 
