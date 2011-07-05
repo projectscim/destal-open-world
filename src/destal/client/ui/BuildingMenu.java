@@ -145,10 +145,13 @@ public class BuildingMenu extends JPanel implements KeyListener, ActionListener,
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		_player.setCurrentBuilding(Integer.parseInt(e.getActionCommand()));
     	if (e.getActionCommand().equals("Move"))
     	{
-
+    		// TODO add function
+    	}
+    	else
+    	{
+    		_player.setCurrentBuilding(Integer.parseInt(e.getActionCommand()));
     	}
 	}
 
