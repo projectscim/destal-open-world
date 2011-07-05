@@ -26,12 +26,14 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import javax.swing.JPanel;
 
+import destal.client.event.PlayerActionEvent;
 import destal.client.event.PlayerMovementEvent;
+import destal.client.event.listener.PlayerActionListener;
 import destal.client.event.listener.PlayerMovementListener;
 import destal.shared.entity.character.HumanPlayer;
 import destal.shared.world.World;
 
-public class GamePanel extends JPanel implements MouseMotionListener, PlayerMovementListener, MouseListener, ComponentListener
+public class GamePanel extends JPanel implements MouseMotionListener, PlayerMovementListener, MouseListener, ComponentListener, PlayerActionListener
 {
 	/**
 	 * 
@@ -76,6 +78,7 @@ public class GamePanel extends JPanel implements MouseMotionListener, PlayerMove
 		this.addKeyListener(_player);
 		this.addKeyListener(_buildingMenu);
 		this.addComponentListener(this);
+		_player.addPlayerActionListener(this);
 
 		_player.setContainer(_chunkPanel);
 		_player.addPlayerMovementListener(this);
@@ -187,8 +190,14 @@ public class GamePanel extends JPanel implements MouseMotionListener, PlayerMove
 	}
 
 	@Override
-	public void componentShown(ComponentEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void componentShown(ComponentEvent arg0) {}
+
+	@Override
+	public void playerAction(PlayerActionEvent e) {}
+
+	@Override
+	public void playerBuildHouse(PlayerActionEvent e)
+	{
+		this.requestFocusInWindow();
 	}
 }

@@ -26,7 +26,6 @@ public class WoodItem extends Item
 	 * 
 	 */
 	private static final long serialVersionUID = 403942354192009896L;
-	private int _quantitiy;
 	public WoodItem()
 	{
 		
