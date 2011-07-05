@@ -21,7 +21,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import destal.server.event.PacketReceivedServerEvent;
-import destal.server.event.PacketReceivedServerListener;
+import destal.server.event.listener.PacketReceivedServerListener;
 import destal.server.net.NetworkServer;
 import destal.shared.entity.building.Building;
 import destal.shared.entity.character.Player;

@@ -24,7 +24,7 @@ import java.util.Vector;
 
 import destal.server.Server;
 import destal.server.event.PacketReceivedServerEvent;
-import destal.server.event.PacketReceivedServerListener;
+import destal.server.event.listener.PacketReceivedServerListener;
 import destal.shared.net.Packet;
 
 public class NetworkServer implements Runnable, PacketReceivedServerListener
