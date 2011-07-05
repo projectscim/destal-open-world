@@ -29,14 +29,14 @@ public class Packet implements Serializable
 	 */
 	private static final long serialVersionUID = 4501785697817222078L;
 	private byte _type;
-    private ArrayList _data;
+    private ArrayList<Object> _data;
     
     private int _current;
     
     public Packet(byte type)
     {
     	_type = type;
-    	_data = new ArrayList();
+    	_data = new ArrayList<Object>();
     	_current = 0;
     }
     
