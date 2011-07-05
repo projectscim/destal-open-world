@@ -86,6 +86,7 @@ public class DataContainer
 		_textures.add(new Texture(Values.CHAR_PLAYER, "/gfx/Player.gif"));
 		_textures.add(new Texture(Values.HOUSE_BLACKSMITH, "/gfx/house1.gif"));
 		_textures.add(new Texture(Values.HOUSE_CASTLE, "/gfx/castle.gif"));
+		_textures.add(new Texture(Values.HOUSE_HARBOUR, "/gfx/Hafen.png"));
 		/*
 		_textures.add(new Texture(Values.BLOCK_DIRT, "/dirt.png"));
 		_textures.add(new Texture(Values.BLOCK_STONE, "/stone.png"));

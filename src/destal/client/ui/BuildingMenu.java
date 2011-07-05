@@ -60,13 +60,17 @@ public class BuildingMenu extends JPanel implements KeyListener, ActionListener,
 		this.addComponentListener(this);
 		_button = new JButton[]{new JButton(),
 								new JButton(),
-                				new JButton()};
+                				new JButton(),
+                				new JButton(),
+                				new JButton ("Move")};
 		_button[0].setIcon(new ImageIcon(DataContainer.getTexture(Values.HOUSE_HOUSE)));
 		_button[0].setActionCommand(Values.HOUSE_HOUSE+"");
 		_button[1].setIcon(new ImageIcon(DataContainer.getTexture(Values.HOUSE_BLACKSMITH)));
 		_button[1].setActionCommand(Values.HOUSE_BLACKSMITH+"");
 		_button[2].setIcon(new ImageIcon(DataContainer.getTexture(Values.HOUSE_CASTLE)));
 		_button[2].setActionCommand(Values.HOUSE_CASTLE+"");
+		_button[3].setIcon(new ImageIcon(DataContainer.getTexture(Values.HOUSE_HARBOUR)));
+		_button[3].setActionCommand(Values.HOUSE_HARBOUR+"");
 		for (int i = 0; i < _button.length; i++)
 		{
 			_button[i].setSize(100, 100);
@@ -142,6 +146,10 @@ public class BuildingMenu extends JPanel implements KeyListener, ActionListener,
 	public void actionPerformed(ActionEvent e) 
 	{
 		_player.setCurrentBuilding(Integer.parseInt(e.getActionCommand()));
+    	if (e.getActionCommand().equals("Move"))
+    	{
+
+    	}
 	}
 
 	@Override
