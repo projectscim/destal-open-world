@@ -61,8 +61,7 @@ public class BuildingMenu extends JPanel implements KeyListener, ActionListener,
 		_button = new JButton[]{new JButton(),
 								new JButton(),
                 				new JButton(),
-                				new JButton(),
-                				new JButton ("Move")};
+                				new JButton()};
 		_button[0].setIcon(new ImageIcon(DataContainer.getTexture(Values.HOUSE_HOUSE)));
 		_button[0].setActionCommand(Values.HOUSE_HOUSE+"");
 		_button[1].setIcon(new ImageIcon(DataContainer.getTexture(Values.HOUSE_BLACKSMITH)));
