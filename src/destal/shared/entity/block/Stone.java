@@ -17,6 +17,8 @@
  ******************************************************************************/
 package destal.shared.entity.block;
 
+import java.util.Random;
+
 import destal.shared.entity.IWalkable;
 import destal.shared.entity.data.Values;
 
@@ -32,5 +34,16 @@ public class Stone extends Block implements IWalkable
 	public int getDataValue()
 	{
 		return Values.BLOCK_STONE;
+	}
+	@Override
+	public double getBlockChangePossibility()
+	{
+		return 0.1;
+	}
+
+	@Override
+	public Block getNeighbourBlock()
+	{
+		return Block.create(Values.BLOCK_DIRT);
 	}
 }

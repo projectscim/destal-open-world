@@ -17,6 +17,8 @@
  ******************************************************************************/
 package destal.shared.entity.block;
 
+import java.util.Random;
+
 import destal.shared.entity.data.Values;
 
 
@@ -31,5 +33,17 @@ public class Tree extends Block
 	public int getDataValue()
 	{
 		return Values.BLOCK_TREE;
+	}
+
+	@Override
+	public double getBlockChangePossibility()
+	{
+		return 0.5;
+	}
+
+	@Override
+	public Block getNeighbourBlock()
+	{
+		return Block.create(Values.BLOCK_DIRT);
 	}
 }
