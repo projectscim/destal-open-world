@@ -24,6 +24,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Vector;
 
@@ -233,11 +234,39 @@ public class Chunk implements Serializable
 					this.getBlocks()[x][y] = Block.create(Values.BLOCK_DIRT);
 				}
 				
+				
+				//this.getBlocks()[x][y] = this.getNeighbourBlock(x, y).getNeighbourBlock();
+				//System.out.println(getBlocks()[x][y]);
 				this.getBlocks()[x][y].setLocation(new WorldPoint((int)_location.getX(), (int)_location.getY(), x, y));
-				
-				
 			}
 		}
+	}
+	// TODO choose better name!
+	private Block getNeighbourBlock(int x, int y)
+	{
+		ArrayList<Block> blocks = new ArrayList<Block>();
+		blocks.add(this.getBlocks()[x-1][y-1]);
+		blocks.add(this.getBlocks()[x][y-1]);
+		blocks.add(this.getBlocks()[x+1][y-1]);
+		blocks.add(this.getBlocks()[x+1][y]);
+		blocks.add(this.getBlocks()[x+1][y+1]);
+		blocks.add(this.getBlocks()[x][y+1]);
+		blocks.add(this.getBlocks()[x-1][y+1]);
+		blocks.add(this.getBlocks()[x-1][y]);
+		for (Block b : blocks)
+		{
+			if (b == null)
+			{
+				blocks.remove(b);
+			}
+		}
+		blocks.trimToSize();
+		if (blocks.size() == 0)
+		{
+			return Block.create(Values.BLOCK_DIRT);
+		}
+		Random r = new Random();
+		return blocks.get(r.nextInt(blocks.size()));
 	}
 	
 	/*@Override

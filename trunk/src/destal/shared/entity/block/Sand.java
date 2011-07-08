@@ -17,6 +17,8 @@
  ******************************************************************************/
 package destal.shared.entity.block;
 
+import java.util.Random;
+
 import destal.shared.entity.data.Values;
 
 public class Sand extends Block
@@ -32,5 +34,24 @@ public class Sand extends Block
 	{
 		return Values.BLOCK_SAND;
 	}
+	@Override
+	public double getBlockChangePossibility()
+	{
+		return 0.1;
+	}
 
+	@Override
+	public Block getNeighbourBlock()
+	{
+		Random r = new Random();
+		int x = r.nextInt(2);
+		if (x == 0)
+		{
+			return Block.create(Values.BLOCK_DIRT);
+		}
+		else
+		{
+			return Block.create(Values.BLOCK_WATER);
+		}
+	}
 }

@@ -32,5 +32,17 @@ public class Wood extends Block implements IWalkable
 	{
 		return Values.BLOCK_WOOD;
 	}
+
+	@Override
+	public double getBlockChangePossibility()
+	{
+		return 0;
+	}
+
+	@Override
+	public Block getNeighbourBlock()
+	{
+		return null;
+	}
 	
 }

@@ -17,6 +17,8 @@
  ******************************************************************************/
 package destal.shared.entity.block;
 
+import java.util.Random;
+
 import destal.shared.entity.Entity;
 import destal.shared.entity.data.Values;
 
@@ -27,7 +29,23 @@ public abstract class Block extends Entity
 	 * 
 	 */
 	private static final long serialVersionUID = 3086831376838522472L;
+	
+	public abstract double getBlockChangePossibility();
+	public abstract Block getNeighbourBlock();
 
+	public Block getNextBlock()
+	{
+		Random r = new Random();
+		double x = r.nextDouble();
+		if (x <= this.getBlockChangePossibility())
+		{
+			return getNeighbourBlock();
+		}
+		else
+		{
+			return Block.create(this.getDataValue());
+		}
+	}
 	/**
 	 * Generates a Block from the data value
 	 * @param value The data value of the Block
