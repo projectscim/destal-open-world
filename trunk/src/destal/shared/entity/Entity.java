@@ -26,7 +26,7 @@ import java.io.Serializable;
 import destal.shared.util.DataContainer;
 import destal.shared.world.World;
 import destal.shared.world.WorldPoint;
-// TODO: change package to destal.entities
+
 public abstract class Entity implements Serializable
 {
 	/**

@@ -129,26 +129,15 @@ public class GUI extends JFrame implements ComponentListener
 	}
 
 	@Override
-	public void componentHidden(ComponentEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void componentHidden(ComponentEvent e) { }
 
 	@Override
-	public void componentMoved(ComponentEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void componentMoved(ComponentEvent e) { }
 
 	@Override
-	public void componentResized(ComponentEvent arg0)
-	{
-	}
+	public void componentResized(ComponentEvent e) { }
 
 	@Override
-	public void componentShown(ComponentEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void componentShown(ComponentEvent e) { }
 }
 

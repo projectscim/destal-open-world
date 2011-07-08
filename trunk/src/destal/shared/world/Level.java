@@ -44,33 +44,6 @@ public class Level
 			System.out.println("created new level");
 		}
 	}
-	// TODO remove if no longer used
-/*
-	public void setChunks(Chunk[][] chunks)
-	{
-		this._chunks = chunks;
-	}
-
-	public Chunk[][] getChunks()
-	{
-		return _chunks;
-	}*/
-	/*
-	public static Chunk[][] createFromFile(File file) throws IOException
-	{
-		FileInputStream fs = new FileInputStream(file);
-		Chunk[][] chunk = new Chunk[World.LEVEL_SIZE][World.LEVEL_SIZE];
-		
-		for (int x = 0; x < World.LEVEL_SIZE; x++)
-		{
-			for (int y = 0; y < World.LEVEL_SIZE; y++)
-			{
-				//chunk[x][y] = Chunk.create(fs.read());
-			}
-		}
-		fs.close();
-		return chunk;
-	}*/
 	
 	public void createLevel(int width, int height) throws IOException
 	{
@@ -87,22 +60,6 @@ public class Level
 	{
 		createLevel(World.LEVEL_SIZE, World.LEVEL_SIZE);
 	}
-	
-	// TODO remove if no longer used
-	/*
-	public void saveLevel() throws IOException, NullPointerException
-	{
-		FileOutputStream fs = new FileOutputStream(_levelFile);
-		for (int x = 0; x < World.LEVEL_SIZE; x++)
-		{
-			for (int y = 0; y < World.LEVEL_SIZE; y++)
-			{
-				// Save the current Chunk
-				_chunks[x][y].saveChunk(new File(_chunkDir.getPath() + "/chunk" + x + "_" + y));
-			}
-		}
-		fs.close();
-	}*/
 	
 	public Chunk getChunk(int x, int y)
 	{

@@ -33,7 +33,6 @@ public class WoodItem extends Item
 	@Override
 	public int getDataValue()
 	{
-		// TODO Auto-generated method stub
 		return Values.ITEM_WOOD;
 	}
 }
