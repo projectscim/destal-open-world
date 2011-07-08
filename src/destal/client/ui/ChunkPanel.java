@@ -108,21 +108,11 @@ public class ChunkPanel extends JPanel implements KeyListener
 	}
 
 	@Override
-	public void keyPressed(KeyEvent arg0)
-	{
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyPressed(KeyEvent e) { }
 
 	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyReleased(KeyEvent e) { }
 
 	@Override
-	public void keyTyped(KeyEvent e)
-	{
-		
-	}
+	public void keyTyped(KeyEvent e) { }
 }

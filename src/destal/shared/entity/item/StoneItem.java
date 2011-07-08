@@ -13,7 +13,6 @@ public class StoneItem extends Item
 	@Override
 	public int getDataValue()
 	{
-		// TODO Auto-generated method stub
 		return Values.ITEM_STONE;
 	}
 

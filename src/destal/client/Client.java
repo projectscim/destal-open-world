@@ -111,7 +111,7 @@ public class Client implements PlayerMovementListener, PacketReceivedClientListe
 	 */
 	public void leftChunk(Point pos, Point prevChunkPos)
 	{
-		// TODO comment this!
+		// TODO Alex: comment this!
 		Chunk newCurrent = null;
 		for (int i = 0; i < _chunkBuffer.length; i++)
 		{

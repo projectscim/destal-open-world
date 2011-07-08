@@ -134,49 +134,28 @@ public class GamePanel extends JPanel implements MouseMotionListener,
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseClicked(MouseEvent e) { }
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseEntered(MouseEvent e) { }
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseExited(MouseEvent e) { }
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mousePressed(MouseEvent e) { }
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseReleased(MouseEvent e) { }
 
 	@Override
-	public void componentHidden(ComponentEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void componentHidden(ComponentEvent e) { }
 
 	@Override
-	public void componentMoved(ComponentEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void componentMoved(ComponentEvent e) { }
 
 	@Override
-	public void componentResized(ComponentEvent arg0)
+	public void componentResized(ComponentEvent e)
 	{
 		this._inventory.setBounds(getBounds().x,
 								  getBounds().y,
@@ -194,7 +173,7 @@ public class GamePanel extends JPanel implements MouseMotionListener,
 	}
 
 	@Override
-	public void componentShown(ComponentEvent arg0) {}
+	public void componentShown(ComponentEvent e) {}
 
 	@Override
 	public void playerAction(PlayerActionEvent e) {}

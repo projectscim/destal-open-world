@@ -13,7 +13,6 @@ public class Blacksmith extends Building
 	@Override
 	public int getDataValue()
 	{
-		// TODO Auto-generated method stub
 		return Values.HOUSE_BLACKSMITH;
 	}
 }
