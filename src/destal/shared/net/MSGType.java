@@ -44,6 +44,10 @@ public class MSGType
 	 * -- Player Position --
 	 * Client -> Server (MSG_CL_PLAYER_INPUT: xPos, yPos)
 	 * Server -> Client (all) (MSG_SV_RESPONSE_PLAYER_POSITIONS ID, xPos, yPos)
+	 * 
+	 * -- Player affects world --
+	 * Client -> Server (MSG_CL_MINE_BLOCK: xPos, yPos)
+	 * Server -> Client (MSG_SV_RESPONSE_MINE_BLOCK: xPos, yPos)
 	 */
 	
 	public final static byte MSG_CL_INIT = 0x01;
@@ -51,6 +55,7 @@ public class MSGType
 	public final static byte MSG_CL_REQUEST_CHUNK = 0x03;
 	public final static byte MSG_CL_PLAYER_INPUT = 0x04;
 	public final static byte MSG_CL_BUILD_HOUSE = 0x05;
+	public final static byte MSG_CL_MINE_BLOCK = 0x06;
 	
 	public final static byte MSG_SV_INIT = 0x11;
 	public final static byte MSG_SV_RESPONSE_ENTER = 0x12;
@@ -58,4 +63,5 @@ public class MSGType
 	public final static byte MSG_SV_RESPONSE_PLAYER_POSITIONS = 0x14;
 	public final static byte MSG_SV_NEW_CLIENT_CONNECTED = 0x15;
 	public final static byte MSG_SV_CLIENT_LIST = 0x16;
+	public final static byte MSG_SV_RESPONSE_MINE_BLOCK = 0x17;
 }

@@ -11,4 +11,6 @@ public interface PlayerActionListener
 	public void playerAction(PlayerActionEvent e);
 	
 	public void playerBuildHouse(PlayerActionEvent e);
+	
+	public void playerBlockClicked(PlayerActionEvent e);
 }

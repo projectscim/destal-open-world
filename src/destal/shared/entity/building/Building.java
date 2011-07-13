@@ -28,7 +28,7 @@ public abstract class Building extends Entity
 	 */
 	private static final long serialVersionUID = 4193686143716527925L;
 	
-	public static Building create(int dataValue)
+	public static Building create(int dataValue) throws IllegalArgumentException
 	{
 		switch (dataValue)
 		{

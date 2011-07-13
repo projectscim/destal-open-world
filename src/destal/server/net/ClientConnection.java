@@ -62,7 +62,7 @@ public class ClientConnection implements Runnable
 				Packet p = recv();
 				byte type = p.getType();
 				//System.out.println("received packet from client: '" + this + "' (type: " + type + ")");
-				
+				// TODO use else if ?!
 				if(type == MSGType.MSG_CL_INIT)
 				{
 					if((Integer)p.get() != MSGType.PROTOCOL_VERSION)
@@ -117,13 +117,24 @@ public class ClientConnection implements Runnable
 						l.clientBuildHouse(e);
 					}
 				}
+				if (type == MSGType.MSG_CL_MINE_BLOCK)
+				{
+					PacketReceivedServerEvent e = new PacketReceivedServerEvent(this);
+					e.setPoint(new WorldPoint((Double)p.get(), (Double)p.get()));
+					// TODO remove
+					System.out.println(e.getPoint().toString());
+					for (PacketReceivedServerListener l : _packetReceivedServerListener)
+					{
+						l.clientMineBlock(e);
+					}
+				}
 			}
 			_socket.close();
         }
 		catch(Exception e)
 		{
 			System.out.println("lost client: '" + this + "'");
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 		for (PacketReceivedServerListener l : _packetReceivedServerListener)
 		{

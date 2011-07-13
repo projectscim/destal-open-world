@@ -183,4 +183,11 @@ public class GamePanel extends JPanel implements MouseMotionListener,
 	{
 		this.requestFocusInWindow();
 	}
+
+	@Override
+	public void playerBlockClicked(PlayerActionEvent e)
+	{
+		// TODO remove when no longer used
+		System.out.println(_player.getLocation().getChunkLocation().toString());
+	}
 }
