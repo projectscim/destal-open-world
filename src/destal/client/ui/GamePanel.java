@@ -185,9 +185,5 @@ public class GamePanel extends JPanel implements MouseMotionListener,
 	}
 
 	@Override
-	public void playerBlockClicked(PlayerActionEvent e)
-	{
-		// TODO remove when no longer used
-		System.out.println(_player.getLocation().getChunkLocation().toString());
-	}
+	public void playerBlockClicked(PlayerActionEvent e) {}
 }
