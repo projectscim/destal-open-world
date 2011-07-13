@@ -33,4 +33,6 @@ public interface PacketReceivedServerListener
 	public void clientPlayerInput(PacketReceivedServerEvent e);
 	
 	public void clientBuildHouse(PacketReceivedServerEvent e);
+	
+	public void clientMineBlock(PacketReceivedServerEvent e);
 }

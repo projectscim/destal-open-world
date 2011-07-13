@@ -87,7 +87,7 @@ public class Level
 		}
 	}
 	
-	protected File getChunkFile(int x, int y) throws IOException
+	public File getChunkFile(int x, int y) throws IOException
 	{
 		return new File(_dir + "chunk" + "_" + x + "_" + y);
 	}

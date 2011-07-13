@@ -270,4 +270,12 @@ public class Client implements PlayerMovementListener, PacketReceivedClientListe
 		p.set(e.getBuildingType());
 		_networkClient.send(p);
 	}
+	@Override
+	public void playerBlockClicked(PlayerActionEvent e)
+	{
+		Packet p = new Packet(MSGType.MSG_CL_MINE_BLOCK);
+		p.set(e.getLocation().getX());
+		p.set(e.getLocation().getY());
+		_networkClient.send(p);
+	}
 }

@@ -17,8 +17,11 @@
  ******************************************************************************/
 package destal.shared.entity.block;
 
+import java.util.ArrayList;
 import java.util.Random;
 
+import destal.client.event.BlockClickedEvent;
+import destal.client.event.listener.BlockListener;
 import destal.shared.entity.Entity;
 import destal.shared.entity.data.Values;
 
@@ -30,8 +33,11 @@ public abstract class Block extends Entity
 	 */
 	private static final long serialVersionUID = 3086831376838522472L;
 	
+	private ArrayList<BlockListener> _blockListener = new ArrayList<BlockListener>();
+	
 	public abstract double getBlockChangePossibility();
 	public abstract Block getNeighbourBlock();
+	
 
 	public Block getNextBlock()
 	{
@@ -46,6 +52,23 @@ public abstract class Block extends Entity
 			return Block.create(this.getDataValue());
 		}
 	}
+	
+	public void addBlockListener(BlockListener l)
+	{
+		_blockListener.add(l);
+	}
+	public void removeBlockListener(BlockListener l)
+	{
+		_blockListener.remove(l);
+	}
+	public void invokeBlockClicked(BlockClickedEvent e)
+	{
+		for (BlockListener l : _blockListener)
+		{
+			l.blockClicked(e);
+		}
+	}
+	
 	/**
 	 * Generates a Block from the data value
 	 * @param value The data value of the Block

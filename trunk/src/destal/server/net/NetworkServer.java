@@ -48,7 +48,7 @@ public class NetworkServer implements Runnable, PacketReceivedServerListener
 		}
 		catch (IOException e)
 		{
-			//e.printStackTrace();
+			e.printStackTrace();
 			System.out.println("couldn't create socket");
 			return;
 		}
@@ -67,7 +67,7 @@ public class NetworkServer implements Runnable, PacketReceivedServerListener
 			catch (Exception e)
 			{
 				System.out.println("exception occured (client listener)");
-				//e.printStackTrace();
+				e.printStackTrace();
 				break;
 			}
         }
@@ -134,4 +134,10 @@ public class NetworkServer implements Runnable, PacketReceivedServerListener
 	public void clientRequestChunk(PacketReceivedServerEvent e) { }
 	@Override
 	public void clientBuildHouse(PacketReceivedServerEvent e) { }
+
+	@Override
+	public void clientMineBlock(PacketReceivedServerEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }

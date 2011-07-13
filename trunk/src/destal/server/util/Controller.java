@@ -18,13 +18,16 @@
 package destal.server.util;
 
 import java.awt.Point;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import destal.server.event.PacketReceivedServerEvent;
 import destal.server.event.listener.PacketReceivedServerListener;
 import destal.server.net.NetworkServer;
+import destal.shared.entity.block.Block;
 import destal.shared.entity.building.Building;
 import destal.shared.entity.character.Player;
+import destal.shared.entity.data.Values;
 import destal.shared.net.MSGType;
 import destal.shared.net.Packet;
 import destal.shared.world.Chunk;
@@ -51,10 +54,19 @@ public class Controller implements PacketReceivedServerListener
 	
 	private void buildHouse(WorldPoint p, int buildingType)
 	{
-		Building h = Building.create(buildingType);
-		h.setLocation(p);
-		System.out.println(buildingType);
-		_world.buildHouse(h);
+		Building h = null;
+		try
+		{
+			h = Building.create(buildingType);
+			h.setLocation(p);
+			System.out.println(buildingType);
+			_world.buildHouse(h);
+		}
+		catch (IllegalArgumentException e)
+		{
+			System.out.println("Invalid building type!");
+		}
+
 	}
 	
 	private void updateChunk(Chunk c)
@@ -186,5 +198,47 @@ public class Controller implements PacketReceivedServerListener
 		
 		Point chunkLocation = e.getPoint().getChunkLocation();
 		updateChunk(_world.getLevels()[0].getChunk(chunkLocation.x, chunkLocation.y));
+	}
+
+	@Override
+	public void clientMineBlock(PacketReceivedServerEvent e)
+	{
+		WorldPoint p = e.getPoint();
+		Chunk c = null;
+		try
+		{
+			c = _world.getChunk(p.getChunkLocation().x, p.getChunkLocation().y, 0);
+			System.out.println(c.getLocation());
+		}
+		catch (IOException e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		// TODO bugfix this is not the right block! (why?!)
+		Block b = c.getBlock((int)p.getX(), (int)p.getY());
+		if (b == null)
+		{
+			System.out.println("Invalid block location!");
+		}
+		else if (b.getDataValue() != Values.BLOCK_DIRT)
+		{
+			// TODO change content of player inventory RIGHT HERE
+			System.out.println(b.getDataValue());
+			// change block to dirt
+			// TODO optimize, btw it does not work yet :(
+			Point bp = b.getLocation().getLocationInChunk();
+			c.getBlocks()[bp.x][bp.y] = Block.create(Values.BLOCK_DIRT);
+			try {
+				c.saveChunk(_world.getLevels()[0].getChunkFile(c.getLocation().x, c.getLocation().y));
+			} catch (NullPointerException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			updateChunk(c);
+		}
 	}
 }

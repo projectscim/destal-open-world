@@ -87,14 +87,19 @@ public class Chunk implements Serializable
 	{
 		return _blocks;
 	}
-	
+	/**
+	 * Returns the block with the requested location
+	 * @param x the block's x position (WorldPoint)
+	 * @param y the block's y position (WorldPoint)
+	 * @return the block, if the specified point is inside the chunk, else: null
+	 */
 	public Block getBlock(int x, int y)
 	{
 		for (Block[] bl : _blocks)
 		{
 			for (Block b : bl)
 			{
-				if (b.getLocation() == new WorldPoint(x, y))
+				if (b.getLocation().equals(new WorldPoint(x, y)))
 					return b;
 				
 			}
@@ -211,7 +216,25 @@ public class Chunk implements Serializable
 		{
 			for (int y = 0; y < World.CHUNK_SIZE; y++)
 			{
-				Random rnd = new Random();
+				this.getBlocks()[x][y] = Block.create(Values.BLOCK_DIRT);
+				//this.getBlocks()[x][y] = this.getNeighbourBlock(x, y).getNeighbourBlock();
+				//System.out.println(getBlocks()[x][y]);
+				this.getBlocks()[x][y].setLocation(new WorldPoint((int)_location.getX(), (int)_location.getY(), x, y));
+			}
+		}
+		Random r = new Random();
+		/*for (int i = 0; i < World.CHUNK_SIZE*World.CHUNK_SIZE/2; i++)
+		{
+			int x = r.nextInt(World.CHUNK_SIZE);
+			int y = r.nextInt(World.CHUNK_SIZE);
+			this.getBlocks()[x][y] = this.getNeighbourBlock(x, y).getNeighbourBlock();
+			this.getBlocks()[x][y].setLocation(new WorldPoint((int)_location.getX(), (int)_location.getY(), x, y));
+		}*/
+		for (int x = 0; x < World.CHUNK_SIZE; x++)
+		{
+			for (int y = 0; y < World.CHUNK_SIZE; y++)
+			{
+				Random rnd = new Random();/*
 				int r = rnd.nextInt(100);
 				if (r <= 5)
 				{
@@ -233,26 +256,33 @@ public class Chunk implements Serializable
 				{
 					this.getBlocks()[x][y] = Block.create(Values.BLOCK_DIRT);
 				}
+				*/
+				ArrayList<Block> blocks = this.getNeighbourBlocks(x, y);
+				getBlocks()[x][y] = blocks.get(r.nextInt(blocks.size())).getNextBlock();
 				
-				
-				//this.getBlocks()[x][y] = this.getNeighbourBlock(x, y).getNeighbourBlock();
 				//System.out.println(getBlocks()[x][y]);
-				this.getBlocks()[x][y].setLocation(new WorldPoint((int)_location.getX(), (int)_location.getY(), x, y));
+				//this.getBlocks()[x][y].setLocation(new WorldPoint((int)_location.getX(), (int)_location.getY(), x, y));
 			}
 		}
 	}
 	// TODO choose better name!
-	private Block getNeighbourBlock(int x, int y)
+	private ArrayList<Block> getNeighbourBlocks(int x, int y)
 	{
 		ArrayList<Block> blocks = new ArrayList<Block>();
-		blocks.add(this.getBlocks()[x-1][y-1]);
-		blocks.add(this.getBlocks()[x][y-1]);
-		blocks.add(this.getBlocks()[x+1][y-1]);
-		blocks.add(this.getBlocks()[x+1][y]);
-		blocks.add(this.getBlocks()[x+1][y+1]);
-		blocks.add(this.getBlocks()[x][y+1]);
-		blocks.add(this.getBlocks()[x-1][y+1]);
-		blocks.add(this.getBlocks()[x-1][y]);
+		for (int xd = -1; xd <= 1; xd++)
+		{
+			for (int yd = -1; yd <= 1; yd++)
+			{
+				try
+				{
+					blocks.add(this.getBlocks()[x+xd][y+yd]);
+				}
+				catch (ArrayIndexOutOfBoundsException e)
+				{
+					// TODO rework
+				}
+			}
+		}
 		for (Block b : blocks)
 		{
 			if (b == null)
@@ -261,12 +291,9 @@ public class Chunk implements Serializable
 			}
 		}
 		blocks.trimToSize();
-		if (blocks.size() == 0)
-		{
-			return Block.create(Values.BLOCK_DIRT);
-		}
-		Random r = new Random();
-		return blocks.get(r.nextInt(blocks.size()));
+		return blocks;
+		//Random r = new Random();
+		//return blocks.get(r.nextInt(blocks.size()));
 	}
 	
 	/*@Override
