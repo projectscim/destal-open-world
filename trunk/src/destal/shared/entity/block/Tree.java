@@ -17,8 +17,6 @@
  ******************************************************************************/
 package destal.shared.entity.block;
 
-import java.util.Random;
-
 import destal.shared.entity.data.Values;
 
 

@@ -121,8 +121,6 @@ public class ClientConnection implements Runnable
 				{
 					PacketReceivedServerEvent e = new PacketReceivedServerEvent(this);
 					e.setPoint(new WorldPoint((Double)p.get(), (Double)p.get()));
-					// TODO remove
-					System.out.println(e.getPoint().toString());
 					for (PacketReceivedServerListener l : _packetReceivedServerListener)
 					{
 						l.clientMineBlock(e);
