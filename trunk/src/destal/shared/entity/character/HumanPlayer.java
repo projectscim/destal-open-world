@@ -33,6 +33,8 @@ import destal.client.event.PlayerActionEvent;
 import destal.client.event.PlayerMovementEvent;
 import destal.client.event.listener.PlayerActionListener;
 import destal.client.event.listener.PlayerMovementListener;
+import destal.shared.entity.IWalkable;
+import destal.shared.entity.block.Block;
 import destal.shared.entity.data.Values;
 import destal.shared.entity.item.Item;
 import destal.shared.world.Chunk;
@@ -112,10 +114,41 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 	public void move(int direction)
 	{
 		Point p = new Point(_gamePanel.getWidth()/2, _gamePanel.getHeight()/2);
-		double dx = (p.distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY())) > 1 ? (_lastMouseEvent.getX()-p.getX()) * 0.3 / p.distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY())) : 0);
-		double dy = (p.distance(new Point(_lastMouseEvent.getY(), _lastMouseEvent.getY())) > 1 ? (_lastMouseEvent.getY()-p.getY()) * 0.3 / p.distance(new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY())) : 0);
-		this.setLocation(this.getLocation().getX()+dx*direction, this.getLocation().getY()+dy*direction);	
-		this.invokePlayerMoved();
+		Point mousePos = new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY());
+		double dx = p.distance(mousePos) > World.PLAYER_PAINTSIZE ? (_lastMouseEvent.getX()-p.getX()) * 0.3 / p.distance(mousePos) : 0;
+		double dy = p.distance(mousePos) > World.PLAYER_PAINTSIZE ? (_lastMouseEvent.getY()-p.getY()) * 0.3 / p.distance(mousePos) : 0;
+		
+		WorldPoint newLoc = new WorldPoint(this.getLocation().getX()+dx*direction, this.getLocation().getY()+dy*direction);
+		
+		Block[] destinations = new Block[] {_currentChunk.getBlock((int)newLoc.x, (int)newLoc.y),
+											_currentChunk.getBlock((int)newLoc.x, (int)newLoc.y+1),
+											_currentChunk.getBlock((int)newLoc.x+1, (int)newLoc.y),
+											_currentChunk.getBlock((int)newLoc.x+1, (int)newLoc.y+1)};
+		//Block destination = _currentChunk.getBlock((int)newLoc.x, (int)newLoc.y);
+		boolean walkable = true;
+		for (Block b : destinations)
+		{
+			// TODO improve chunk loading
+			// b == null -> b is not within the current chunk
+			// load from world?/server request?
+			if (b != null)
+			{
+				if (!(b instanceof IWalkable))
+				{
+					walkable = false;
+				}
+			}
+		}
+		
+		if (walkable)
+		{
+			this.setLocation(newLoc);	
+			this.invokePlayerMoved();
+		}
+		else
+		{
+			//System.out.println(destination.getDataValue());
+		}
 	}
 	/**
 	 * Adds the specified quantity of the item specified by the dataValue
@@ -187,7 +220,8 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 	@Override
 	public void paint(Graphics g)
 	{
-		g.drawImage(this.getImage(), _gamePanel.getWidth()/2, _gamePanel.getHeight()/2, null);
+		// TODO replace 16 by size of sprite
+		g.drawImage(this.getImage(), _gamePanel.getWidth()/2-16, _gamePanel.getHeight()/2-16, null);
 	}
 	
 	
@@ -200,7 +234,6 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 	@Override
 	public void keyTyped(KeyEvent e)
 	{
-		System.out.println("key pressed");
 		if (e.getKeyChar() == 'w' || e.getKeyChar() == 's')
 		{
 			this.move((e.getKeyChar() == 'w') ? 1 : ((e.getKeyChar() == 's') ? -1 : 0));
