@@ -19,9 +19,10 @@ package destal.shared.entity.block;
 
 import java.util.Random;
 
+import destal.shared.entity.IWalkable;
 import destal.shared.entity.data.Values;
 
-public class Sand extends Block
+public class Sand extends Block implements IWalkable
 {
 
 	/**
