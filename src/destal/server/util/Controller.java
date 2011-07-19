@@ -215,7 +215,7 @@ public class Controller implements PacketReceivedServerListener
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		// TODO bugfix this is not the right block! (why?!)
+		// TODO false block?
 		Block b = c.getBlock((int)p.getX(), (int)p.getY());
 		if (b == null)
 		{
@@ -238,7 +238,8 @@ public class Controller implements PacketReceivedServerListener
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			updateChunk(c);
+			Point chunkLocation = c.getLocation();
+			updateChunk(_world.getLevels()[0].getChunk(chunkLocation.x, chunkLocation.y));
 		}
 	}
 }

@@ -93,7 +93,7 @@ public class Chunk implements Serializable
 	 * @param y the block's y position (WorldPoint)
 	 * @return the block, if the specified point is inside the chunk, else: null
 	 */
-	public Block getBlock(int x, int y)
+	public Block getBlock(double x, double y)
 	{
 		for (Block[] bl : _blocks)
 		{

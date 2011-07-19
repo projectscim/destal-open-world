@@ -42,6 +42,7 @@ public class BuildingMenu extends JPanel implements KeyListener, ActionListener,
 	 */
 	private static final long serialVersionUID = 5471169876111787240L;
 
+	// TODO rework (rename?)
 	private enum MenuMode {MINIMIZED, MAXIMIZED};
 	private MenuMode _mode;
 	private HumanPlayer _player;
@@ -147,10 +148,12 @@ public class BuildingMenu extends JPanel implements KeyListener, ActionListener,
     	if (e.getActionCommand().equals("Move"))
     	{
     		// TODO add function
+    		// TODO do we really need this?
     	}
     	else
     	{
     		_player.setCurrentBuilding(Integer.parseInt(e.getActionCommand()));
+    		_player.setPlayerState(PlayerState.BUILDING);
     	}
 	}
 
