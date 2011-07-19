@@ -40,7 +40,7 @@ import destal.shared.entity.item.Item;
 import destal.shared.world.Chunk;
 import destal.shared.world.World;
 import destal.shared.world.WorldPoint;
-
+// TODO move to client package?
 public class HumanPlayer extends Player implements KeyListener, MouseMotionListener, PlayerMovementListener, MouseListener
 {
 	/**
@@ -69,7 +69,6 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 		_playerState = PlayerState.MOVING;
 		_items = new ArrayList<Item>();
 		this.addItems(Values.ITEM_WOOD, 5);
-		
 		this.addPlayerMovementListener(this);
 	}
 	
@@ -281,6 +280,8 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 		}
 		else if (_playerState == PlayerState.MOVING)
 		{
+			// mine the block
+			//
 			PlayerActionEvent pe = new PlayerActionEvent(this, PlayerActionEvent.EventType.BLOCK_CLICKED);
 			// upper left hand corner
 			WorldPoint p = new WorldPoint(this.getLocation().getX()-_gamePanel.getWidth()/2/World.BLOCK_PAINTSIZE,
