@@ -112,6 +112,21 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 	
 	public void move(int direction)
 	{
+		PlayerActionEvent e = new PlayerActionEvent(this, PlayerActionEvent.EventType.REQUEST_MOVE);
+		Point p = new Point(_gamePanel.getWidth()/2, _gamePanel.getHeight()/2);
+		Point mousePos = new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY());
+		double dx = p.distance(mousePos) > World.PLAYER_PAINTSIZE ? (_lastMouseEvent.getX()-p.getX()) / p.distance(mousePos) : 0;
+		double dy = p.distance(mousePos) > World.PLAYER_PAINTSIZE ? (_lastMouseEvent.getY()-p.getY()) / p.distance(mousePos) : 0;
+		
+		e.setLocation(this.getLocation());
+		e.setDirection(new WorldPoint(dx, dy));
+		
+		for (PlayerActionListener l : _playerActionListener)
+		{
+			l.playerRequestMove(e);
+		}
+		
+		/*
 		Point p = new Point(_gamePanel.getWidth()/2, _gamePanel.getHeight()/2);
 		Point mousePos = new Point(_lastMouseEvent.getX(), _lastMouseEvent.getY());
 		double dx = p.distance(mousePos) > World.PLAYER_PAINTSIZE ? (_lastMouseEvent.getX()-p.getX()) * 0.3 / p.distance(mousePos) : 0;
@@ -147,7 +162,7 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 		else
 		{
 			//System.out.println(destination.getDataValue());
-		}
+		}*/
 	}
 	/**
 	 * Adds the specified quantity of the item specified by the dataValue
@@ -206,7 +221,7 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 	/**
 	 * [intern]
 	 * Invokes all playerMoved() methods in the specified listeners
-	 */
+	 *//*
 	private void invokePlayerMoved()
 	{
 		PlayerMovementEvent e = new PlayerMovementEvent(this, this.getLocation());
@@ -214,7 +229,7 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 		{
 			l.playerMoved(e);
 		}
-	}
+	}*/
 	
 	@Override
 	public void paint(Graphics g)

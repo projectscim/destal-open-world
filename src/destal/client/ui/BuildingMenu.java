@@ -52,7 +52,7 @@ public class BuildingMenu extends JPanel implements KeyListener, ActionListener,
 	{
 		super();
 		_player = player;
-		setMode(MenuMode.MAXIMIZED);
+		setMode(MenuMode.MINIMIZED);
 		this.setBounds(x,y,width,height);
 		this.setOpaque(true);
 		this.setBackground(Color.GREEN);

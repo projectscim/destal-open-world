@@ -186,4 +186,10 @@ public class GamePanel extends JPanel implements MouseMotionListener,
 
 	@Override
 	public void playerBlockClicked(PlayerActionEvent e) {}
+
+	@Override
+	public void playerRequestMove(PlayerActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }

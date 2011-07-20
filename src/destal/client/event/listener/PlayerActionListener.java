@@ -13,4 +13,6 @@ public interface PlayerActionListener
 	public void playerBuildHouse(PlayerActionEvent e);
 	
 	public void playerBlockClicked(PlayerActionEvent e);
+	
+	public void playerRequestMove(PlayerActionEvent e);
 }

@@ -11,8 +11,9 @@ public class PlayerActionEvent extends EventObject
 	 */
 	private static final long serialVersionUID = -1730614988225309241L;
 	
-	public enum EventType {BUILD_HOUSE, BLOCK_CLICKED}
+	public enum EventType {BUILD_HOUSE, BLOCK_CLICKED, REQUEST_MOVE}
 	private WorldPoint _location;
+	private WorldPoint _direction;
 	private int _buildingType;
 	private EventType _eventType;
 	
@@ -32,6 +33,14 @@ public class PlayerActionEvent extends EventObject
 	public WorldPoint getLocation()
 	{
 		return _location;
+	}
+	public void setDirection(WorldPoint direction)
+	{
+		_direction = direction;
+	}
+	public WorldPoint getDirection()
+	{
+		return _direction;
 	}
 	public void setBuildingType(int buildingType)
 	{

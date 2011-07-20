@@ -98,15 +98,6 @@ public class ClientConnection implements Runnable
 						l.clientRequestChunk(e);
 					}
 				}
-				if (type == MSGType.MSG_CL_PLAYER_INPUT)
-				{
-					PacketReceivedServerEvent e = new PacketReceivedServerEvent(this);
-					e.setPoint((Double)p.get(),(Double)p.get());
-					for (PacketReceivedServerListener l : _packetReceivedServerListener)
-					{
-						l.clientPlayerInput(e);
-					}
-				}
 				if (type == MSGType.MSG_CL_BUILD_HOUSE)
 				{
 					PacketReceivedServerEvent e = new PacketReceivedServerEvent(this);
@@ -124,6 +115,17 @@ public class ClientConnection implements Runnable
 					for (PacketReceivedServerListener l : _packetReceivedServerListener)
 					{
 						l.clientMineBlock(e);
+					}
+				}
+				if (type == MSGType.MSG_CL_REQUEST_MOVE)
+				{
+					PacketReceivedServerEvent e = new PacketReceivedServerEvent(this);
+					e.setClientID((Integer)p.get());
+					e.setPoint(new WorldPoint((Double)p.get(), (Double)p.get()));
+					e.setSndPoint(new WorldPoint((Double)p.get(), (Double)p.get()));
+					for (PacketReceivedServerListener l : _packetReceivedServerListener)
+					{
+						l.clientPlayerRequestMove(e);
 					}
 				}
 			}
