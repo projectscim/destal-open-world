@@ -33,7 +33,10 @@ import destal.shared.net.Packet;
 import destal.shared.world.Chunk;
 import destal.shared.world.World;
 import destal.shared.world.WorldPoint;
-
+/**
+ * Handles world and players
+ * @author Alex Belke, Dennis Sternberg, Steffen Schneider
+ */
 public class Controller implements PacketReceivedServerListener
 {
 	private World _world;
@@ -46,13 +49,20 @@ public class Controller implements PacketReceivedServerListener
 		_netServer = netServer;
 		_characters = new ArrayList<Player>();
 	}
-	
+	/**
+	 * Loads the world with the specified name
+	 * @param name The world's name
+	 */
 	public void loadWorld(String name)
 	{
 		_world = new World(name);
 	}
-	
-	private void buildHouse(WorldPoint p, int buildingType)
+	/**
+	 * Adds a building at the specified location
+	 * @param p The house's location
+	 * @param buildingType The building type
+	 */
+	private void addBuilding(WorldPoint p, int buildingType)
 	{
 		Building h = null;
 		try
@@ -60,7 +70,7 @@ public class Controller implements PacketReceivedServerListener
 			h = Building.create(buildingType);
 			h.setLocation(p);
 			System.out.println(buildingType);
-			_world.buildHouse(h);
+			_world.addBuilding(h);
 		}
 		catch (IllegalArgumentException e)
 		{
@@ -68,17 +78,30 @@ public class Controller implements PacketReceivedServerListener
 		}
 
 	}
-	
-	private void updateChunk(Chunk c)
+	/**
+	 * Updates the specified chunk
+	 * @param chunkLocation A point which describes the position of the chunk in the world
+	 * @throws IllegalArgumentException
+	 */
+	private void updateChunk(Point chunkLocation) throws IllegalArgumentException
 	{
+		if (chunkLocation.x > World.LEVEL_SIZE || chunkLocation.y > World.LEVEL_SIZE)
+			throw new IllegalArgumentException("Invalid chunk size");
 		Packet p = new Packet(MSGType.MSG_SV_RESPONSE_CHUNK);
-		p.set(c);
+		try 
+		{
+			p.set(_world.getChunk(chunkLocation.x, chunkLocation.y, 0));
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 		
 		for(Player chr : _characters)
 		{
 			Point pos = chr.getLocation().getChunkLocation();
-			int xDiff = Math.abs(pos.x - c.getLocation().x);
-			int yDiff = Math.abs(pos.x - c.getLocation().x);
+			int xDiff = Math.abs(pos.x - chunkLocation.x);
+			int yDiff = Math.abs(pos.x - chunkLocation.x);
 			if(xDiff <= 1 && yDiff <= 1)
 			{
 				_netServer.send(chr.getID(), p);
@@ -132,6 +155,7 @@ public class Controller implements PacketReceivedServerListener
 	@Override
 	public void clientRequestChunk(PacketReceivedServerEvent e)
 	{		
+		// TODO Simply use update method?
 		System.out.println("sending chunk to client: '" + e.getClient() + "'");
 		
 		Point[] points = e.getPoints();
@@ -160,7 +184,7 @@ public class Controller implements PacketReceivedServerListener
 		p.set(e.getClient().getID());
 		p.set(e.getPoint().getX());
 		p.set(e.getPoint().getY());
-		_netServer.send(-1, p);
+		_netServer.broadcastPacket(p);
 	}
 	
 	@Override
@@ -194,10 +218,10 @@ public class Controller implements PacketReceivedServerListener
 	@Override
 	public void clientBuildHouse(PacketReceivedServerEvent e)
 	{
-		buildHouse(e.getPoint(), e.getBuildingType());
+		addBuilding(e.getPoint(), e.getBuildingType());
 		
 		Point chunkLocation = e.getPoint().getChunkLocation();
-		updateChunk(_world.getLevels()[0].getChunk(chunkLocation.x, chunkLocation.y));
+		updateChunk(chunkLocation);
 	}
 
 	@Override
@@ -239,7 +263,7 @@ public class Controller implements PacketReceivedServerListener
 				e1.printStackTrace();
 			}
 			Point chunkLocation = c.getLocation();
-			updateChunk(_world.getLevels()[0].getChunk(chunkLocation.x, chunkLocation.y));
+			updateChunk(chunkLocation);
 		}
 	}
 }

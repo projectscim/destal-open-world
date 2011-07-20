@@ -33,6 +33,10 @@ public class NetworkServer implements Runnable, PacketReceivedServerListener
 	private ServerSocket _serverSocket;
 	private Vector<ClientConnection> _clientConnections;
 	
+	/**
+	 * Creates a new network server
+	 * @param server
+	 */
 	public NetworkServer(Server server)
 	{
 		_server = server;
@@ -73,6 +77,10 @@ public class NetworkServer implements Runnable, PacketReceivedServerListener
         }
 	}
 	
+	/**
+	 * Returns the next free client ID
+	 * @return The next free client ID
+	 */
 	private int getFreeId()
 	{
 		int id = 0;
@@ -91,21 +99,48 @@ public class NetworkServer implements Runnable, PacketReceivedServerListener
 		} while(prevId != id);
 		return id;
 	}
-	
+	/**
+	 * Sends a packet to the client with the specified ID
+	 * @param ID The client's ID
+	 * @param data The packet to be sent
+	 */
 	public void send(int ID, Packet data)
 	{
+		// TODO remove when fully changed all send(-1, ...) to broadcast
+		if (ID == -1)
+			broadcastPacket(data);
 		for(ClientConnection clientCon : _clientConnections)
 		{
-			if(clientCon.getID() == ID || ID == -1)
+			if(clientCon.getID() == ID)
 			{
 				clientCon.send(data);
 			}
 		}
 	}
+	/**
+	 * Sends a packet to all connected clients
+	 * @param data The packet to be sent
+	 */
+	public void broadcastPacket(Packet data)
+	{
+		for(ClientConnection clientCon : _clientConnections)
+		{
+			clientCon.send(data);
+		}
+	}
 
 	@Override
 	public void clientConnected(PacketReceivedServerEvent e)
-	{
+	{		
+		// check if new client's name is individual
+		for (ClientConnection c : _clientConnections)
+		{
+			if (e.getClient().getName().equalsIgnoreCase(c.getName()) &&
+				e.getClient().getID() != c.getID())
+			{
+				e.getClient().drop();
+			}
+		}
 		System.out.println("client connected: '" + e.getClient() + "'");
 		
 		if(_server.getServerGUI() != null)
@@ -136,8 +171,5 @@ public class NetworkServer implements Runnable, PacketReceivedServerListener
 	public void clientBuildHouse(PacketReceivedServerEvent e) { }
 
 	@Override
-	public void clientMineBlock(PacketReceivedServerEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void clientMineBlock(PacketReceivedServerEvent e) { }
 }

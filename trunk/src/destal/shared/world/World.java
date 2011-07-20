@@ -27,6 +27,7 @@ import destal.shared.entity.building.Building;
 
 public class World
 {
+	// TODO move to properties file
 	public final static int CHUNK_SIZE = 32;
 	public final static int BLOCK_PAINTSIZE = 32;
 	public final static int PLAYER_PAINTSIZE = 32;
@@ -52,7 +53,11 @@ public class World
 	{
 		return WORLD_PATH + _name + "/";
 	}
-
+	/**
+	 * Tries to load the world with the specified name. If it is not
+	 * available, a new world is generated
+	 * @param name The world's name
+	 */
 	public World(String name)
 	{
 		_name = name;
@@ -101,7 +106,7 @@ public class World
 		}
 	}
 	
-	public void buildHouse(Building building)
+	public void addBuilding(Building building)
 	{
 		Point chunkloc = building.getLocation().getChunkLocation();
 		try
@@ -137,10 +142,10 @@ public class World
 			}
 		}
 	}
-	
+	/* TODO remove if no longer used
 	public Point getAbsoluteLocation(int ChunkX, int ChunkY, Point location)
 	{
 		return new Point(ChunkX * CHUNK_SIZE + (int)location.getX(),
 				ChunkY * CHUNK_SIZE + (int) location.getY());
-	}
+	}*/
 }

@@ -142,29 +142,7 @@ public class Chunk implements Serializable
 		}
 		fs.close();
 	}
-	/*
-	/**
-	 * Returns a new Chunk generated based on the specified binary file
-	 * @param file The binary file
-	 * @throws IOException If an I/O error occurs
-	 * @throws IllegalArgumentException If there is an illegal value in the input file
-	 /
-	public static Block[][] createFromFile(File file) throws IOException
-	{
-		FileInputStream fs = new FileInputStream(file);
-		Block[][] blocks = new Block[World.CHUNK_SIZE][World.CHUNK_SIZE];
-		
-		for (int x = 0; x < World.CHUNK_SIZE; x++)
-		{
-			for (int y = 0; y < World.CHUNK_SIZE; y++)
-			{
-				blocks[x][y] = Block.create(fs.read());
-			}
-		}
-		fs.close();
-		return blocks;
-	}
-	*/
+
 	/**
 	 * Saves the current Chunk instance in the specified binary file
 	 * Note: If the file not exists, it is automatically generated
@@ -312,15 +290,4 @@ public class Chunk implements Serializable
 		}
 		return s;
 	}*/
-	
-	public void paint(Graphics g)
-	{
-		for (int x = 0; x < World.CHUNK_SIZE; x++)
-		{
-			for (int y = 0; y < World.CHUNK_SIZE; y++)
-			{
-				getBlocks()[x][y].paint(g);
-			}
-		}
-	}
 }
