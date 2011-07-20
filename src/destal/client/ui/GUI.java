@@ -75,7 +75,6 @@ public class GUI extends JFrame implements ComponentListener
 	    this.toFront();
 	    
 	    setBackground(Color.RED);
-	    //this.addMouseMotionListener(_client.getLocalCharacter());
 	}
 	
 	public Client getClient()
