@@ -118,6 +118,22 @@ public class NetworkServer implements Runnable, PacketReceivedServerListener
 		}
 	}
 	/**
+	 * Returns the client name that belongs to the specified id
+	 * @param clientID the client id
+	 * @return the client's name
+	 */
+	public String getClientName(int clientID) throws IllegalArgumentException
+	{
+		for (ClientConnection c : _clientConnections)
+		{
+			if (c.getID() == clientID)
+			{
+				return c.getName();
+			}
+		}
+		throw new IllegalArgumentException("Client ID out of range");
+	}
+	/**
 	 * Sends a packet to all connected clients
 	 * @param data The packet to be sent
 	 */
@@ -162,14 +178,13 @@ public class NetworkServer implements Runnable, PacketReceivedServerListener
 	}
 	
 	@Override
-	public void clientPlayerInput(PacketReceivedServerEvent e) { }
-	@Override
 	public void clientRequestEnter(PacketReceivedServerEvent e) { }
 	@Override
 	public void clientRequestChunk(PacketReceivedServerEvent e) { }
 	@Override
 	public void clientBuildHouse(PacketReceivedServerEvent e) { }
-
 	@Override
 	public void clientMineBlock(PacketReceivedServerEvent e) { }
+	@Override
+	public void clientPlayerRequestMove(PacketReceivedServerEvent e) { }
 }

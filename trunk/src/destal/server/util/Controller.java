@@ -18,8 +18,15 @@
 package destal.server.util;
 
 import java.awt.Point;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
+
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import destal.server.event.PacketReceivedServerEvent;
 import destal.server.event.listener.PacketReceivedServerListener;
@@ -40,14 +47,26 @@ import destal.shared.world.WorldPoint;
 public class Controller implements PacketReceivedServerListener
 {
 	private World _world;
-	// TODO: remove
 	private NetworkServer _netServer;
 	private ArrayList<Player> _characters;
+	
+	private final File saveFile = new File("data/sv/players.ini");
 	
 	public Controller(NetworkServer netServer)
 	{
 		_netServer = netServer;
 		_characters = new ArrayList<Player>();
+		if (!saveFile.exists())
+		{
+			try
+			{
+				saveFile.createNewFile();
+			} 
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 	/**
 	 * Loads the world with the specified name
@@ -77,6 +96,57 @@ public class Controller implements PacketReceivedServerListener
 			System.out.println("Invalid building type!");
 		}
 
+	}
+	private void savePlayers()
+	{
+		try
+		{
+			FileOutputStream fout = new FileOutputStream(saveFile);
+			Properties p = new Properties();
+			for (Player pl : _characters)
+			{
+				p.setProperty(_netServer.getClientName(pl.getID())+"_x", ""+pl.getLocation().getX());
+				p.setProperty(_netServer.getClientName(pl.getID())+"_y", ""+pl.getLocation().getY());
+			}
+			p.store(fout, "Do not change the content of this file!");
+			fout.flush();
+			fout.close();
+		}
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	private Player loadPlayerData(String playerName) throws IOException
+	{
+		try
+		{
+			// TODO add exceptions if player name is not valid
+			FileInputStream fin = new FileInputStream(saveFile);
+			Properties p = new Properties();
+			double x = Double.parseDouble(p.getProperty(playerName+"_x"));
+			double y = Double.parseDouble(p.getProperty(playerName+"_y"));
+			Player pl = new Player();
+			pl.setLocation(x, y);
+			fin.close();
+			return pl;
+		}
+		catch (FileNotFoundException e)
+		{
+			throw e;
+		}
+		catch (IOException e) 
+		{
+			throw e;
+		}
+		catch (NullPointerException e)
+		{
+			throw e;
+		}
 	}
 	/**
 	 * Updates the specified chunk
@@ -114,10 +184,19 @@ public class Controller implements PacketReceivedServerListener
 	{
 		System.out.println("sending start info to client: '" + e.getClient() + "'");
 		// TODO: change default position
-		WorldPoint pos = new WorldPoint(World.LEVEL_SIZE/2,
-										World.LEVEL_SIZE/2,
-										World.CHUNK_SIZE/2,
-										World.CHUNK_SIZE/2);
+		WorldPoint pos = new WorldPoint(0,0);
+		try
+		{
+			pos = loadPlayerData(e.getClient().getName()).getLocation();
+		}
+		catch (Exception e1)
+		{
+			pos = new WorldPoint(World.LEVEL_SIZE/2,
+								 World.LEVEL_SIZE/2,
+								 World.CHUNK_SIZE/2,
+								 World.CHUNK_SIZE/2);
+		}
+
 		Point chunkPos = pos.getChunkLocation();
 		
 		for(Player chr : _characters)
@@ -168,22 +247,13 @@ public class Controller implements PacketReceivedServerListener
 		}
 	}
 	
-	@Override
-	public void clientPlayerInput(PacketReceivedServerEvent e)
+	
+	public void broadcastPlayerPositions(int clientID, WorldPoint newLocation)
 	{
-		for(Player chr : _characters)
-		{
-			if(chr.getID() == e.getClient().getID())
-			{
-				chr.setLocation(e.getPoint().getX(), e.getPoint().getY());
-				break;
-			}
-		}
-		
 		Packet p = new Packet(MSGType.MSG_SV_RESPONSE_PLAYER_POSITIONS);
-		p.set(e.getClient().getID());
-		p.set(e.getPoint().getX());
-		p.set(e.getPoint().getY());
+		p.set(clientID);
+		p.set(newLocation.getX());
+		p.set(newLocation.getY());
 		_netServer.broadcastPacket(p);
 	}
 	
@@ -209,6 +279,7 @@ public class Controller implements PacketReceivedServerListener
 		{
 			if(chr.getID() == e.getClient().getID())
 			{
+				savePlayers();
 				_characters.remove(chr);
 				break;
 			}
@@ -264,6 +335,30 @@ public class Controller implements PacketReceivedServerListener
 			}
 			Point chunkLocation = c.getLocation();
 			updateChunk(chunkLocation);
+		}
+	}
+	@Override
+	public void clientPlayerRequestMove(PacketReceivedServerEvent e)
+	{
+		for (Player p : _characters)
+		{
+			if (p.getID() == e.getClientID())
+			{
+				// because of this, it is impossible to cheat while moving just by changing the
+				// client's source code
+				double dx = e.getSndPoint().getX();
+				double dy = e.getSndPoint().getY();
+				double dist = Math.sqrt(dx*dx+dy*dy);
+				
+				double xMove = dx/dist;
+				double yMove = dy/dist;
+				
+				WorldPoint newLoc = new WorldPoint(p.getLocation().getX()+xMove*0.1,
+												   p.getLocation().getY()+yMove*0.1);
+				p.setLocation(newLoc);
+				broadcastPlayerPositions(p.getID(), p.getLocation());
+				return;
+			}
 		}
 	}
 }

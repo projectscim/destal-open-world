@@ -240,6 +240,11 @@ public class Client implements PlayerMovementListener, PacketReceivedClientListe
 			}
 			System.out.println("Player " + e.getClientID() + " changed location to: " + e.getPoint());
 		}
+		else
+		{
+			// own id
+			_localPlayer.setLocation(loc);
+		}
 		_gui.repaint();
 	}
 
@@ -276,6 +281,17 @@ public class Client implements PlayerMovementListener, PacketReceivedClientListe
 		Packet p = new Packet(MSGType.MSG_CL_MINE_BLOCK);
 		p.set(e.getLocation().getX());
 		p.set(e.getLocation().getY());
+		_networkClient.send(p);
+	}
+	@Override
+	public void playerRequestMove(PlayerActionEvent e)
+	{
+		Packet p = new Packet(MSGType.MSG_CL_REQUEST_MOVE);
+		p.set(_id);
+		p.set(e.getLocation().getX());
+		p.set(e.getLocation().getY());
+		p.set(e.getDirection().getX());
+		p.set(e.getDirection().getY());
 		_networkClient.send(p);
 	}
 }

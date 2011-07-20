@@ -30,13 +30,16 @@ public class PacketReceivedServerEvent extends EventObject
 	 */
 	private static final long serialVersionUID = -4789469757873817434L;
 	private WorldPoint _point;
+	private WorldPoint _sndPoint;
 	private Point[] _points;
 	private int _buildingType;
+	private int _clientID;
 	
 	public PacketReceivedServerEvent(ClientConnection client)
 	{
 		super(client);
 		_point = new WorldPoint(0,0);
+		_sndPoint = new WorldPoint(0,0);
 	}
 	
 	public ClientConnection getClient()
@@ -63,7 +66,15 @@ public class PacketReceivedServerEvent extends EventObject
 	{
 		return _point;
 	}
+	public void setSndPoint(WorldPoint p)
+	{
+		_sndPoint.setLocation(p);
+	}
 	
+	public WorldPoint getSndPoint()
+	{
+		return _sndPoint;
+	}
 	public void setPoints(Point[] points)
 	{
 		_points = points;
@@ -82,5 +93,13 @@ public class PacketReceivedServerEvent extends EventObject
 	public int getBuildingType()
 	{
 		return _buildingType;
+	}
+
+	public void setClientID(int _clientID) {
+		this._clientID = _clientID;
+	}
+
+	public int getClientID() {
+		return _clientID;
 	}
 }

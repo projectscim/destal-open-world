@@ -56,6 +56,7 @@ public class MSGType
 	public final static byte MSG_CL_PLAYER_INPUT = 0x04;
 	public final static byte MSG_CL_BUILD_HOUSE = 0x05;
 	public final static byte MSG_CL_MINE_BLOCK = 0x06;
+	public final static byte MSG_CL_REQUEST_MOVE = 0x07;
 	
 	public final static byte MSG_SV_INIT = 0x11;
 	public final static byte MSG_SV_RESPONSE_ENTER = 0x12;
