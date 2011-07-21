@@ -39,7 +39,7 @@ public class Dirt extends Block implements IWalkable
 	@Override
 	public double getBlockChangePossibility()
 	{
-		return 0.1;
+		return 0.6;
 	}
 
 	@Override

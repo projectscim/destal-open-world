@@ -164,10 +164,10 @@ public class Client implements PlayerMovementListener, PacketReceivedClientListe
 	@Override
 	public void playerMoved(PlayerMovementEvent e)
 	{
-		Packet p = new Packet(MSGType.MSG_CL_PLAYER_INPUT);
+		/*Packet p = new Packet(MSGType.MSG_CL_PLAYER_INPUT);
 		p.set(e.getLocation().getX());
 		p.set(e.getLocation().getY());
-		_networkClient.send(p);
+		_networkClient.send(p);*/
 	}
 
 	@Override
@@ -244,6 +244,7 @@ public class Client implements PlayerMovementListener, PacketReceivedClientListe
 		{
 			// own id
 			_localPlayer.setLocation(loc);
+			_localPlayer.checkChunk();
 		}
 		_gui.repaint();
 	}

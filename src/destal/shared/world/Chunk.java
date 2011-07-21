@@ -194,54 +194,41 @@ public class Chunk implements Serializable
 		{
 			for (int y = 0; y < World.CHUNK_SIZE; y++)
 			{
+				// fill chunk with dirt
 				this.getBlocks()[x][y] = Block.create(Values.BLOCK_DIRT);
-				//this.getBlocks()[x][y] = this.getNeighbourBlock(x, y).getNeighbourBlock();
-				//System.out.println(getBlocks()[x][y]);
 				this.getBlocks()[x][y].setLocation(new WorldPoint((int)_location.getX(), (int)_location.getY(), x, y));
 			}
 		}
 		Random r = new Random();
-		/*for (int i = 0; i < World.CHUNK_SIZE*World.CHUNK_SIZE/2; i++)
+		while (r.nextDouble() < 0.99)
 		{
-			int x = r.nextInt(World.CHUNK_SIZE);
-			int y = r.nextInt(World.CHUNK_SIZE);
-			this.getBlocks()[x][y] = this.getNeighbourBlock(x, y).getNeighbourBlock();
-			this.getBlocks()[x][y].setLocation(new WorldPoint((int)_location.getX(), (int)_location.getY(), x, y));
-		}*/
-		for (int x = 0; x < World.CHUNK_SIZE; x++)
+			int x = r.nextInt(getBlocks().length);
+			int y = r.nextInt(getBlocks().length);
+			ArrayList<Block> blocks = getNeighbourBlocks(x, y);
+			for (int i = 0; i < blocks.size(); i++)
+			{
+				int xP = blocks.get(i).getLocation().getLocationInChunk().x;
+				int yP = blocks.get(i).getLocation().getLocationInChunk().y;
+				Block newB = getBlocks()[x][y].getNextBlock();
+				newB.setLocation(getBlocks()[xP][yP].getLocation());
+				getBlocks()[xP][yP] = newB;
+			}
+		}
+		
+		
+		/*for (int x = 0; x < World.CHUNK_SIZE; x++)
 		{
 			for (int y = 0; y < World.CHUNK_SIZE; y++)
 			{
-				Random rnd = new Random();/*
-				int r = rnd.nextInt(100);
-				if (r <= 5)
-				{
-					this.getBlocks()[x][y] = Block.create(Values.BLOCK_TREE);
-				}
-				else if (r <= 15)
-				{
-					this.getBlocks()[x][y] = Block.create(Values.BLOCK_STONE);
-				}
-				else if (r <= 30)
-				{
-					this.getBlocks()[x][y] = Block.create(Values.BLOCK_SAND);
-				}
-				else if (r <= 40)
-				{
-					this.getBlocks()[x][y] = Block.create(Values.BLOCK_WATER);
-				}
-				else
-				{
-					this.getBlocks()[x][y] = Block.create(Values.BLOCK_DIRT);
-				}
-				*/
+				Random rnd = new Random();
+
 				ArrayList<Block> blocks = this.getNeighbourBlocks(x, y);
 				getBlocks()[x][y] = blocks.get(r.nextInt(blocks.size())).getNextBlock();
 				
 				//System.out.println(getBlocks()[x][y]);
 				//this.getBlocks()[x][y].setLocation(new WorldPoint((int)_location.getX(), (int)_location.getY(), x, y));
 			}
-		}
+		}*/
 	}
 	// TODO choose better name!
 	private ArrayList<Block> getNeighbourBlocks(int x, int y)
@@ -253,19 +240,14 @@ public class Chunk implements Serializable
 			{
 				try
 				{
-					blocks.add(this.getBlocks()[x+xd][y+yd]);
+					Block b = this.getBlocks()[x+xd][y+yd];
+					if (b != null)
+						blocks.add(b);
 				}
 				catch (ArrayIndexOutOfBoundsException e)
 				{
 					// TODO rework
 				}
-			}
-		}
-		for (Block b : blocks)
-		{
-			if (b == null)
-			{
-				blocks.remove(b);
 			}
 		}
 		blocks.trimToSize();
