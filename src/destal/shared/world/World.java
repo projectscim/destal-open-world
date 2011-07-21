@@ -23,6 +23,7 @@ import java.awt.Rectangle;
 import java.io.File;
 import java.io.IOException;
 
+import destal.shared.entity.block.Block;
 import destal.shared.entity.building.Building;
 
 public class World
@@ -107,7 +108,7 @@ public class World
 	}
 	
 	public void addBuilding(Building building)
-	{
+	{/*
 		Point chunkloc = building.getLocation().getChunkLocation();
 		try
 		{
@@ -120,12 +121,19 @@ public class World
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	public Chunk getChunk(int x, int y, int level) throws IOException
 	{
 		return getLevels()[level].getChunk(x, y);
+	}
+	
+	public Block getBlock(double x, double y)
+	{
+		WorldPoint location = new WorldPoint(x,y);
+		return getLevels()[0].getChunk(location.getChunkLocation().x, location.getChunkLocation().y)
+							 .getBlock(location.x, location.y);
 	}
 	
 	public void paint(Graphics g, int level, int xChunk, int yChunk, Point location) throws IOException
