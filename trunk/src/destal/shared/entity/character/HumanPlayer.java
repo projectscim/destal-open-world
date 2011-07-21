@@ -41,7 +41,7 @@ import destal.shared.world.Chunk;
 import destal.shared.world.World;
 import destal.shared.world.WorldPoint;
 // TODO move to client package?
-public class HumanPlayer extends Player implements KeyListener, MouseMotionListener, PlayerMovementListener, MouseListener
+public class HumanPlayer extends Player implements KeyListener, MouseMotionListener, MouseListener
 {
 	/**
 	 * 
@@ -69,7 +69,6 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 		_playerState = PlayerState.MOVING;
 		_items = new ArrayList<Item>();
 		this.addItems(Values.ITEM_WOOD, 5);
-		this.addPlayerMovementListener(this);
 	}
 	
 	public HumanPlayer(Client client)
@@ -204,6 +203,15 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 			}
 		}
 	}
+
+	public void checkChunk()
+	{
+		if(!getLocation().getChunkLocation().equals(_currentChunk.getLocation()))
+		{
+			System.out.println("left chunk");
+			_client.leftChunk(getLocation().getChunkLocation(), _currentChunk.getLocation());
+		}
+	}
 	/**
 	 * Adds the specified player movement listener to receive movement events from this player
 	 */
@@ -261,16 +269,6 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 	public void mouseMoved(MouseEvent e)
 	{
 		_lastMouseEvent = e;
-	}
-
-	@Override
-	public void playerMoved(PlayerMovementEvent e)
-	{
-		if(!getLocation().getChunkLocation().equals(_currentChunk.getLocation()))
-		{
-			System.out.println("left chunk");
-			_client.leftChunk(getLocation().getChunkLocation(), _currentChunk.getLocation());
-		}
 	}
 
 	@Override
