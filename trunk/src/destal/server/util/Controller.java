@@ -32,6 +32,7 @@ import destal.server.event.PacketReceivedServerEvent;
 import destal.server.event.listener.PacketReceivedServerListener;
 import destal.server.net.ClientConnection;
 import destal.server.net.NetworkServer;
+import destal.shared.entity.IWalkable;
 import destal.shared.entity.block.Block;
 import destal.shared.entity.building.Building;
 import destal.shared.entity.character.Player;
@@ -39,6 +40,7 @@ import destal.shared.entity.data.Values;
 import destal.shared.net.MSGType;
 import destal.shared.net.Packet;
 import destal.shared.world.Chunk;
+import destal.shared.world.ChunkBuffer;
 import destal.shared.world.World;
 import destal.shared.world.WorldPoint;
 /**
@@ -50,6 +52,7 @@ public class Controller implements PacketReceivedServerListener
 	private World _world;
 	private NetworkServer _netServer;
 	private ArrayList<Player> _characters;
+	private ChunkBuffer _chunkBuffer;
 	
 	private final File saveFile = new File("data/sv/players.ini");
 	
@@ -76,6 +79,7 @@ public class Controller implements PacketReceivedServerListener
 	public void loadWorld(String name)
 	{
 		_world = new World(name);
+		_chunkBuffer = new ChunkBuffer(_world, 20);
 	}
 	/**
 	 * Adds a building at the specified location
@@ -84,13 +88,28 @@ public class Controller implements PacketReceivedServerListener
 	 */
 	private void addBuilding(WorldPoint p, int buildingType)
 	{
-		Building h = null;
+		Building building = null;
 		try
 		{
-			h = Building.create(buildingType);
-			h.setLocation(p);
+			building = Building.create(buildingType);
+			building.setLocation(p);
 			System.out.println(buildingType);
-			_world.addBuilding(h);
+			//_world.addBuilding(h);
+			
+			Point chunkloc = building.getLocation().getChunkLocation();
+			try
+			{
+				Chunk c = _chunkBuffer.getChunk(chunkloc.x, chunkloc.y);
+				c.buildHouse(building);
+				c.saveChunk(_world.getLevels()[0].getChunkFile(chunkloc.x, chunkloc.y));
+				_chunkBuffer.updateChunk(c.getLocation().x, c.getLocation().y);
+				System.out.println("built house in " + c);
+			}
+			catch (IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		catch (IllegalArgumentException e)
 		{
@@ -184,14 +203,9 @@ public class Controller implements PacketReceivedServerListener
 		if (chunkLocation.x > World.LEVEL_SIZE || chunkLocation.y > World.LEVEL_SIZE)
 			throw new IllegalArgumentException("Invalid chunk size");
 		Packet p = new Packet(MSGType.MSG_SV_RESPONSE_CHUNK);
-		try 
-		{
-			p.set(_world.getChunk(chunkLocation.x, chunkLocation.y, 0));
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
+
+		p.set(_chunkBuffer.getChunk(chunkLocation.x, chunkLocation.y));
+
 		
 		for(Player chr : _characters)
 		{
@@ -246,7 +260,7 @@ public class Controller implements PacketReceivedServerListener
 		{
 			for (int y = chunkPos.y-1; y <= chunkPos.y+1; y++)
 			{
-				buffer[i++] = _world.getLevels()[0].getChunk(x, y);
+				buffer[i++] = _chunkBuffer.getChunk(x, y);
 			}
 		}
 		
@@ -268,7 +282,7 @@ public class Controller implements PacketReceivedServerListener
 		for(Point pos : points)
 		{
 			Packet p = new Packet(MSGType.MSG_SV_RESPONSE_CHUNK);
-			p.set(_world.getLevels()[0].getChunk(pos.x, pos.y));
+			p.set(_chunkBuffer.getChunk(pos.x, pos.y));
 			e.getClient().send(p);
 		}
 	}
@@ -326,16 +340,9 @@ public class Controller implements PacketReceivedServerListener
 	{
 		WorldPoint p = e.getPoint();
 		Chunk c = null;
-		try
-		{
-			c = _world.getChunk(p.getChunkLocation().x, p.getChunkLocation().y, 0);
-			System.out.println(c.getLocation());
-		}
-		catch (IOException e1)
-		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+
+		c = _chunkBuffer.getChunk(p.getChunkLocation().x, p.getChunkLocation().y);
+		System.out.println(c.getLocation());
 		// TODO false block?
 		Block b = c.getBlock((int)p.getX(), (int)p.getY());
 		if (b == null)
@@ -383,7 +390,33 @@ public class Controller implements PacketReceivedServerListener
 					
 					WorldPoint newLoc = new WorldPoint(p.getLocation().getX()+xMove*0.1,
 													   p.getLocation().getY()+yMove*0.1);
-					p.setLocation(newLoc);
+					
+					Block[] destinations = new Block[] {_chunkBuffer.getBlock((int)newLoc.x, (int)newLoc.y),
+							_chunkBuffer.getBlock((int)newLoc.x, (int)newLoc.y+1),
+							_chunkBuffer.getBlock((int)newLoc.x+1, (int)newLoc.y),
+							_chunkBuffer.getBlock((int)newLoc.x+1, (int)newLoc.y+1)};
+					
+					boolean walkable = true;
+					for (Block b : destinations)
+					{
+						// TODO improve chunk loading
+						// b == null -> b is not within the current chunk
+						// load from world?/server request?
+						if (b != null)
+						{
+							if (!(b instanceof IWalkable))
+							{
+								walkable = false;
+							}
+						}
+					}
+					
+					if (walkable)
+					{
+						p.setLocation(newLoc);
+					}
+					
+					
 					broadcastPlayerPositions(p.getID(), p.getLocation());
 				}
 				

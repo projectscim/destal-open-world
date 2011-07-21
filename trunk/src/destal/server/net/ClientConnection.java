@@ -29,7 +29,12 @@ import destal.server.event.listener.PacketReceivedServerListener;
 import destal.shared.net.MSGType;
 import destal.shared.net.Packet;
 import destal.shared.world.WorldPoint;
-
+/**
+ * Represents a connection between the server and a client
+ * (server side)
+ * @author Alex Belke, Dennis Sternberg, Steffen Schneider
+ *
+ */
 public class ClientConnection implements Runnable
 {
 	private Socket _socket;
@@ -39,7 +44,12 @@ public class ClientConnection implements Runnable
 	
 	private int _id;
 	private String _name;
-	
+	/**
+	 * Creates a new client connection
+	 * @param s The client's network socket
+	 * @param id The client ID
+	 * @throws Exception
+	 */
 	public ClientConnection(Socket s, int id) throws Exception
 	{
 		_socket = s;
@@ -141,7 +151,9 @@ public class ClientConnection implements Runnable
 			l.clientDisconnected(new PacketReceivedServerEvent(this));
 		}
 	}
-	
+	/**
+	 * Closes the connection to the client represented by this object
+	 */
 	public void drop()
 	{
 		System.out.println("dropping client: '" + this + "'");
@@ -159,7 +171,10 @@ public class ClientConnection implements Runnable
 	{
 		return (Packet)_input.readObject();
 	}
-	
+	/**
+	 * Sends the specified packet
+	 * @param data The packet
+	 */
 	public void send(Packet data)
 	{
 		try
@@ -172,12 +187,18 @@ public class ClientConnection implements Runnable
 			System.out.println("exception occured: couldn't send the packet");
 		}
 	}
-	
+	/**
+	 * Returns the ID of the client represented by this object
+	 * @return The ID
+	 */
 	public int getID()
 	{
 		return _id;
 	}
-	
+	/**
+	 * Returns the name of the client represented by this object
+	 * @return The client's username
+	 */
 	public String getName()
 	{
 		return _name;

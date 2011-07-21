@@ -29,7 +29,12 @@ import destal.shared.entity.character.Player;
 import destal.shared.net.MSGType;
 import destal.shared.net.Packet;
 import destal.shared.world.Chunk;
-
+/**
+ * Represents a connection between the server and a client
+ * (client side)
+ * @author Alex Belke, Dennis Sternberg, Steffen Schneider
+ *
+ */
 public class NetworkClient implements Runnable
 {
 	private Socket _socket;
