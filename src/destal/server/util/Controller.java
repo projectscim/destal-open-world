@@ -30,6 +30,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import destal.server.event.PacketReceivedServerEvent;
 import destal.server.event.listener.PacketReceivedServerListener;
+import destal.server.net.ClientConnection;
 import destal.server.net.NetworkServer;
 import destal.shared.entity.block.Block;
 import destal.shared.entity.building.Building;
@@ -121,6 +122,30 @@ public class Controller implements PacketReceivedServerListener
 			e.printStackTrace();
 		}
 	}
+	private void savePlayer(String name, WorldPoint location)
+	{
+		try
+		{
+			FileOutputStream fout = new FileOutputStream(saveFile);
+			Properties p = new Properties();
+			p.setProperty(name+"_x", ""+location.getX());
+			p.setProperty(name+"_y", ""+location.getY());
+			
+			p.store(fout, "Do not change the content of this file!");
+			fout.flush();
+			fout.close();
+		}
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	
 	private Player loadPlayerData(String playerName) throws IOException
 	{
 		try
@@ -128,6 +153,7 @@ public class Controller implements PacketReceivedServerListener
 			// TODO add exceptions if player name is not valid
 			FileInputStream fin = new FileInputStream(saveFile);
 			Properties p = new Properties();
+			p.load(fin);
 			double x = Double.parseDouble(p.getProperty(playerName+"_x"));
 			double y = Double.parseDouble(p.getProperty(playerName+"_y"));
 			Player pl = new Player();
@@ -183,14 +209,14 @@ public class Controller implements PacketReceivedServerListener
 	public void clientRequestEnter(PacketReceivedServerEvent e)
 	{
 		System.out.println("sending start info to client: '" + e.getClient() + "'");
-		// TODO: change default position
-		WorldPoint pos = new WorldPoint(0,0);
+		WorldPoint pos = null;
 		try
 		{
 			pos = loadPlayerData(e.getClient().getName()).getLocation();
 		}
 		catch (Exception e1)
 		{
+			e1.printStackTrace();
 			pos = new WorldPoint(World.LEVEL_SIZE/2,
 								 World.LEVEL_SIZE/2,
 								 World.CHUNK_SIZE/2,
@@ -212,7 +238,7 @@ public class Controller implements PacketReceivedServerListener
 		p.set(e.getClient().getID());
 		p.set(pos.getX());
 		p.set(pos.getY());
-		_netServer.send(-1, p);
+		_netServer.broadcastPacket(p);
 		
 		Chunk[] buffer = new Chunk[9];
 		int i = 0;
@@ -279,7 +305,7 @@ public class Controller implements PacketReceivedServerListener
 		{
 			if(chr.getID() == e.getClient().getID())
 			{
-				savePlayers();
+				savePlayer(((ClientConnection)e.getSource()).getName(), chr.getLocation());
 				_characters.remove(chr);
 				break;
 			}
@@ -350,13 +376,17 @@ public class Controller implements PacketReceivedServerListener
 				double dy = e.getSndPoint().getY();
 				double dist = Math.sqrt(dx*dx+dy*dy);
 				
-				double xMove = dx/dist;
-				double yMove = dy/dist;
+				if (dist != 0)
+				{
+					double xMove = dx/dist;
+					double yMove = dy/dist;
+					
+					WorldPoint newLoc = new WorldPoint(p.getLocation().getX()+xMove*0.1,
+													   p.getLocation().getY()+yMove*0.1);
+					p.setLocation(newLoc);
+					broadcastPlayerPositions(p.getID(), p.getLocation());
+				}
 				
-				WorldPoint newLoc = new WorldPoint(p.getLocation().getX()+xMove*0.1,
-												   p.getLocation().getY()+yMove*0.1);
-				p.setLocation(newLoc);
-				broadcastPlayerPositions(p.getID(), p.getLocation());
 				return;
 			}
 		}
