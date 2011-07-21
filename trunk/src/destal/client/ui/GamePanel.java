@@ -34,7 +34,6 @@ import destal.shared.entity.character.HumanPlayer;
 import destal.shared.world.World;
 
 public class GamePanel extends JPanel implements MouseMotionListener,
-												 PlayerMovementListener,
 												 MouseListener,
 												 ComponentListener,
 												 PlayerActionListener
@@ -85,7 +84,6 @@ public class GamePanel extends JPanel implements MouseMotionListener,
 		_player.addPlayerActionListener(this);
 
 		_player.setContainer(_chunkPanel);
-		_player.addPlayerMovementListener(this);
 		setDoubleBuffered(true);
 	}
 	
@@ -125,12 +123,6 @@ public class GamePanel extends JPanel implements MouseMotionListener,
 	public void invokeRepaint(int x1, int y1, int x2, int y2)
 	{
 		_gui.repaint(x1, y1, x2, y2);		
-	}
-
-	@Override
-	public void playerMoved(PlayerMovementEvent e)
-	{
-		this.repaint();
 	}
 
 	@Override

@@ -41,7 +41,7 @@ import destal.shared.world.WorldPoint;
  * The main class for the destal client application
  * @author Alex Belke, Dennis Sternberg, Steffen Schneider
  */
-public class Client implements PlayerMovementListener, PacketReceivedClientListener, PlayerActionListener
+public class Client implements PacketReceivedClientListener, PlayerActionListener
 {
 	// TODO: divide into Client and GameClient?
 	private Chunk[] _chunkBuffer;
@@ -59,7 +59,6 @@ public class Client implements PlayerMovementListener, PacketReceivedClientListe
 	{
 		DataContainer.create();
 		_localPlayer = new HumanPlayer(this);
-		_localPlayer.addPlayerMovementListener(this);
 		_localPlayer.addPlayerActionListener(this);
 		_gui = new GUI(600, 600, this);
 		_networkClient = new NetworkClient();
@@ -160,15 +159,6 @@ public class Client implements PlayerMovementListener, PacketReceivedClientListe
 	}
 
 	// Eventhandler section
-	
-	@Override
-	public void playerMoved(PlayerMovementEvent e)
-	{
-		/*Packet p = new Packet(MSGType.MSG_CL_PLAYER_INPUT);
-		p.set(e.getLocation().getX());
-		p.set(e.getLocation().getY());
-		_networkClient.send(p);*/
-	}
 
 	@Override
 	public void serverConnected(PacketReceivedClientEvent e)

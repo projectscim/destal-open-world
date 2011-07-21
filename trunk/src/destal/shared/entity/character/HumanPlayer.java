@@ -47,7 +47,6 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 	 * 
 	 */
 	private static final long serialVersionUID = -6618735625250923438L;
-	private ArrayList<PlayerMovementListener> _playerMovementListener;
 	private ArrayList<PlayerActionListener> _playerActionListener;
 	private MouseEvent _lastMouseEvent;
 	private JPanel _gamePanel;
@@ -64,7 +63,6 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 	public HumanPlayer()
 	{
 		super();
-		_playerMovementListener = new ArrayList<PlayerMovementListener>();
 		_playerActionListener = new ArrayList<PlayerActionListener>();
 		_playerState = PlayerState.MOVING;
 		_items = new ArrayList<Item>();
@@ -213,31 +211,12 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 		}
 	}
 	/**
-	 * Adds the specified player movement listener to receive movement events from this player
-	 */
-	public void addPlayerMovementListener(PlayerMovementListener listener)
-	{
-		_playerMovementListener.add(listener);
-	}
-	/**
 	 * Adds the specified player action listener to receive movement events from this player
 	 */
 	public void addPlayerActionListener(PlayerActionListener listener)
 	{
 		_playerActionListener.add(listener);
 	}
-	/**
-	 * [intern]
-	 * Invokes all playerMoved() methods in the specified listeners
-	 *//*
-	private void invokePlayerMoved()
-	{
-		PlayerMovementEvent e = new PlayerMovementEvent(this, this.getLocation());
-		for (PlayerMovementListener l : _playerMovementListener)
-		{
-			l.playerMoved(e);
-		}
-	}*/
 	
 	@Override
 	public void paint(Graphics g)
@@ -245,8 +224,7 @@ public class HumanPlayer extends Player implements KeyListener, MouseMotionListe
 		// TODO replace 16 by size of sprite
 		g.drawImage(this.getImage(), _gamePanel.getWidth()/2-16, _gamePanel.getHeight()/2-16, null);
 	}
-	
-	
+
 	@Override
 	public void keyPressed(KeyEvent e) { }
 

@@ -163,7 +163,17 @@ public class Controller implements PacketReceivedServerListener
 			e.printStackTrace();
 		}
 	}
-	
+	private Player getPlayer(int id)
+	{
+		for (Player p : _characters)
+		{
+			if(p.getID() == id)
+			{
+				return p;
+			}
+		}
+		return null;
+	}
 	
 	private Player loadPlayerData(String playerName) throws IOException
 	{
@@ -339,6 +349,21 @@ public class Controller implements PacketReceivedServerListener
 	public void clientMineBlock(PacketReceivedServerEvent e)
 	{
 		WorldPoint p = e.getPoint();
+		
+		// check if there's a player or a building at the specified location
+		for (Player pl : _characters)
+		{
+			if (Math.abs(pl.getLocation().distance(p)) < 0.75)
+			{
+				if (pl.getID() != ((ClientConnection)e.getSource()).getID())
+				{
+					System.out.println("Player " +((ClientConnection)e.getSource()).getID() + " attacks Player " + pl.getID());
+					System.out.println("Distance: " + pl.getLocation().distance(p));
+					return;
+				}
+			}
+		}
+		
 		Chunk c = null;
 
 		c = _chunkBuffer.getChunk(p.getChunkLocation().x, p.getChunkLocation().y);
@@ -357,8 +382,10 @@ public class Controller implements PacketReceivedServerListener
 			// TODO optimize, btw it does not work yet :(
 			Point bp = b.getLocation().getLocationInChunk();
 			c.getBlocks()[bp.x][bp.y] = Block.create(Values.BLOCK_DIRT);
-			try {
+			try
+			{
 				c.saveChunk(_world.getLevels()[0].getChunkFile(c.getLocation().x, c.getLocation().y));
+				_chunkBuffer.updateChunk(c.getLocation().x, c.getLocation().y);
 			} catch (NullPointerException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
